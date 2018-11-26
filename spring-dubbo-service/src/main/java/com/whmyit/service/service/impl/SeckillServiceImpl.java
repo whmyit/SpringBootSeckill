@@ -69,14 +69,14 @@ public class SeckillServiceImpl implements SeckillService {
 
         //MD5校验失败
         if (md5==null||!md5.equals(MD5Utill.getUrlMD5(seckillId))) {
-            throw new SeckillException(SeckillEnum.END);
+            throw new SeckillException(SeckillEnum.DATE_REWRITE);
         }
         //执行秒杀
         Date now = new Date();
         try {
             int count = successKilledDao.insertSuccessKilled(seckillId, userPhone);
             if (count <= 0) {
-                throw new SeckillException(SeckillEnum.DATE_REWRITE);
+                throw new SeckillException(SeckillEnum.REPEAT_KILL);
             } else {
                 //热点商品竞争 ，update 行级锁时间
                 int updateCount = seckillDao.reduceNumber(seckillId, now);

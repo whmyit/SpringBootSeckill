@@ -27,6 +27,8 @@ public class Exposer implements Serializable{
     //秒杀结束时间
     private long end;
 
+    Exposer(){}
+
     public Exposer(boolean exposed, String md5, long seckillId) {
         this.exposed = exposed;
         this.md5 = md5;

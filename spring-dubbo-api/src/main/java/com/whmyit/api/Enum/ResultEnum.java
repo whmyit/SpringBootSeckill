@@ -7,8 +7,11 @@ package com.whmyit.api.Enum;
  */
 public enum ResultEnum  {
     UNKONW_ERROR(-1,"未知错误"),
+    RES_PARAM_NULL(0000,"缺少请求参数"),
     SUCCESS(0,"成功"),
+    UNKONW_RES_ERROR(-2, "请求错误"),
     LOG_ERROR(-1, "【系统异常】{ }"),
+    RES_ERROR(-2, "【请求错误】{ }"),
     ;
     private Integer code;
     private String  msg;
