@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>用户列表</title>
+    <link href="/css/main.css" rel="stylesheet" />
+</head>
+<body>
+<h1 th:text="${hello}">Hello, Spring Boot!</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>生日</th>
+        <th>薪资</th>
+    </tr>
+    <tr th:each="seckill : ${seckillList}">
+        <td th:text="${seckill.seckillId}">0</td>
+        <td th:text="${seckill.name}">zhansan</td>
+        <td th:text="${seckill.number}">1988-06-01</td>
+        <td th:text="${seckill.startTime}">12345</td>
+        <td th:text="${seckill.endTime}">12345</td>
+        <td th:text="${seckill.createTime}">12345</td>
+    </tr>
+</table>
+
+<select>
+    <option th:each="user:${seckill}" th:value="${seckill.seckillId}" th:text="${seckill.name}">我是默认值</option>
+</select>
+
+</body>
+</html>
