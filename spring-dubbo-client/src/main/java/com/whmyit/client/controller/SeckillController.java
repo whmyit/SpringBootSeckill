@@ -54,7 +54,7 @@ public class SeckillController {
         return exposer;
     }
 
-    @GetMapping("/{seckillId}/{md5}/execution")
+    @PostMapping("/{seckillId}/{md5}/execution")
     @ResponseBody
     public Object seckillExecution(@PathVariable("seckillId") Long seckillId,
                                        @PathVariable("md5") String md5) {
