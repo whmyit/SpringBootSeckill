@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--加载spring的日志配置文件 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_PATH" value="/data/logs"/>
+    <!--设置系统日志目录-->
+    <property name="APP_DIR" value="order-api"/>
+    <!-- 记录日志天数 -->
+    <property name="MAX_HISTORY" value="30"/>
+    <!-- 每个日志文件大小 -->
+    <property name="MAX_FILE_SIZE" value="1GB"/>
+    <!-- 日志文件总大小 -->
+    <property name="TOTAL_SIZE" value="50GB"/>
+    <!-- 日志格式 -->
+    <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%line]- %msg%n "/>
+
+    <!-- 项目名称 -->
+    <contextName>${APP_DIR}</contextName>
+
+    <!-- 引用logback 日志配置 -->
+    <include resource="dxhy-logback.xml"/>
+
+    <logger name="org.springframework" level="info"/>
+    <logger name="springfox.documentation" level="info"/>
+    <logger name="org.apache.dubbo" level="info"/>
+    <logger name="org.apache.http" level="info"/>
+    <logger name="org.apache.zookeeper" level="info"/>
+    <logger name="org.springframework.web.servlet" level="warn"/>
+    <logger name="springfox.documentation.spring.web" level="warn"/>
+    <logger name="com.xxl.job.core.thread" level="warn"/>
+    <logger name="com.elephant" level="debug"/>
+    <logger name="io.netty.util.internal" level="info"/>
+    <logger name="org.eclipse.jetty" level="info"/>
+    <logger name="com.netflix.discovery" level="warn"/>
+    <logger name="org.apache.curator" level="warn"/>
+    <logger name="com.dxhy.itax.logutil" level="warn"/>
+    <logger name="de.codecentric.boot.admin.client" level="warn"/>
+
+    <!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
+    <root level="debug">
+        <appender-ref ref="error"/>
+        <appender-ref ref="process"/>
+        <!-- 生产环境将请stdout去掉 -->
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

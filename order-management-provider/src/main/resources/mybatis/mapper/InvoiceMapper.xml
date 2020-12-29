@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dxhy.order.dao.InvoiceDao">
+
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.InvoiceQuotaEntity">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="invoice_amount" jdbcType="VARCHAR" property="invoiceAmount" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="invoice_type" jdbcType="VARCHAR" property="invoiceType" />
+        <result column="taxpayer_code" jdbcType="VARCHAR" property="taxpayerCode" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, invoice_amount, create_time, user_id, invoice_type, taxpayer_code
+    </sql>
+
+    <!--更新开票人信息 -->
+    <update id="updateDrawer" parameterType="com.dxhy.order.model.entity.DrawerInfoEntity">
+        <bind name="dataType" value="${dataType}"/>
+
+        UPDATE drawer_info
+        SET
+        drawer_name = #{drawer.drawerName,jdbcType=VARCHAR},
+        re_check_name = #{drawer.reCheckName,jdbcType=VARCHAR},
+        name_of_payee = #{drawer.nameOfPayee,jdbcType=VARCHAR},
+        credate_user_id = #{drawer.credateUserId,jdbcType=VARCHAR},
+        <if test="dataType == 0">
+            create_time = now(),
+            modify_time = now(),
+        </if>
+        <if test="dataType == 1">
+            create_time = SYSDATE,
+            modify_time = SYSDATE,
+        </if>
+        modify_user_id = #{drawer.modifyUserId,jdbcType=VARCHAR}
+        WHERE
+        id = #{drawer.id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+    <!--新增开票人信息 -->
+    <insert id="insertDrawer" parameterType="com.dxhy.order.model.entity.DrawerInfoEntity">
+        <bind name="dataType" value="${dataType}"/>
+        INSERT INTO drawer_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh,
+            </if>
+            <if test="drawerName != null">
+
+                drawer_name,
+            </if>
+            <if test="reCheckName != null">
+                re_check_name,
+            </if>
+            <if test="nameOfPayee != null">
+
+                name_of_payee,
+            </if>
+            <if test="credateUserId != null">
+
+                credate_user_id,
+            </if>
+            create_time,
+            modify_time,
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id,jdbcType=VARCHAR},
+            <if test="xhfNsrsbh != null">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="drawerName != null">
+                #{drawerName,jdbcType=VARCHAR},
+            </if>
+            <if test="reCheckName != null">
+                #{reCheckName,jdbcType=VARCHAR},
+            </if>
+            <if test="nameOfPayee != null">
+                #{nameOfPayee,jdbcType=VARCHAR},
+            </if>
+            <if test="credateUserId != null">
+                #{credateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType == 0">
+                now(),
+                now(),
+            </if>
+            <if test="dataType == 1">
+                SYSDATE,
+                SYSDATE,
+            </if>
+            <if test="modifyUserId != null">
+
+                #{modifyUserId,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+    <select id="queryDrawerInfo" resultType="com.dxhy.order.model.entity.DrawerInfoEntity">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType == 0">
+            SELECT
+            di.id AS id,
+            di.xhf_nsrsbh AS xhfNsrsbh,
+            di.drawer_name AS drawerName,
+            di.re_check_name AS reCheckName,
+            di.name_of_payee AS nameOfPayee
+            FROM
+            drawer_info di
+            where
+            1 = 1
+            <if test="shList != null and shList.size() == 0">
+                and di.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and di.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and di.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="userId!=null and userId!=''">
+                AND di.credate_user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            order BY create_time DESC
+            limit 1
+        </if>
+        <if test="dataType == 1">
+            select temp.* from (
+            SELECT
+            di.id AS id,
+            di.xhf_nsrsbh AS xhfNsrsbh,
+            di.drawer_name AS drawerName,
+            di.re_check_name AS reCheckName,
+            di.name_of_payee AS nameOfPayee
+            FROM
+            drawer_info di
+            where
+            1 = 1
+            <if test="shList != null and shList.size() == 0">
+                and di.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and di.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and di.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="userId!=null and userId!=''">
+                AND di.credate_user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            order BY create_time DESC
+            ) temp
+            where
+            ROWNUM &lt;= 1
+        </if>
+    </select>
+
+</mapper>

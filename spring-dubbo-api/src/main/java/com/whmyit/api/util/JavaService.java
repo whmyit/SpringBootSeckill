@@ -19,12 +19,12 @@ public class JavaService {
      * @return 返回  Set<Object>
      */
     public static Map<String, String> getSystenProper() {
-        Map<String,String> map =new HashMap<String,String>();
+        Map<String, String> map = new HashMap<String, String>();
 
         for (Object object : props.keySet()) {
             String property = props.getProperty(object.toString());
             //System.out.println(object.toString() + " : " + property);
-            map.put(object.toString(),property);
+            map.put(object.toString(), property);
         }
         return map;
     }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxhy.order.dao.BusinessTypeDao">
+    <resultMap id="BaseResultMap"
+               type="com.dxhy.order.model.BusinessTypeInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="business_name" jdbcType="VARCHAR" property="businessName"/>
+        <result column="business_id" jdbcType="VARCHAR" property="businessId"/>
+        <result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <!-- 保存 -->
+    <insert id="saveBusinessTypeInfo" parameterType="com.dxhy.order.model.BusinessTypeInfo">
+        insert into business_type_info (id,
+                                        business_name,
+                                        business_id,
+                                        xhf_nsrsbh,
+                                        xhfMc,
+                                        ly,
+                                        description,
+                                        status,
+                                        create_time,
+                                        update_time)
+        values (#{id,jdbcType=VARCHAR},
+                #{businessName,jdbcType=VARCHAR},
+                #{businessId,jdbcType=VARCHAR},
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+                #{xhfMc,jdbcType=VARCHAR},
+                #{ly,jdbcType=VARCHAR},
+                #{description,jdbcType=VARCHAR},
+                #{status,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!-- 根据名称和税号查询 -->
+    <select id="queryYwlxInfoByNameAndNsrsbh" parameterType="String" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+
+        SELECT
+        id,
+        business_name,
+        business_id,
+        xhf_nsrsbh,
+        description,
+        status,
+        <!--         <if test="dataType == 0">
+                    DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,
+                    DATE_FORMAT(update_time,'%Y-%m-%d') as updateTime
+                </if>
+                <if test="dataType == 1">
+                    to_char(create_time,'yyyy-MM-dd') as createTime,
+                    to_char(update_time,'yyyy-MM-dd') as updateTime
+                </if> -->
+        create_time,
+        update_time
+        FROM
+        business_type_info
+        where business_name = #{ywlx}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!-- 根据Id修改-->
+    <update id="updateYwlxById" parameterType="com.dxhy.order.model.BusinessTypeInfo">
+        UPDATE business_type_info
+        <set>
+            <if test="ywlx.businessName != null">
+                business_name = #{ywlx.businessName,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx.businessId != null">
+                business_id = #{ywlx.businessId,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx.xhfNsrsbh != null">
+                xhf_nsrsbh = #{ywlx.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx.xhfMc != null">
+                xhfMc = #{ywlx.xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx.description != null">
+                description = #{ywlx.description,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx.status != null">
+                status = #{ywlx.status,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx.updateTime != null">
+                update_time = #{ywlx.updateTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE
+        id = #{ywlx.id}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+
+    <select id="selectYwlxByParam" parameterType="map" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+
+        SELECT
+        id,
+        business_name,
+        business_id,
+        xhf_nsrsbh,
+        xhfMc,
+        description,
+        status,
+        create_time,
+        update_time
+        FROM
+        business_type_info
+        where
+        status = '0'
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+
+        <if test="map.businessName != null">
+            and business_name like CONCAT(CONCAT('%', #{map.businessName}), '%')
+        </if>
+
+        order by create_time desc
+    </select>
+
+
+    <!-- 业务类型和销方名称联动。 -->
+    <select id="queryYwlxOrNsrsbh" resultType="HashMap">
+        <bind name="dataType" value="${dataType}"/>
+
+        SELECT
+        DISTINCT(business_name) business_name,
+        Max(t.business_id) business_id
+        FROM
+        business_type_info t
+        <where>
+            <if test="shList != null and shList.size() == 0">
+                and t.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and t.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and t.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="map.ywlxName != null">
+                and t.business_name like CONCAT(CONCAT('%', #{map.ywlxName}), '%')
+            </if>
+        </where>
+
+        GROUP BY business_name
+    </select>
+
+
+    <select id="queryYwlxInfoByNameAndNsrsbhAndId" parameterType="String" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+
+        SELECT
+        id,
+        business_name,
+        business_id
+        xhf_nsrsbh,
+        description,
+        status,
+        create_time,
+        update_time
+        FROM
+        business_type_info
+        where
+        business_name = #{ywlx}
+        and
+        status='0'
+        and
+        id != #{id}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+</mapper>

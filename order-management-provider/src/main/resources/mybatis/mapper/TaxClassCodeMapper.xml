@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dxhy.order.dao.TaxClassCodeDao">
+
+    <sql id="selectTaxClassCode_fragment">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        tact.*
+        <if test="dataType == 1">
+            , ROWNUM as rowno
+        </if>
+        FROM
+        tax_class_code tact
+        WHERE
+        tact.kyzt = 'Y'
+        <if test="isFlag != 0 ">
+            <if test="dataType == 0">
+              and  tact.zzssl != ''
+            </if>
+            <if test="dataType == 1">
+              and  tact.zzssl is not null
+            </if>
+        </if>
+        <if test='cpylx=="1"'>
+            <if test="dataType == 0">
+
+                AND tact.cpy = 'Y'
+            </if>
+            <if test="dataType == 1">
+
+                AND tact.cpy = 'Y'
+            </if>
+        </if>
+        <if test='cpylx=="0"'>
+            <if test="dataType == 1">
+
+                AND tact.cpy = 'N'
+            </if>
+            <if test="dataType == 0">
+
+                AND tact.cpy = 'N'
+            </if>
+        </if>
+        <if test="dataType == 0">
+            <if test="parameter != null and parameter != ''">
+                AND
+                concat_ws(',',tact.spbm,tact.spmc,tact.spjc,tact.gjz)
+                LIKE CONCAT(CONCAT('%',#{parameter}),'%')
+            </if>
+        </if>
+        <if test="dataType == 1">
+            <if test="parameter != null and parameter != ''">
+                AND tact.spbm || ',' || tact.spmc || ',' || tact.spjc || tact.gjz LIKE
+                CONCAT(CONCAT('%',#{parameter}),'%')
+            </if>
+        </if>
+    </sql>
+
+    <select id="selectTaxClassCode" parameterType="map" resultType="com.dxhy.order.model.entity.TaxClassCodeEntity">
+        <bind name="dataType" value="${dataType}"/>
+        select tcc.*
+        from (
+        <include refid="selectTaxClassCode_fragment"/>
+        ) tcc
+        <where>
+            <if test="parameter != null and parameter != ''">
+                <if test="dataType == 0">
+                    AND concat_ws(',',tcc.spbm,tcc.spmc,tcc.spjc,tcc.gjz) LIKE
+                    CONCAT(CONCAT('%',#{parameter}),'%')
+                </if>
+                <if test="dataType == 1">
+                    AND tcc.spbm || ',' || tcc.spmc || ',' || tcc.spjc || ',' || tcc.gjz LIKE
+                    CONCAT(CONCAT('%',#{parameter}),'%')
+                </if>
+            </if>
+            <if test="isFlag != 0 ">
+                <if test="dataType == 0">
+                    and tcc.zzssl != ''
+                </if>
+                <if test="dataType == 1">
+                    and tcc.zzssl is not null
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id = "queryTaxClassCodeEntityBySpbm" parameterType="String" resultType="com.dxhy.order.model.entity.TaxClassCodeEntity">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        tact.*
+        FROM tax_class_code tact
+        WHERE
+        tact.spbm =#{spbm,jdbcType=VARCHAR}
+        and tact.kyzt = 'Y'
+    </select>
+
+</mapper>

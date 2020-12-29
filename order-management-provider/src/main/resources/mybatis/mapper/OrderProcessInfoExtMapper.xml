@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderProcessInfoExtMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderProcessInfoExt">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="order_process_info_id" property="orderProcessInfoId"
+                jdbcType="VARCHAR"/>
+        <result column="parent_order_info_id" property="parentOrderInfoId"
+                jdbcType="VARCHAR"/>
+        <result column="parent_order_process_id" property="parentOrderProcessId"
+                jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh"
+                jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, order_process_info_id, parent_order_info_id,
+        parent_order_process_id, xhf_nsrsbh,status,
+        create_time, update_time
+    </sql>
+
+    <insert id="insertOrderProcessExt" parameterType="com.dxhy.order.model.OrderProcessInfoExt">
+        insert into order_process_info_ext (id, order_process_info_id,
+                                            parent_order_info_id,
+                                            parent_order_process_id, status, xhf_nsrsbh, create_time,
+                                            update_time)
+        values (#{id,jdbcType=VARCHAR}, #{orderProcessInfoId,jdbcType=VARCHAR},
+                #{parentOrderInfoId,jdbcType=VARCHAR},
+                #{parentOrderProcessId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{xhfNsrsbh,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="java.lang.String">
+        update order_process_info_ext
+        <set>
+            <if test="ext.orderProcessInfoId != null">
+                order_process_info_id = #{ext.orderProcessInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="ext.parentOrderInfoId != null">
+                parent_order_info_id = #{ext.parentOrderInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="ext.parentOrderProcessId != null">
+                parent_order_process_id = #{ext.parentOrderProcessId,jdbcType=VARCHAR},
+            </if>
+            <if test="ext.status != null">
+                status = #{ext.status,jdbcType=VARCHAR},
+            </if>
+            <if test="ext.createTime != null">
+                create_time = #{ext.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ext.updateTime != null">
+                update_time = #{ext.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{ext.id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+
+
+    <select id="selectOrderProcessInfoExtByOrderProcessId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info_ext
+        where order_process_info_id = #{orderProcessId,jdbcType=VARCHAR}
+        and status = '0'
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <!--    &lt;!&ndash; select by orderId &ndash;&gt;-->
+    <!--    <select id="selectByOrderId" resultMap="BaseResultMap"-->
+    <!--            parameterType="java.lang.String">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from order_process_info_ext-->
+    <!--        where parent_order_info_id = #{orderId,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+
+    <select id="selectOrderProcessInfoExtByOrderProcessIdAndParentOrderProcessId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info_ext
+        where status = '0'
+        <if test="orderProcessId != null and orderProcessId != ''">
+            and order_process_info_id = #{orderProcessId,jdbcType=TIMESTAMP}
+        </if>
+        <if test="parentOrderProcessId != null and parentOrderProcessId != ''">
+            and parent_order_process_id = #{parentOrderProcessId,jdbcType=TIMESTAMP}
+        </if>
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <!--    &lt;!&ndash; selectByProcessId &ndash;&gt;-->
+    <!--    <select id="selectByProcessId" resultMap="BaseResultMap"-->
+    <!--            parameterType="java.lang.String">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from order_process_info_ext-->
+    <!--        where order_process_info_id = #{id,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+    <!-- selectProcessExtInfoByProcessInfoId -->
+    <!--    <select id="selectProcessExtInfoByProcessInfoId" resultMap="BaseResultMap"-->
+    <!--            parameterType="java.lang.String">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from order_process_info_ext-->
+    <!--        where order_process_info_id = #{processId,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+    <select id="selectExtByParentProcessId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info_ext
+        where parent_order_process_id = #{parentId,jdbcType=VARCHAR}
+        and status = '0'
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <!--    &lt;!&ndash; selectOrderProcessInfoExt &ndash;&gt;-->
+    <!--    <select id="selectOrderProcessInfoExt" resultType="java.lang.String"-->
+    <!--            parameterType="com.dxhy.order.model.OrderProcessInfoExt">-->
+    <!--        select id from order_process_info_ext-->
+    <!--        <where>-->
+    <!--            <if test="orderProcessInfoId != null">-->
+    <!--                order_process_info_id = #{orderProcessInfoId,jdbcType=VARCHAR}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+    <!--    <insert id="insertProcessExtByList" parameterType="java.util.List"-->
+    <!--            useGeneratedKeys="false">-->
+
+    <!--        <bind name="dataType" value="${dataType}"/>-->
+
+    <!--        <if test="dataType == 0">-->
+    <!--            insert into order_process_info_ext (id, order_process_info_id,-->
+    <!--            parent_order_info_id,-->
+    <!--            parent_order_process_id, status,-->
+    <!--            create_time, update_time)-->
+    <!--            VALUES-->
+    <!--            <foreach collection="list" item="item" index="index"-->
+    <!--                     separator=",">-->
+    <!--                (-->
+    <!--                #{item.id,jdbcType=VARCHAR}, #{item.orderProcessInfoId,jdbcType=VARCHAR},-->
+    <!--                #{item.parentOrderInfoId,jdbcType=VARCHAR},-->
+    <!--                #{item.parentOrderProcessId,jdbcType=VARCHAR},-->
+    <!--                #{item.status,jdbcType=VARCHAR},-->
+    <!--                #{item.createTime,jdbcType=TIMESTAMP},-->
+    <!--                #{item.updateTime,jdbcType=TIMESTAMP}-->
+    <!--                )-->
+    <!--            </foreach>-->
+    <!--        </if>-->
+    <!--        <if test="dataType == 1">-->
+    <!--            insert into order_process_info_ext (id, order_process_info_id,-->
+    <!--            parent_order_info_id,-->
+    <!--            parent_order_process_id, status,-->
+    <!--            create_time, update_time)-->
+    <!--            <foreach collection="list" item="item" index="index"-->
+    <!--                     separator="union all">-->
+    <!--                (-->
+    <!--                SELECT-->
+    <!--                #{item.id,jdbcType=VARCHAR}, #{item.orderProcessInfoId,jdbcType=VARCHAR},-->
+    <!--                #{item.parentOrderInfoId,jdbcType=VARCHAR},-->
+    <!--                #{item.parentOrderProcessId,jdbcType=VARCHAR},-->
+    <!--                #{item.status,jdbcType=VARCHAR},-->
+    <!--                #{item.createTime,jdbcType=TIMESTAMP},-->
+    <!--                #{item.updateTime,jdbcType=TIMESTAMP}-->
+    <!--                FROM DUAL-->
+    <!--                )-->
+    <!--            </foreach>-->
+
+    <!--        </if>-->
+
+    <!--    </insert>-->
+
+    <!--    <update id="updateStatusByList" parameterType="java.util.List">-->
+    <!--        update-->
+    <!--        order_process_info_ext-->
+    <!--        <set>-->
+    <!--            <if test="status != null">-->
+    <!--                status = #{status,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where id in-->
+    <!--        <foreach collection="list" index="index" item="item" open="("-->
+    <!--                 separator="," close=")">-->
+    <!--            #{item.id}-->
+    <!--        </foreach>-->
+    <!--    </update>-->
+</mapper>

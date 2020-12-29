@@ -1,0 +1,50 @@
+
+
+### 测试环境 发票开具结果获取
+POST http://10.1.1.222:8087/order-api/v1/GetAllocatedInvoices
+Content-Type: application/json
+
+{
+  "FPLX": "2",
+  "FPQQPCH": "421219914298380288"
+}
+
+### 测试环境 发票开具结果获取
+POST http://10.1.1.222:8087/order-api/v1/GetAllocateInvoicesStatus
+Content-Type: application/json
+
+{
+  "FPLX": "2",
+  "FPQQPCH": "421219914298380288"
+}
+
+### 预发环境 发票开具结果获取
+POST http://10.1.2.9:8087/order-api/v1/GetAllocatedInvoices
+Content-Type: application/json
+
+{
+  "FPLX": "2",
+  "FPQQPCH": "421219914298380288"
+}
+
+
+### 线上环境 发票开具结果获取
+POST http://10.1.2.9:8087/order-api//invoice/v1/GetAllocatedInvoices
+Content-Type: application/json
+
+{
+  "Nonce": "11886",
+  "SecretId": "289efb7512e54146273b982456b03f42ea93",
+  "Timestamp": "1484718385",
+  "content": "eyJERFFRUENIIjoiRFgxNTg5NzcxODU4MTU5ODAwNSIsIkZQTFgiOiIyIn0",
+  "encryptCode": "0",
+  "zipCode": "0",
+  "Signature": ""
+}
+
+
+
+
+
+
+###

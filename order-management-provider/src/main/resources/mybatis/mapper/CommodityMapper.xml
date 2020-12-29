@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dxhy.order.dao.CommodityDao">
+
+    <resultMap id="commodityCodeResultMap" type="com.dxhy.order.model.entity.CommodityCodeEntity">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="sort_id" jdbcType="BIGINT" property="sortId"/>
+        <result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh"/>
+        <result column="merchandise_name" jdbcType="VARCHAR" property="merchandiseName"/>
+        <result column="encoding" jdbcType="VARCHAR" property="encoding"/>
+        <result column="tax_items" jdbcType="VARCHAR" property="taxItems"/>
+        <result column="brief_code" jdbcType="VARCHAR" property="briefCode"/>
+        <result column="tax_rate" jdbcType="VARCHAR" property="taxRate"/>
+        <result column="specification_model" jdbcType="VARCHAR" property="specificationModel"/>
+        <result column="metering_unit" jdbcType="VARCHAR" property="meteringUnit"/>
+        <result column="unit_price" jdbcType="VARCHAR" property="unitPrice"/>
+        <result column="tax_logo" jdbcType="VARCHAR" property="taxLogo"/>
+        <result column="hide_the_logo" jdbcType="VARCHAR" property="hideTheLogo"/>
+        <result column="enjoy_preferential_policies" jdbcType="VARCHAR" property="enjoyPreferentialPolicies"/>
+        <result column="tax_class_code" jdbcType="VARCHAR" property="taxClassCode"/>
+        <result column="tax_classification_name" jdbcType="VARCHAR" property="taxClassificationName"/>
+        <result column="preferential_policies_type" jdbcType="VARCHAR" property="preferentialPoliciesType"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="modify_user_id" jdbcType="CHAR" property="modifyUserId"/>
+        <result column="group_id" jdbcType="VARCHAR" property="groupId"/>
+        <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+        <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName"/>
+        <result column="data_source" jdbcType="VARCHAR" property="dataSource"/>
+        <result column="matching_state" jdbcType="VARCHAR" property="matchingState"/>
+        <result column="data_state" jdbcType="VARCHAR" property="dataState"/>
+        <result column="tax_class_abbreviation" jdbcType="VARCHAR" property="taxClassAbbreviation"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="collect_ident" jdbcType="VARCHAR" property="collectIdent"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, sort_id, xhf_nsrsbh, merchandise_name,encoding, tax_items, brief_code,
+    tax_rate, specification_model, metering_unit, unit_price, tax_logo, hide_the_logo,
+    enjoy_preferential_policies, tax_class_code, tax_classification_name, preferential_policies_type,
+    user_id, create_time, modify_time, modify_user_id, group_id,enterprise_name,data_source,
+    matching_state,data_state,tax_class_abbreviation,description,collect_ident
+  </sql>
+
+
+    <!-- 查询 -->
+    <select id="selectCommodity" parameterType="map" resultMap="commodityCodeResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        cc.id,
+        cc.sort_id,
+        cc.xhf_nsrsbh,
+        cc.merchandise_name,
+        cc.tax_items,
+        cc.brief_code,
+        cc.tax_rate,
+        cc.specification_model,
+        cc.metering_unit,
+        cc.unit_price,
+        cc.tax_logo,
+        cc.hide_the_logo,
+        cc.enjoy_preferential_policies,
+        cc.tax_class_code,
+        cc.tax_classification_name,
+        cc.preferential_policies_type,
+        cc.user_id,
+        cc.create_time,
+        cc.modify_time,
+        cc.modify_user_id,
+        cc.encoding,
+        cc.group_id,
+        cc.enterprise_name,
+        cc.data_source,
+        cc.matching_state,
+        cc.data_state,
+        cc.tax_class_abbreviation,
+        cc.description,
+        gc.group_name
+        FROM
+        commodity_code cc LEFT JOIN group_commodity gc
+        ON gc.id = cc.group_id
+        <where>
+            <if test="shList != null and shList.size() == 0">
+                and cc.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and cc.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and cc.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <!-- 商品编码ID-->
+            <if test="map.id != null and map.id != ''">
+                AND cc.id = #{map.id,jdbcType=VARCHAR}
+            </if>
+
+            <if test="map.groupId != null and map.groupId != ''">
+                AND cc.group_id = #{map.groupId,jdbcType=VARCHAR}
+            </if>
+            <if test="map.ppzt != null and map.ppzt != ''">
+                AND cc.matching_state = #{map.ppzt,jdbcType=VARCHAR}
+            </if>
+            <if test="map.sjly != null and map.sjly != ''">
+                AND cc.data_source = #{map.sjly,jdbcType=VARCHAR}
+            </if>
+            <if test="map.sjzt != null and map.sjzt != ''">
+                AND cc.data_state = #{map.sjzt,jdbcType=VARCHAR}
+            </if>
+            <if test="dataType == 0">
+                <choose>
+                    <!--模糊查询的标识(0表示不进行模糊查询，1表示模糊查询)-->
+                    <when test="map.fuzzyQuery != null and map.fuzzyQuery !='' and map.fuzzyQuery =='0'.toString() ">
+                        <if test="map.spmc != null and map.spmc != ''">
+                            AND cc.merchandise_name = #{map.spmc,jdbcType=VARCHAR}
+                        </if>
+                        <if test="map.qymc != null and map.qymc != ''">
+                            AND cc.enterprise_name = #{map.qymc,jdbcType=VARCHAR}
+                        </if>
+                    </when>
+                    <otherwise>
+                        <if test="map.spmc != null and map.spmc != ''">
+                            AND cc.merchandise_name LIKE CONCAT(CONCAT('%',#{map.spmc}),'%')
+                        </if>
+                        <if test="map.qymc != null and map.qymc != ''">
+                            AND cc.enterprise_name LIKE CONCAT(CONCAT('%',#{map.qymc},'%'))
+                        </if>
+                    </otherwise>
+                </choose>
+                <if test="map.nsrsbh != null and map.nsrsbh != ''">
+                    AND cc.xhf_nsrsbh LIKE CONCAT(CONCAT('%',#{map.nsrsbh},'%'))
+                </if>
+                <if test="map.spbm != null and map.spbm != ''">
+                    AND cc.encoding LIKE CONCAT(CONCAT('%',#{map.spbm},'%'))
+                </if>
+                <if test="map.ssmc != null and map.ssmc != ''">
+                    AND cc.tax_classification_name LIKE CONCAT(CONCAT('%',#{map.ssmc},'%'))
+                </if>
+                <if test="map.ssjc != null and map.ssjc != ''">
+                    AND cc.tax_class_abbreviation LIKE CONCAT(CONCAT('%',#{map.ssjc},'%'))
+                </if>
+                <if test="map.ssbm != null and map.ssbm != ''">
+                    AND cc.tax_class_code LIKE CONCAT(CONCAT('%',#{map.ssbm},'%'))
+                </if>
+            </if>
+            <if test="dataType == 1">
+                <choose>
+                    <!--模糊查询的标识(0表示不进行模糊查询，1表示模糊查询)-->
+                    <when test="map.fuzzyQuery != null and map.fuzzyQuery !='' and map.fuzzyQuery =='0'.toString() ">
+                        <if test="map.spmc != null and map.spmc != ''">
+                            AND cc.merchandise_name = #{map.spmc,jdbcType=VARCHAR}
+                        </if>
+                        <if test="map.qymc != null and map.qymc != ''">
+                            AND cc.enterprise_name = #{map.qymc,jdbcType=VARCHAR}
+                        </if>
+                    </when>
+                    <otherwise>
+                        <if test="map.spmc != null and map.spmc != ''">
+                            AND cc.merchandise_name LIKE '%' || #{map.spmc} || '%'
+                        </if>
+                        <if test="map.qymc != null and map.qymc != ''">
+                            AND cc.enterprise_name LIKE '%' || #{map.qymc} || '%'
+                        </if>
+                    </otherwise>
+                </choose>
+                <if test="map.nsrsbh != null and map.nsrsbh != ''">
+                    AND cc.xhf_nsrsbh LIKE '%' || #{map.nsrsbh} || '%'
+                </if>
+                <if test="map.spbm != null and map.spbm != ''">
+                    AND cc.encoding LIKE '%' || #{map.spbm} || '%'
+                </if>
+                <if test="map.ssmc != null and map.ssmc != ''">
+                    AND cc.tax_classification_name LIKE '%' || #{map.ssmc} || '%'
+                </if>
+                <if test="map.ssjc != null and map.ssjc != ''">
+                    AND cc.tax_class_abbreviation LIKE '%' || #{map.ssjc}|| '%'
+                </if>
+                <if test="map.ssbm != null and map.ssbm != ''">
+                    AND cc.tax_class_code LIKE '%' || #{map.ssbm} || '%'
+                </if>
+            </if>
+        </where>
+
+        ORDER BY cc.create_time DESC
+    </select>
+
+    <!-- 修改 -->
+    <update id="updateCommodity" parameterType="com.dxhy.order.model.entity.CommodityCodeEntity">
+        <bind name="dataType" value="${dataType}"/>
+        update commodity_code
+        <set>
+            <if test="commodityCode.sortId != null">
+                sort_id = #{commodityCode.sortId,jdbcType=BIGINT},
+            </if>
+            <if test="commodityCode.xhfNsrsbh != null">
+                xhf_nsrsbh = #{commodityCode.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.merchandiseName != null">
+                merchandise_name = #{commodityCode.merchandiseName,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.encoding != null">
+                encoding = #{commodityCode.encoding,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.taxItems != null">
+                tax_items = #{commodityCode.taxItems,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.briefCode != null">
+                brief_code = #{commodityCode.briefCode,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.taxRate != null">
+                tax_rate = #{commodityCode.taxRate,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.specificationModel != null">
+                specification_model = #{commodityCode.specificationModel,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.meteringUnit != null">
+                metering_unit = #{commodityCode.meteringUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.unitPrice != null">
+                unit_price = #{commodityCode.unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.taxLogo != null">
+                tax_logo = #{commodityCode.taxLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.hideTheLogo != null">
+                hide_the_logo = #{commodityCode.hideTheLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.enjoyPreferentialPolicies != null">
+                enjoy_preferential_policies = #{commodityCode.enjoyPreferentialPolicies,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.taxClassCode != null">
+                tax_class_code = #{commodityCode.taxClassCode,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.taxClassificationName != null">
+                tax_classification_name = #{commodityCode.taxClassificationName,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.preferentialPoliciesType != null">
+                preferential_policies_type = #{commodityCode.preferentialPoliciesType,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.userId != null">
+                user_id = #{commodityCode.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.createTime != null">
+                create_time = #{commodityCode.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dataType == 0">
+                modify_time = now(),
+            </if>
+            <if test="dataType == 1">
+                modify_time = SYSDATE,
+            </if>
+            <if test="commodityCode.modifyUserId != null">
+                modify_user_id = #{commodityCode.modifyUserId,jdbcType=CHAR},
+            </if>
+            <if test="commodityCode.groupId != null">
+                group_id = #{commodityCode.groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.description != null">
+                description = #{commodityCode.description,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.enterpriseName != null">
+                enterprise_name = #{commodityCode.enterpriseName,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.dataSource != null">
+                data_source = #{commodityCode.dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.matchingState != null">
+                matching_state = #{commodityCode.matchingState,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.dataState != null">
+                data_state = #{commodityCode.dataState,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.taxClassAbbreviation != null">
+                tax_class_abbreviation = #{commodityCode.taxClassAbbreviation,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityCode.collectIdent != null">
+                collect_ident = #{commodityCode.collectIdent,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            <if test="commodityCode.id != null and commodityCode.id != ''">
+                AND id = #{commodityCode.id,jdbcType=VARCHAR}
+            </if>
+
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </update>
+    <!--    &lt;!&ndash; 根据名称查询 &ndash;&gt;-->
+    <!--    <update id="updateCommodityByName" parameterType="com.dxhy.order.model.entity.CommodityCodeEntity">-->
+    <!--        <bind name="dataType" value="${dataType}"/>-->
+    <!--        UPDATE commodity_code-->
+    <!--        <set>-->
+    <!--            <if test="sortId != null">-->
+    <!--                sort_id = #{sortId,jdbcType=BIGINT},-->
+    <!--            </if>-->
+    <!--            <if test="taxpayerCode != null">-->
+    <!--                xhf_nsrsbh = #{taxpayerCode,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="encoding != null">-->
+    <!--                encoding = #{encoding,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxItems != null">-->
+    <!--                tax_items = #{taxItems,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="briefCode != null">-->
+    <!--                brief_code = #{briefCode,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxRate != null">-->
+    <!--                tax_rate = #{taxRate,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="specificationModel != null">-->
+    <!--                specification_model = #{specificationModel,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="meteringUnit != null">-->
+    <!--                metering_unit = #{meteringUnit,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="unitPrice != null">-->
+    <!--                unit_price = #{unitPrice,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxLogo != null">-->
+    <!--                tax_logo = #{taxLogo,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="hideTheLogo != null">-->
+    <!--                hide_the_logo = #{hideTheLogo,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="enjoyPreferentialPolicies != null">-->
+    <!--                enjoy_preferential_policies = #{enjoyPreferentialPolicies,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxClassCode != null">-->
+    <!--                tax_class_code = #{taxClassCode,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxClassificationName != null">-->
+    <!--                tax_classification_name = #{taxClassificationName,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="preferentialPoliciesType != null">-->
+    <!--                preferential_policies_type = #{preferentialPoliciesType,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="userId != null">-->
+    <!--                user_id = #{userId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="dataType == 0">-->
+    <!--                modify_time = now(),-->
+    <!--        </if>-->
+    <!--            <if test="dataType == 1">-->
+    <!--                modify_time = SYSDATE,-->
+    <!--        </if>-->
+    <!--            <if test="modifyUserId != null">-->
+    <!--                modify_user_id = #{modifyUserId,jdbcType=CHAR},-->
+    <!--            </if>-->
+    <!--            <if test="groupId != null">-->
+    <!--                group_id = #{groupId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="description != null">-->
+    <!--                description = #{description,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="enterpriseName != null">-->
+    <!--                enterprise_name = #{enterpriseName,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="dataSource != null">-->
+    <!--                data_source = #{dataSource,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="matchingState != null">-->
+    <!--                matching_state = #{matchingState,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="dataState != null">-->
+    <!--                data_state = #{dataState,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxClassAbbreviation != null">-->
+    <!--                tax_class_abbreviation = #{taxClassAbbreviation,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="collectIdent != null">-->
+    <!--                collect_ident = #{collectIdent,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        WHERE-->
+    <!--        merchandise_name = #{merchandiseName}-->
+    <!--    </update>-->
+    <insert id="insertCommodity" parameterType="com.dxhy.order.model.entity.CommodityCodeEntity">
+        <bind name="dataType" value="${dataType}"/>
+
+        insert into commodity_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sortId != null">
+                sort_id,
+            </if>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh,
+            </if>
+            <if test="merchandiseName != null">
+                merchandise_name,
+            </if>
+            <if test="encoding != null">
+                encoding,
+            </if>
+            <if test="taxItems != null">
+                tax_items,
+            </if>
+            <if test="briefCode != null">
+                brief_code,
+            </if>
+            <if test="taxRate != null">
+                tax_rate,
+            </if>
+            <if test="specificationModel != null">
+                specification_model,
+            </if>
+            <if test="meteringUnit != null">
+                metering_unit,
+            </if>
+            <if test="unitPrice != null">
+                unit_price,
+            </if>
+            <if test="taxLogo != null">
+                tax_logo,
+            </if>
+            <if test="hideTheLogo != null">
+                hide_the_logo,
+            </if>
+            <if test="enjoyPreferentialPolicies != null">
+                enjoy_preferential_policies,
+            </if>
+            <if test="taxClassCode != null">
+                tax_class_code,
+            </if>
+            <if test="taxClassificationName != null">
+                tax_classification_name,
+            </if>
+            <if test="preferentialPoliciesType != null">
+                preferential_policies_type,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            create_time,
+            modify_time,
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="enterpriseName != null">
+                enterprise_name,
+            </if>
+            <if test="dataSource != null">
+                data_source,
+            </if>
+            <if test="matchingState != null">
+                matching_state,
+            </if>
+            <if test="dataState != null">
+                data_state,
+            </if>
+            <if test="taxClassAbbreviation != null">
+                tax_class_abbreviation,
+            </if>
+            <if test="collectIdent != null">
+                collect_ident,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="sortId != null">
+                #{sortId,jdbcType=BIGINT},
+            </if>
+            <if test="xhfNsrsbh != null">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="merchandiseName != null">
+                #{merchandiseName,jdbcType=VARCHAR},
+            </if>
+            <if test="encoding != null">
+                #{encoding,jdbcType=VARCHAR},
+            </if>
+            <if test="taxItems != null">
+                #{taxItems,jdbcType=VARCHAR},
+            </if>
+            <if test="briefCode != null">
+                #{briefCode,jdbcType=VARCHAR},
+            </if>
+            <if test="taxRate != null">
+                #{taxRate,jdbcType=VARCHAR},
+            </if>
+            <if test="specificationModel != null">
+                #{specificationModel,jdbcType=VARCHAR},
+            </if>
+            <if test="meteringUnit != null">
+                #{meteringUnit,jdbcType=VARCHAR},
+            </if>
+            <if test="unitPrice != null">
+                #{unitPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="taxLogo != null">
+                #{taxLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="hideTheLogo != null">
+                #{hideTheLogo,jdbcType=VARCHAR},
+            </if>
+            <if test="enjoyPreferentialPolicies != null">
+                #{enjoyPreferentialPolicies,jdbcType=VARCHAR},
+            </if>
+            <if test="taxClassCode != null">
+                #{taxClassCode,jdbcType=VARCHAR},
+            </if>
+            <if test="taxClassificationName != null">
+                #{taxClassificationName,jdbcType=VARCHAR},
+            </if>
+            <if test="preferentialPoliciesType != null">
+                #{preferentialPoliciesType,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType == 0">
+                now(),
+                now(),
+            </if>
+            <if test="dataType == 1">
+                SYSDATE,
+                SYSDATE,
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=CHAR},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="enterpriseName != null">
+                #{enterpriseName,jdbcType=VARCHAR},
+            </if>
+            <if test="dataSource != null">
+                #{dataSource,jdbcType=VARCHAR},
+            </if>
+            <if test="matchingState != null">
+                #{matchingState,jdbcType=VARCHAR},
+            </if>
+            <if test="dataState != null">
+                #{dataState,jdbcType=VARCHAR},
+            </if>
+            <if test="taxClassAbbreviation != null">
+                #{taxClassAbbreviation,jdbcType=VARCHAR},
+            </if>
+            <if test="collectIdent != null">
+                #{collectIdent,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!-- 根据id查询 -->
+    <select id="selectCommodityById" parameterType="string" resultMap="commodityCodeResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        commodity_code
+        WHERE
+        id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="selectByNameAndCode" parameterType="map" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        commodity_code
+        WHERE merchandise_name = #{map.merchandiseName,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="map.encoding!=null and map.encoding!=''">
+            AND encoding = #{map.encoding,jdbcType=VARCHAR}
+        </if>
+        <if test="map.id != null and map.id != ''">
+            AND id != #{map.id,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <update id="updateByGropId" parameterType="String">
+        UPDATE commodity_code
+        SET
+        group_id = ''
+        WHERE group_id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </update>
+
+    <delete id="deleteCommodity" parameterType="String">
+        DELETE
+        FROM
+        commodity_code
+        WHERE id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+    <select id="queryCommodityInfoList" resultMap="commodityCodeResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType == 0">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM
+            commodity_code cc
+            <where>
+                cc.data_state = '0'
+                <if test="shList != null and shList.size() == 0">
+                    and cc.xhf_nsrsbh = ''
+                </if>
+                <if test="shList != null and shList.size() == 1">
+                    and cc.xhf_nsrsbh =
+                    <foreach collection="shList" index="index" item="item">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="shList != null and shList.size() > 1">
+                    and cc.xhf_nsrsbh in
+                    <foreach collection="shList" index="index" item="item"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+
+                <if test="merchandiseName!=null and merchandiseName!=''">
+                    AND cc.merchandise_name LIKE CONCAT(CONCAT('%',#{merchandiseName}),'%')
+                </if>
+                <if test="encoding!=null and encoding!=''">
+                    AND cc.encoding LIKE CONCAT(CONCAT('%',#{encoding}),'%')
+                </if>
+                <!-- 成品油类型 1 成品油 -->
+                <if test='cpylx=="1"'>
+                    AND cc.tax_class_code like '10701%'
+                </if>
+                <!-- 成品油类型 0 非成品油 -->
+                <if test='cpylx=="0"'>
+                    AND cc.tax_class_code not like '10701%'
+                </if>
+            </where>
+
+            limit 4
+        </if>
+
+        <if test="dataType == 1">
+            select temp.* from (SELECT
+            <include refid="Base_Column_List"/>
+            FROM
+            commodity_code cc
+            <where>
+                <if test="shList != null and shList.size() == 0">
+                    and cc.xhf_nsrsbh = ''
+                </if>
+                <if test="shList != null and shList.size() == 1">
+                    and cc.xhf_nsrsbh =
+                    <foreach collection="shList" index="index" item="item">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="shList != null and shList.size() > 1">
+                    and cc.xhf_nsrsbh in
+                    <foreach collection="shList" index="index" item="item"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="merchandiseName!=null and merchandiseName!=''">
+                    AND cc.merchandise_name LIKE '%' || #{merchandiseName} || '%'
+                </if>
+                <if test="encoding!=null and encoding!=''">
+                    AND cc.encoding LIKE '%' || #{encoding} || '%'
+                </if>
+                <!-- 成品油类型 1 成品油 -->
+                <if test='cpylx=="1"'>
+                    AND cc.tax_class_code like '10701%'
+                </if>
+                <!-- 成品油类型 0 非成品油 -->
+                <if test='cpylx=="0"'>
+                    AND cc.tax_class_code not like '10701%'
+                </if>
+            </where>
+
+            ) temp
+            WHERE ROWNUM &lt;= 4
+        </if>
+    </select>
+    <select id="selectLicyTypeList" resultType="java.util.HashMap">
+        SELECT
+        sd.code,
+        sd.value
+        FROM
+        sys_dictionary sd
+        WHERE
+        sd.type = 'preferentialType'
+    </select>
+
+    <select id="querySysDictionary" resultType="com.dxhy.order.model.entity.SysDictionary">
+      SELECT
+        id,
+        NAME As name ,
+        type,
+        CODE as code,
+        value,
+        order_num AS orderNum,
+        remark,
+        del_flag AS delFlag
+        FROM
+        sys_dictionary
+        WHERE
+        type = 'interface'
+    </select>
+    <!--查询集团下面企业可采集的数据   匹配状态为0（已匹配） 数据状态为0（启用） 数据来源为1（页面创建）、2（模板导入）-->
+    <select id="getCommodityCode" resultMap="commodityCodeResultMap" parameterType="string">
+        SELECT
+        t.*
+        FROM
+        commodity_code t
+        WHERE t.collect_ident is null
+        AND t.matching_state = '0'
+        AND t.data_state = '0'
+        AND (
+        t.data_source = '1'
+        OR t.data_source = '2'
+        )
+        <if test="shList != null and shList.size() == 0">
+            and t.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and t.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and t.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="queryCommodityById" parameterType="string" resultType="java.util.HashMap">
+        SELECT
+        t.*,
+        gc.group_name
+        FROM
+        commodity_code t left join group_commodity gc on t.group_id = gc.id
+        WHERE
+        t.id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and t.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and t.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and t.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <select id="queryCommodityByMap" parameterType="map" resultType="int">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        count(*)
+        FROM
+        commodity_code cc
+        <where>
+            <if test="shList != null and shList.size() == 0">
+                and cc.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and cc.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and cc.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="dataType == 0">
+                <if test="map.spmc != null and map.spmc != ''">
+                    AND cc.merchandise_name LIKE CONCAT(CONCAT('%',#{map.spmc}),'%')
+                </if>
+                <if test="map.nsrsbh != null and map.nsrsbh != ''">
+                    AND cc.xhf_nsrsbh LIKE CONCAT(CONCAT('%',#{map.nsrsbh},'%'))
+                </if>
+                <if test="map.spbm != null and map.spbm != ''">
+                    AND cc.encoding LIKE CONCAT(CONCAT('%',#{map.spbm},'%'))
+                </if>
+                <if test="map.ssbm != null and map.ssbm != ''">
+                    AND cc.tax_class_code LIKE CONCAT(CONCAT('%',#{map.ssbm},'%'))
+                </if>
+            </if>
+            <if test="dataType == 1">
+                <if test="map.spmc != null and map.spmc != ''">
+                    AND cc.merchandise_name LIKE '%' || #{map.spmc} || '%'
+                </if>
+                <if test="map.nsrsbh != null and map.nsrsbh != ''">
+                    AND cc.xhf_nsrsbh LIKE '%' || #{map.nsrsbh} || '%'
+                </if>
+                <if test="map.spbm != null and map.spbm != ''">
+                    AND cc.encoding LIKE '%' || #{map.spbm} || '%'
+                </if>
+                <if test="map.ssbm != null and map.ssbm != ''">
+                    AND cc.tax_class_code LIKE '%' || #{map.ssbm} || '%'
+                </if>
+            </if>
+        </where>
+
+        ORDER BY cc.create_time DESC
+    </select>
+
+    <select id="queryProductList" parameterType="map" resultMap="commodityCodeResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        commodity_code cc
+        WHERE cc.data_state = '0'
+        AND cc.matching_state = '0'
+        <if test="map.productName != null and map.productName != ''">
+            AND cc.merchandise_name = #{map.productName,jdbcType=VARCHAR}
+        </if>
+        <if test="map.taxClassCode != null and map.taxClassCode != ''">
+            AND cc.tax_class_code = #{map.taxClassCode,jdbcType=VARCHAR}
+        </if>
+        <if test="map.zxbm != null and map.zxbm != ''">
+            AND cc.encoding = #{map.zxbm,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 0">
+            and cc.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and cc.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and cc.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+
+    <!-- 通用条件查询 -->
+    <select id="queryCommodityInfoListByMap" resultMap="commodityCodeResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType == 0">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM
+            commodity_code cc
+            <where>
+
+                <if test="shList != null and shList.size() == 0">
+                    and cc.xhf_nsrsbh = ''
+                </if>
+                <if test="shList != null and shList.size() == 1">
+                    and cc.xhf_nsrsbh =
+                    <foreach collection="shList" index="index" item="item">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="shList != null and shList.size() > 1">
+                    and cc.xhf_nsrsbh in
+                    <foreach collection="shList" index="index" item="item"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+
+                <if test="map.merchandiseName!=null and map.merchandiseName!=''">
+                    AND cc.merchandise_name LIKE CONCAT(CONCAT('%',#{map.merchandiseName}),'%')
+                </if>
+                <if test="map.encoding!=null and map.encoding!=''">
+                    AND cc.encoding LIKE CONCAT(CONCAT('%',#{map.encoding}),'%')
+                </if>
+                <!-- 成品油类型 1 成品油 -->
+                <if test='map.cpylx == "1"'>
+                    AND cc.tax_class_code like '10701%'
+                </if>
+                <!-- 成品油类型 0 非成品油 -->
+                <if test='map.cpylx == "0"'>
+                    AND cc.tax_class_code not like '10701%'
+                </if>
+            </where>
+            <choose>
+                <when test="map.orderBy !=null and map.orderBy == '0' ">
+                    order by cc.create_time asc
+                </when>
+                <otherwise>
+                    order by cc.create_time desc
+                </otherwise>
+            </choose>
+        </if>
+
+        <if test="dataType == 1">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM
+            commodity_code cc
+            <where>
+                <if test="shList != null and shList.size() == 0">
+                    and cc.xhf_nsrsbh = ''
+                </if>
+                <if test="shList != null and shList.size() == 1">
+                    and cc.xhf_nsrsbh =
+                    <foreach collection="shList" index="index" item="item">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="shList != null and shList.size() > 1">
+                    and cc.xhf_nsrsbh in
+                    <foreach collection="shList" index="index" item="item"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="map.merchandiseName!=null and map.merchandiseName!=''">
+                    AND cc.merchandise_name LIKE '%' || #{map.merchandiseName} || '%'
+                </if>
+                <if test="map.encoding!=null and map.encoding!=''">
+                    AND cc.encoding LIKE '%' || #{map.encoding} || '%'
+                </if>
+                <!-- 成品油类型 1 成品油 -->
+                <if test='map.cpylx=="1"'>
+                    AND cc.tax_class_code like '10701%'
+                </if>
+                <!-- 成品油类型 0 非成品油 -->
+                <if test='map.cpylx=="0"'>
+                    AND cc.tax_class_code not like '10701%'
+                </if>
+            </where>
+            <choose>
+                <when test="map.orderBy !=null and map.orderBy == '0' ">
+                    order by cc.create_time asc
+                </when>
+                <otherwise>
+                    order by cc.create_time desc
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+</mapper>

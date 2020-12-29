@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxhy.order.dao.OrderOriginExtendInfoMapper">
+	<resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderOriginExtendInfo">
+		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+		<result column="fpqqlsh" jdbcType="VARCHAR" property="fpqqlsh"/>
+		<result column="origin_order_id" jdbcType="VARCHAR" property="originOrderId"/>
+		<result column="origin_ddh" jdbcType="VARCHAR" property="originDdh"/>
+		<result column="origin_fpqqlsh" jdbcType="VARCHAR" property="originFpqqlsh"/>
+		<result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+		<result column="status" jdbcType="VARCHAR" property="status"/>
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, order_id, fpqqlsh, origin_order_id, origin_fpqqlsh,origin_ddh,xhf_nsrsbh,create_time,
+		update_time,status
+	</sql>
+	<!--	<select id="selectByPrimaryKey" parameterType="java.lang.String"-->
+	<!--		resultMap="BaseResultMap">-->
+	<!--		select-->
+	<!--		<include refid="Base_Column_List" />-->
+	<!--		from order_orgin_extend_info-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</select>-->
+	<!--	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+	<!--		delete from order_orgin_extend_info-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</delete>-->
+	<!--	<insert id="insert" parameterType="com.dxhy.order.model.OrderOriginExtendInfo">-->
+	<!--		insert into order_orgin_extend_info (id, order_id, fpqqlsh,-->
+	<!--		origin_order_id, origin_fpqqlsh,origin_ddh,create_time,-->
+	<!--		update_time,status)-->
+	<!--		values-->
+	<!--		(#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR},-->
+	<!--		#{fpqqlsh,jdbcType=VARCHAR},-->
+	<!--		#{originOrderId,jdbcType=VARCHAR},-->
+	<!--		#{originFpqqlsh,jdbcType=VARCHAR},-->
+	<!--	    #{originDdh,jdbcType=VARCHAR},-->
+	<!--		#{createTime,jdbcType=TIMESTAMP},-->
+	<!--		#{updateTime,jdbcType=TIMESTAMP},-->
+	<!--		#{status,jdbcType=VARCHAR})-->
+	<!--	</insert>-->
+	<insert id="insertOrderOriginExtend" parameterType="com.dxhy.order.model.OrderOriginExtendInfo">
+		insert into order_orgin_extend_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="fpqqlsh != null">
+				fpqqlsh,
+			</if>
+			<if test="originOrderId != null">
+				origin_order_id,
+			</if>
+			<if test="originFpqqlsh != null">
+				origin_fpqqlsh,
+			</if>
+			<if test="originDdh != null">
+				origin_ddh,
+			</if>
+			<if test="xhfNsrsbh != null">
+				xhf_nsrsbh,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="fpqqlsh != null">
+				#{fpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="originOrderId != null">
+				#{originOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="originFpqqlsh != null">
+				#{originFpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="originDdh != null">
+				#{originDdh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfNsrsbh != null">
+				#{xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!--	<update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.OrderOriginExtendInfo">-->
+	<!--		update order_orgin_extend_info-->
+	<!--		<set>-->
+	<!--			<if test="orderId != null">-->
+	<!--				order_id = #{orderId,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="fpqqlsh != null">-->
+	<!--				fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="originOrderId != null">-->
+	<!--				origin_order_id = #{originOrderId,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="originFpqqlsh != null">-->
+	<!--				origin_fpqqlsh = #{originFpqqlsh,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="originDdh != null">-->
+	<!--				origin_ddh = #{originDdh,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="createTime != null">-->
+	<!--				create_time = #{createTime,jdbcType=TIMESTAMP},-->
+	<!--			</if>-->
+	<!--			<if test="updateTime != null">-->
+	<!--				update_time = #{updateTime,jdbcType=TIMESTAMP},-->
+	<!--			</if>-->
+	<!--			<if test="status != null">-->
+	<!--				status = #{status,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--		</set>-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</update>-->
+	<!--	<update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.OrderOriginExtendInfo">-->
+	<!--		update order_orgin_extend_info-->
+	<!--		set order_id =-->
+	<!--		#{orderId,jdbcType=VARCHAR},-->
+	<!--		fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR},-->
+	<!--		origin_order_id = #{originOrderId,jdbcType=VARCHAR},-->
+	<!--		origin_fpqqlsh =-->
+	<!--		#{originFpqqlsh,jdbcType=VARCHAR},-->
+	<!--		origin_ddh =-->
+	<!--		#{originDdh,jdbcType=VARCHAR},-->
+	<!--		create_time =-->
+	<!--		#{createTime,jdbcType=TIMESTAMP},-->
+	<!--		update_time =-->
+	<!--		#{updateTime,jdbcType=TIMESTAMP},-->
+	<!--		status =-->
+	<!--		#{status,jdbcType=VARCHAR},-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</update>-->
+	<!--  原始订单列表接口  -->
+
+
+	<select id="queryOriginList" resultType="hashMap"
+			parameterType="java.util.Map">
+		<bind name="dataType" value="${dataType}"/>
+		SELECT * FROM
+		(
+		SELECT
+		DISTINCT(ooe.origin_order_id) order_id,
+		op.kphjje ddje,
+		op.ddcjsj,
+		op.ddh,
+		op.xhf_nsrsbh,
+		op.xhf_mc,
+		op.ghf_mc,
+		op.id
+		FROM order_orgin_extend_info ooe
+		LEFT JOIN
+		order_process_info op ON ooe.origin_order_id = op.order_info_id
+		<!-- 原始订单扩展表中id和原订单id相同的为原始订单 -->
+        <include refid="originOrderQueryParam"/>
+		)
+		t1 LEFT JOIN
+		(
+		SELECT
+		SUM(
+		<!-- 判断是否原始订单的所有子订单已经删除  -->
+		CASE WHEN op.order_status = '1' then 0
+		ELSE 1 end
+		) AS isDel,
+		max(ooe.origin_order_id) origin_order_id
+		FROM order_orgin_extend_info ooe
+		left join order_process_info op on ooe.order_id = op.order_info_id
+		LEFT JOIN order_invoice_info oii on op.order_info_id = oii.order_info_id
+		<include refid="originOrderQueryParamExtend"/>
+	    group by ooe.origin_order_id
+	    )
+		t2 on t1.order_id = t2.origin_order_id
+		<where>
+			isDel > 0
+		</where>
+			ORDER BY t1.ddcjsj desc
+	</select>
+
+	<sql id="originOrderQueryParam">
+		<where>
+		    ooe.status = '0'
+		    and op.kphjje > 0.00
+			<!-- mysql数据库 -->
+			<if test="dataType == 0">
+				<if
+					test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+					and op.ddcjsj
+					>= #{map.startTime} and
+					#{map.endTime} >= op.ddcjsj
+				</if>
+				<if test="map.ddh != null and map.ddh != ''">
+					and op.ddh like "%"#{map.ddh,jdbcType=VARCHAR}"%"
+				</if>
+
+				<if test="map.gmfmc != null and map.gmfmc != ''">
+					and op.ghf_mc like
+					concat('%',#{map.gmfmc,jdbcType=VARCHAR},'%')
+				</if>
+				<if test="map.xhfmc != null and map.xhfmc != ''">
+					and op.xhf_mc like
+					concat('%',#{map.xhfmc,jdbcType=VARCHAR},'%')
+
+				</if>
+			</if>
+			<!-- oracle数据库 -->
+			<if test="dataType == 1">
+				<if
+					test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+					and trunc(op.ddcjsj)
+					>=to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd
+					hh24:mi:ss')
+					and
+					to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd
+					hh24:mi:ss')>=trunc(op.ddcjsj)
+				</if>
+				<if test="map.ddh != null and map.ddh != ''">
+					and op.ddh like '%' || #{map.ddh,jdbcType=VARCHAR} ||
+					'%'
+				</if>
+				<if test="map.gmfmc != null and map.gmfmc != ''">
+					and op.ghf_mc like '%' || #{map.gmfmc,jdbcType=VARCHAR}
+					||
+					'%'
+				</if>
+				<if test="map.xhfmc != null and map.xhfmc != ''">
+					and op.xhf_mc like % || #{map.xhfmc,jdbcType=VARCHAR} ||
+					'%'
+				</if>
+			</if>
+
+
+			<if test="map.ddly != null and map.ddly.size() != 0">
+				and op.ddly in
+				<foreach collection="map.ddly" index="index" item="ddlyit"
+					open="(" separator="," close=")">
+					#{ddlyit,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="map.fpzldm != null and map.fpzldm.size() != 0">
+				and op.fpzl_dm in
+				<foreach collection="map.fpzldm" index="index" item="fpzldmit"
+					open="(" separator="," close=")">
+					#{fpzldmit,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="map.xhfmc != null and map.xhfmc != ''">
+				and op.xhf_mc = #{map.xhfmc,jdbcType=VARCHAR}
+			</if>
+			<if test="map.ywlx != null and map.ywlx != ''">
+				and op.ywlx = #{map.ywlx,jdbcType=VARCHAR}
+			</if>
+			<if test="map.fplx != null and map.fplx != '' ">
+				and op.fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+			</if>
+			<if test="map.ghfNsrsbh != null and map.ghfNsrsbh != ''">
+				and op.ghf_nsrsbh = #{map.ghfNsrsbh,jdbcType=VARCHAR}
+			</if>
+			<if test="map.orderStatus !=null and map.orderStatus !='' ">
+				and op.order_status = #{map.orderStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="shList != null and shList.size() == 0">
+				and op.xhf_nsrsbh = ''
+			</if>
+			<if test="shList != null and shList.size() == 1">
+				and op.xhf_nsrsbh =
+				<foreach collection="shList" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="shList != null and shList.size() > 1">
+				and op.xhf_nsrsbh in
+				<foreach collection="shList" index="index" item="item"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+		</where>
+	</sql>
+
+	<sql id="originOrderQueryParamExtend">
+		<where>
+		    ooe.status = '0'
+			<!-- mysql数据库 -->
+			<if test="dataType == 0">
+				<if
+					test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+					and op.ddcjsj
+					>= #{map.startTime} and
+					#{map.endTime} >= op.ddcjsj
+				</if>
+			</if>
+			<!-- oracle数据库 -->
+			<if test="dataType == 1">
+				<if
+					test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+					and trunc(op.ddcjsj)
+					>=to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd
+					hh24:mi:ss')
+					and
+					to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd
+					hh24:mi:ss')>=trunc(op.ddcjsj)
+				</if>
+			</if>
+
+			<if test="map.ddly != null and map.ddly.size() != 0">
+				and op.ddly in
+				<foreach collection="map.ddly" index="index" item="ddlyit"
+					open="(" separator="," close=")">
+					#{ddlyit,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+
+		</where>
+	</sql>
+
+    <!-- 票单比对列表sql -->
+	<select id="queryOriginOrderCompare" resultType="hashMap"
+		parameterType="java.util.Map">
+		<bind name="dataType" value="${dataType}" />
+		SELECT * FROM
+		(
+		SELECT
+		DISTINCT(ooe.origin_order_id) order_id,
+		op.kphjje ddje,
+		op.ddcjsj,
+		op.xhf_nsrsbh,
+		op.xhf_mc,
+		op.ddh
+		FROM order_orgin_extend_info ooe
+		LEFT JOIN
+		order_process_info op ON ooe.origin_order_id = op.order_info_id
+		<!-- 原始订单扩展表中id和原订单id相同的为原始订单 -->
+        <include refid="originOrderQueryParam"/>
+		)
+		t1 LEFT JOIN
+		(
+		SELECT SUM(
+		<!-- 已作废不计算金额 -->
+	    CASE WHEN (oii.kpzt = '2' and oii.zf_bz = '1') THEN CAST(0.00 AS DECIMAL(18,2))
+	    	 WHEN (oii.kpzt = '2' and oii.zf_bz != '1') THEN CAST(oii.sykchje AS DECIMAL(18,2))
+	    	 ELSE CAST(0.00 AS DECIMAL(18,2)) END
+	    ) AS kpje,
+
+	    SUM(
+	    <!-- 判断是否原始订单的所有子订单已经删除  -->
+		CASE WHEN op.order_status = '1' then 0
+		ELSE 1 end
+		) AS isDel,
+		SUM(CAST(op.kphjje AS DECIMAL(18,2))) ddcfje,
+		GROUP_CONCAT(
+		CONCAT(oii.fpdm,'/',oii.fphm,'/',oii.ch_bz,'/',oii.zf_bz) SEPARATOR ';'
+		) fpdmhm,
+		COUNT(op.order_info_id) countorder,
+		MAX(op.order_info_id) order_info_id,
+		ooe.origin_order_id
+		FROM order_orgin_extend_info ooe
+		left join order_process_info op on ooe.order_id = op.order_info_id
+		LEFT JOIN order_invoice_info oii on op.order_info_id = oii.order_info_id
+		<include refid="originOrderQueryParamExtend"/>
+
+		<!--  已开票  -->
+	    <if test="map.kpzt  != null and (map.kpzt ==  '2'.toString() or map.kpzt ==  '1'.toString())">
+	    	AND oii.kpzt = '2'
+		</if>
+	    group by ooe.origin_order_id
+
+	    )
+		t2 on t1.order_id = t2.origin_order_id
+		<where>
+			isDel > 0
+			<if test="map.diff != null">
+				and t2.kpje is null or t2.kpje != t1.ddje
+			</if>
+			<if test="map.nodiff != null ">
+				and t2.kpje = t1.ddje
+			</if>
+			<!-- 已开票 -->
+			<if test="map.kpzt  != null and map.kpzt ==  '2'.toString()">
+				and countorder is not null and countorder > 0
+			</if>
+			<!-- 未开票 -->
+			<if test="map.kpzt  != null and map.kpzt ==  '1'.toString()">
+				and countorder = 0 or countorder is null
+			</if>
+		</where>
+		ORDER BY t1.ddcjsj desc
+	</select>
+
+
+	<!-- <select id="queryOriginOrderCompare" resultType="hashMap" parameterType="java.util.Map">
+		<bind name="dataType" value="${dataType}" /> select MAX(op.ddcjsj) ddcjsj,
+		ooe.origin_order_id FROM order_orgin_extend_info ooe inner join order_process_info
+		op on ooe.order_id = op.order_info_id 原始订单扩展表中id和原订单id相同的为原始订单 <where> mysql数据库
+		<if test="dataType == 0"> <choose> <when test="map.minhjje !=null and map.minhjje
+		!= '' and map.maxhjje !=null and map.maxhjje != ''"> and cast(op.kphjje as
+		DECIMAL) BETWEEN #{map.minhjje,jdbcType=DOUBLE} and #{map.maxhjje,jdbcType=DOUBLE}
+		</when> <otherwise> <if test="map.minhjje !=null and map.minhjje != ''">
+		and cast(op.kphjje as DECIMAL) >= #{map.minhjje,jdbcType=DOUBLE} </if> <if
+		test="map.maxhjje !=null and map.maxhjje != ''"> and #{map.maxhjje,jdbcType=DOUBLE}
+		>= cast(op.kphjje as DECIMAL) </if> </otherwise> </choose> <if test="map.startTime
+		!=null and map.startTime != '' and map.endTime !=null and map.endTime !=
+		''"> and DATE_FORMAT(op.ddcjsj,'%Y-%m-%d') >= #{map.startTime} and #{map.endTime}
+		>= DATE_FORMAT(op.ddcjsj,'%Y-%m-%d') </if> <if test="map.ddh != null and
+		map.ddh != ''"> and op.ddh like "%"#{map.ddh,jdbcType=VARCHAR}"%" </if> <if
+		test="map.gmfmc != null and map.gmfmc != ''"> and op.ghf_mc like concat('%',#{map.gmfmc,jdbcType=VARCHAR},'%')
+		</if> <if test="map.xhfmc != null and map.xhfmc != ''"> and op.xhf_mc like
+		concat('%',#{map.xhfmc,jdbcType=VARCHAR},'%') </if> </if> oracle数据库 <if test="dataType
+		== 1"> <choose> <when test="map.minhjje !=null and map.minhjje != '' and
+		map.maxhjje !=null and map.maxhjje != ''"> and to_number(op.kphjje) BETWEEN
+		#{map.minhjje,jdbcType=DOUBLE} and #{map.maxhjje,jdbcType=DOUBLE} </when>
+		<otherwise> <if test="map.minhjje !=null and map.minhjje != ''"> and to_number(op.kphjje)
+		>= #{map.minhjje,jdbcType=DOUBLE} </if> <if test="map.maxhjje !=null and
+		map.maxhjje != ''"> and #{map.maxhjje,jdbcType=DOUBLE} >= to_number(op.kphjje)
+		</if> </otherwise> </choose> <if test="map.startTime !=null and map.startTime
+		!= '' and map.endTime !=null and map.endTime != ''"> and trunc(op.ddcjsj)
+		>=to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss') and
+		to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')>=trunc(op.ddcjsj)
+		</if> <if test="map.ddh != null and map.ddh != ''"> and op.ddh like '%' ||
+		#{map.ddh,jdbcType=VARCHAR} || '%' </if> <if test="map.gmfmc != null and
+		map.gmfmc != ''"> and op.ghf_mc like '%' || #{map.gmfmc,jdbcType=VARCHAR}
+		|| '%' </if> <if test="map.xhfmc != null and map.xhfmc != ''"> and op.xhf_mc
+		like % || #{map.xhfmc,jdbcType=VARCHAR} || '%' </if> </if> <if test="map.ddzt
+		!= null and map.ddzt.size != 0"> and op.ddzt in <foreach collection="map.ddzt"
+		index="index" item="ddzti" open="(" separator="," close=")"> #{ddzti,jdbcType=VARCHAR}
+		</foreach> </if> <if test="map.ddly != null and map.ddly.size() != 0"> and
+		op.ddly in <foreach collection="map.ddly" index="index" item="ddlyit" open="("
+		separator="," close=")"> #{ddlyit,jdbcType=VARCHAR} </foreach> </if> <if
+		test="map.fpzldm != null and map.fpzldm.size() != 0"> and op.fpzl_dm in <foreach
+		collection="map.fpzldm" index="index" item="fpzldmit" open="(" separator=","
+		close=")"> #{fpzldmit,jdbcType=VARCHAR} </foreach> </if> <if test="map.xhfmc
+		!= null and map.xhfmc != ''"> and op.xhf_mc = #{map.xhfmc,jdbcType=VARCHAR}
+		</if> <if test="map.ywlx != null and map.ywlx != ''"> and op.ywlx = #{map.ywlx,jdbcType=VARCHAR}
+		</if> <if test="map.fplx != null and map.fplx != '' "> and op.fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+		</if> <if test="map.ghfNsrsbh != null and map.ghfNsrsbh != ''"> and op.ghf_nsrsbh
+		= #{map.ghfNsrsbh,jdbcType=VARCHAR} </if> <if test="map.orderStatus !=null
+		and map.orderStatus !='' "> and op.order_status = #{map.orderStatus,jdbcType=VARCHAR}
+		</if> <if test="map.xfsh !=null and map.xfsh !='' "> and op.xhf_nsrsbh =
+		#{map.xfsh,jdbcType=VARCHAR} </if> <if test="map.xhfNsrsbh !=null and map.xhfNsrsbh.size()
+		!= 0 "> and op.xhf_nsrsbh in <foreach collection="map.xhfNsrsbh" index="index"
+		item="item" open="(" separator="," close=")"> #{item,jdbcType=VARCHAR} </foreach>
+		</if> </where> group by ooe.origin_order_id 异常订单列表根据订单更新时间排序 order by ddcjsj
+		desc </select> -->
+	<!-- 单条原始订单和发票的关联关系 -->
+	<select id="queryOriginOrderAndInvoiceInfo" parameterType="java.util.Map"
+			resultType="hashMap">
+		select distinct
+		oi.fpdm,
+		oi.fphm,
+		oi.kpzt,
+		oi.ch_bz chbz,
+		op.ddh,
+		op.kphjje,
+		op.hjbhsje,
+		op.kpse,
+		op.ddzt,
+		op.order_info_id,
+		op.ghf_mc,
+		op.fpqqlsh
+		from
+		order_orgin_extend_info ooe
+		left join order_process_info op on
+		ooe.order_id = op.order_info_id
+		left join order_invoice_info oi on
+		op.order_info_id = oi.order_info_id
+		where
+		ooe.status = '0'
+		and ooe.origin_order_id =
+		#{map.orderId,jdbcType=VARCHAR}
+		<if test="map.kpzt != null  and map.kpzt != ''">
+			and oi.kpzt = #{map.kpzt,jdbcType=VARCHAR}
+		</if>
+		<if test="shList != null and shList.size() == 0">
+			and ooe.xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and ooe.xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and ooe.xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!--	<insert id="insertOrderOriginExtendByList" parameterType="java.util.List"-->
+	<!--		useGeneratedKeys="false">-->
+	<!--		<bind name="dataType" value="${dataType}" />-->
+	<!--		<if test="dataType ==0 ">-->
+	<!--			insert into order_orgin_extend_info (id, order_id, fpqqlsh,-->
+	<!--			origin_order_id, origin_fpqqlsh, create_time,-->
+	<!--			update_time,status)-->
+	<!--			values-->
+	<!--			<foreach collection="list" item="item" index="index"-->
+	<!--				separator=",">-->
+	<!--				(#{item.id,jdbcType=VARCHAR},-->
+	<!--				#{item.orderId,jdbcType=VARCHAR},-->
+	<!--				#{item.fpqqlsh,jdbcType=VARCHAR},-->
+	<!--				#{item.originOrderId,jdbcType=VARCHAR},-->
+	<!--				#{item.originFpqqlsh,jdbcType=VARCHAR},-->
+	<!--				#{item.createTime,jdbcType=TIMESTAMP},-->
+	<!--				#{item.updateTime,jdbcType=TIMESTAMP},-->
+	<!--				#{item.status,jdbcType=VARCHAR})-->
+	<!--			</foreach>-->
+	<!--		</if>-->
+	<!--		<if test="dataType == 1">-->
+	<!--			insert into order_orgin_extend_info (id, order_id, fpqqlsh,-->
+	<!--			origin_order_id, origin_fpqqlsh, create_time,-->
+	<!--			update_time,status)-->
+	<!--			<foreach collection="list" item="item" index="index"-->
+	<!--				separator="union all">-->
+	<!--				(-->
+	<!--				SELECT-->
+	<!--				#{item.id,jdbcType=VARCHAR},-->
+	<!--				#{item.orderId,jdbcType=VARCHAR},-->
+	<!--				#{item.fpqqlsh,jdbcType=VARCHAR},-->
+	<!--				#{item.originOrderId,jdbcType=VARCHAR},-->
+	<!--				#{item.originFpqqlsh,jdbcType=VARCHAR},-->
+	<!--				#{item.createTime,jdbcType=TIMESTAMP},-->
+	<!--				#{item.updateTime,jdbcType=TIMESTAMP},-->
+	<!--				#{item.status,jdbcType=VARCHAR}-->
+	<!--				FROM DUAL-->
+	<!--				)-->
+	<!--			</foreach>-->
+	<!--		</if>-->
+	<!--	</insert>-->
+
+	<!--	<delete id="deleteByOrderId" parameterType="java.lang.String">-->
+	<!--		delete from order_orgin_extend_info-->
+	<!--		where order_id =-->
+	<!--		#{orderId,jdbcType=VARCHAR}-->
+	<!--	</delete>-->
+
+
+	<select id="queryOriginOrderByOrder" parameterType="com.dxhy.order.model.OrderOriginExtendInfo"
+			resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from order_orgin_extend_info
+		<where>
+			<if test="origin.orderId != null">
+				and order_id = #{origin.orderId,jdbcType=VARCHAR}
+			</if>
+			<if test="origin.fpqqlsh != null">
+				and fpqqlsh = #{origin.fpqqlsh,jdbcType=VARCHAR}
+			</if>
+			<if test="origin.originOrderId != null">
+				and origin_order_id = #{origin.originOrderId,jdbcType=VARCHAR}
+			</if>
+			<if test="origin.originFpqqlsh != null">
+				and origin_fpqqlsh = #{origin.originFpqqlsh,jdbcType=VARCHAR}
+			</if>
+			<if test="origin.createTime != null">
+				and create_time = #{origin.createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="origin.updateTime != null">
+				and update_time = #{origin.updateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="origin.status != null">
+				and status = #{origin.status,jdbcType=VARCHAR}
+			</if>
+			<if test="shList != null and shList.size() == 0">
+				and xhf_nsrsbh = ''
+			</if>
+			<if test="shList != null and shList.size() == 1">
+				and xhf_nsrsbh =
+				<foreach collection="shList" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="shList != null and shList.size() > 1">
+				and xhf_nsrsbh in
+				<foreach collection="shList" index="index" item="item"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<!-- 票单比对列表金额统计 -->
+	<select id="queryCompareOriginOrderAndInvoiceCounter"
+		resultType="hashMap" parameterType="java.util.Map">
+		<bind name="dataType" value="${dataType}" />
+		SELECT
+		SUM(CAST(ddje AS DECIMAL(18,2))) ddje,
+		SUM(CAST(kpje AS DECIMAL(18,2))) kpje
+		from
+		(
+		SELECT * FROM
+		(
+		SELECT
+		DISTINCT(ooe.origin_order_id) order_id,
+		CAST(op.kphjje AS DECIMAL(18,2)) ddje,
+		op.ddcjsj,
+		op.ddh
+		from order_orgin_extend_info ooe
+		LEFT JOIN
+		order_process_info op ON ooe.origin_order_id = op.order_info_id
+		<!-- 原始订单扩展表中id和原订单id相同的为原始订单 -->
+        <include refid="originOrderQueryParam"/>
+		)
+		t1 LEFT JOIN
+		(
+		select sum(
+		<!-- 已作废不计算金额 -->
+	    case when (oii.kpzt = '2' and oii.zf_bz = '1') then CAST(0.00 AS DECIMAL(18,2))
+	    	 when (oii.kpzt = '2' and oii.zf_bz != '1') then CAST(oii.sykchje AS DECIMAL(18,2))
+	    	 else CAST(0.00 AS DECIMAL(18,2)) end
+	    ) as kpje,
+	    <!-- 判断是否已经删除 -->
+	    sum(
+	    <!-- 判断是否原始订单的所有子订单已经删除  -->
+		case when op.order_status = '2' then 0
+		else 1 end
+		) as isDel,
+		COUNT(op.order_info_id) countorder,
+		max(ooe.origin_order_id) origin_order_id
+		FROM order_orgin_extend_info ooe
+		left join order_process_info op on ooe.order_id = op.order_info_id
+		LEFT JOIN order_invoice_info oii on op.order_info_id = oii.order_info_id
+		<include refid="originOrderQueryParamExtend"/>
+		<if test="map.kpzt  != null and (map.kpzt ==  '2'.toString() or map.kpzt ==  '1'.toString())">
+	    	AND oii.kpzt = '2'
+		</if>
+		group by ooe.origin_order_id
+		)
+		t2 on t1.order_id = t2.origin_order_id
+		<where>
+		    isDel > 0
+			<if test = "map.diff != null">
+				and t2.kpje is null or  t2.kpje != t1.ddje
+			</if>
+
+			<if test = "map.nodiff != null ">
+				and t2.kpje = t1.ddje
+			</if>
+			<!-- 已开票 -->
+			<if test="map.kpzt  != null and map.kpzt ==  '2'.toString()">
+				and countorder is not null and countorder > 0
+			</if>
+			<!-- 未开票 -->
+			<if test="map.kpzt  != null and map.kpzt ==  '1'.toString()">
+				and countorder = 0 or countorder is null
+			</if>
+		</where>
+		) t3
+	</select>
+
+	<update id="updateSelectiveByOrderId" parameterType="com.dxhy.order.model.OrderOriginExtendInfo">
+		update order_orgin_extend_info
+		<set>
+			<if test="orgin.orderId != null">
+				order_id = #{orgin.orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="orgin.fpqqlsh != null">
+				fpqqlsh = #{orgin.fpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="orgin.originOrderId != null">
+				origin_order_id = #{orgin.originOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="orgin.originFpqqlsh != null">
+				origin_fpqqlsh = #{orgin.originFpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="orgin.originDdh != null">
+				origin_ddh = #{orgin.originDdh,jdbcType=VARCHAR},
+			</if>
+			<if test="orgin.createTime != null">
+				create_time = #{orgin.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orgin.updateTime != null">
+				update_time = #{orgin.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orgin.status != null">
+				status = #{orgin.status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where order_id = #{orgin.orderId,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+
+	<!-- <select id="queryCompareOriginOrderAndInvoiceCounter"
+		resultType="hashMap" parameterType="java.util.Map">
+		<bind name="dataType" value="${dataType}" />
+		select
+		ooe.origin_order_id,
+		ooe.order_id,
+		op.ddzt,
+		op.kphjje ddjshj,
+		op.hjbhsje ddhjje,
+		op.kpse ddhjse,
+		oi.kpzt,
+		oi.kphjje jshj,
+		oi.hjbhsje
+		hjje,
+		oi.kpse hjse
+		FROM
+		order_orgin_extend_info ooe
+		left join
+		order_process_info op
+		on
+		ooe.order_id = op.order_info_id
+		left join
+		order_invoice_info oi
+		on
+		op.order_info_id = oi.order_info_id
+		<where>
+			mysql数据库
+			<if test="dataType == 0">
+				<choose>
+					<when
+						test="map.minhjje !=null and map.minhjje != '' and map.maxhjje !=null and map.maxhjje != ''">
+						and cast(op.kphjje as DECIMAL) BETWEEN
+						#{map.minhjje,jdbcType=DOUBLE}
+						and
+						#{map.maxhjje,jdbcType=DOUBLE}
+					</when>
+					<otherwise>
+						<if test="map.minhjje !=null and map.minhjje != ''">
+							and cast(op.kphjje as DECIMAL) >=
+							#{map.minhjje,jdbcType=DOUBLE}
+						</if>
+						<if test="map.maxhjje !=null and map.maxhjje != ''">
+							and #{map.maxhjje,jdbcType=DOUBLE}
+							>= cast(op.kphjje as
+							DECIMAL)
+						</if>
+					</otherwise>
+				</choose>
+				<if
+					test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+					and DATE_FORMAT(op.ddcjsj,'%Y-%m-%d')
+					>= #{map.startTime} and
+					#{map.endTime} >= DATE_FORMAT(op.ddcjsj,'%Y-%m-%d')
+				</if>
+				<if test="map.ddh != null and map.ddh != ''">
+					and op.ddh like "%"#{map.ddh,jdbcType=VARCHAR}"%"
+				</if>
+
+				<if test="map.gmfmc != null and map.gmfmc != ''">
+					and op.ghf_mc like
+					concat('%',#{map.gmfmc,jdbcType=VARCHAR},'%')
+				</if>
+				<if test="map.xhfmc != null and map.xhfmc != ''">
+					and op.xhf_mc like
+					concat('%',#{map.xhfmc,jdbcType=VARCHAR},'%')
+
+				</if>
+			</if>
+			oracle数据库
+			<if test="dataType == 1">
+				<choose>
+					<when
+						test="map.minhjje !=null and map.minhjje != '' and map.maxhjje !=null and map.maxhjje != ''">
+						and to_number(op.kphjje) BETWEEN
+						#{map.minhjje,jdbcType=DOUBLE}
+						and
+						#{map.maxhjje,jdbcType=DOUBLE}
+					</when>
+					<otherwise>
+						<if test="map.minhjje !=null and map.minhjje != ''">
+							and to_number(op.kphjje) >=
+							#{map.minhjje,jdbcType=DOUBLE}
+						</if>
+						<if test="map.maxhjje !=null and map.maxhjje != ''">
+							and #{map.maxhjje,jdbcType=DOUBLE}
+							>=
+							to_number(op.kphjje)
+						</if>
+					</otherwise>
+				</choose>
+				<if
+					test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+					and trunc(op.ddcjsj)
+					>=to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd
+					hh24:mi:ss')
+					and
+					to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd
+					hh24:mi:ss')>=trunc(op.ddcjsj)
+				</if>
+				<if test="map.ddh != null and map.ddh != ''">
+					and op.ddh like '%' || #{map.ddh,jdbcType=VARCHAR} ||
+					'%'
+				</if>
+				<if test="map.gmfmc != null and map.gmfmc != ''">
+					and op.ghf_mc like '%' || #{map.gmfmc,jdbcType=VARCHAR}
+					||
+					'%'
+				</if>
+				<if test="map.xhfmc != null and map.xhfmc != ''">
+					and op.xhf_mc like % || #{map.xhfmc,jdbcType=VARCHAR} ||
+					'%'
+				</if>
+			</if>
+
+			<if test="map.ddzt != null and map.ddzt.size != 0">
+				and op.ddzt in
+				<foreach collection="map.ddzt" index="index" item="ddzti"
+					open="(" separator="," close=")">
+					#{ddzti,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="map.ddly != null and map.ddly.size() != 0">
+				and op.ddly in
+				<foreach collection="map.ddly" index="index" item="ddlyit"
+					open="(" separator="," close=")">
+					#{ddlyit,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="map.fpzldm != null and map.fpzldm.size() != 0">
+				and op.fpzl_dm in
+				<foreach collection="map.fpzldm" index="index" item="fpzldmit"
+					open="(" separator="," close=")">
+					#{fpzldmit,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+			<if test="map.xhfmc != null and map.xhfmc != ''">
+				and op.xhf_mc = #{map.xhfmc,jdbcType=VARCHAR}
+			</if>
+			<if test="map.ywlx != null and map.ywlx != ''">
+				and op.ywlx = #{map.ywlx,jdbcType=VARCHAR}
+			</if>
+			<if test="map.fplx != null and map.fplx != '' ">
+				and op.fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+			</if>
+			<if test="map.ghfNsrsbh != null and map.ghfNsrsbh != ''">
+				and op.ghf_nsrsbh = #{map.ghfNsrsbh,jdbcType=VARCHAR}
+			</if>
+			<if test="map.orderStatus !=null and map.orderStatus !='' ">
+				and op.order_status = #{map.orderStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="map.xfsh !=null and map.xfsh !='' ">
+				and op.xhf_nsrsbh = #{map.xfsh,jdbcType=VARCHAR}
+			</if>
+			<if test="map.xhfNsrsbh !=null and map.xhfNsrsbh.size() != 0 ">
+				and op.xhf_nsrsbh in
+				<foreach collection="map.xhfNsrsbh" index="index" item="item"
+					open="(" separator="," close=")">
+					#{item,jdbcType=VARCHAR}
+				</foreach>
+			</if>
+		</where>
+		order by ooe.origin_order_id
+
+	</select> -->
+
+
+</mapper>

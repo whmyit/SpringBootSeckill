@@ -3,6 +3,18 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SpringBootSeckill.iml" filepath="$PROJECT_DIR$/.idea/SpringBootSeckill.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-file-operate/order-file-operate.iml" filepath="$PROJECT_DIR$/order-file-operate/order-file-operate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-mail/order-mail.iml" filepath="$PROJECT_DIR$/order-mail/order-mail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-management-api/order-management-api.iml" filepath="$PROJECT_DIR$/order-management-api/order-management-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-management-common/order-management-common.iml" filepath="$PROJECT_DIR$/order-management-common/order-management-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-management-consumer/order-management-consumer.iml" filepath="$PROJECT_DIR$/order-management-consumer/order-management-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-management-generatepdf/order-management-generatepdf.iml" filepath="$PROJECT_DIR$/order-management-generatepdf/order-management-generatepdf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-management-provider/order-management-provider.iml" filepath="$PROJECT_DIR$/order-management-provider/order-management-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-merge/order-merge.iml" filepath="$PROJECT_DIR$/order-merge/order-merge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-price-separation/order-price-separation.iml" filepath="$PROJECT_DIR$/order-price-separation/order-price-separation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-rabbitmq-core/order-rabbitmq-core.iml" filepath="$PROJECT_DIR$/order-rabbitmq-core/order-rabbitmq-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-sms/order-sms.iml" filepath="$PROJECT_DIR$/order-sms/order-sms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-split/order-split.iml" filepath="$PROJECT_DIR$/order-split/order-split.iml" />
     </modules>
   </component>
 </project>

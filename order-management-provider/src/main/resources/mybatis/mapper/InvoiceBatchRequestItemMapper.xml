@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvoiceBatchRequestItemMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.InvoiceBatchRequestItem">
+
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="invoice_batch_id" property="invoiceBatchId" jdbcType="VARCHAR"/>
+        <result column="fpqqpch" property="fpqqpch" jdbcType="VARCHAR"/>
+        <result column="fpqqlsh" property="fpqqlsh" jdbcType="VARCHAR"/>
+        <result column="kplsh" property="kplsh" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        id, invoice_batch_id, fpqqpch, fpqqlsh, kplsh,xhf_nsrsbh, status, message, create_time, update_time
+    </sql>
+    <!--    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from invoice_batch_request_item-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+    <!--    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+
+    <!--        delete from invoice_batch_request_item-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </delete>-->
+    <!--    <insert id="insertInvoiceBatchItem" parameterType="com.dxhy.order.model.InvoiceBatchRequestItem">-->
+
+    <!--        insert into invoice_batch_request_item (id, invoice_batch_id, fpqqpch,-->
+    <!--        fpqqlsh, kplsh,xhf_nsrsbh, status,-->
+    <!--        message, create_time, update_time-->
+    <!--        )-->
+    <!--        values (#{id,jdbcType=VARCHAR}, #{invoiceBatchId,jdbcType=VARCHAR}, #{fpqqpch,jdbcType=VARCHAR},-->
+    <!--        #{fpqqlsh,jdbcType=VARCHAR}, #{kplsh,jdbcType=VARCHAR},#{xhfNsrsbh,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},-->
+    <!--        #{message,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}-->
+    <!--        )-->
+    <!--    </insert>-->
+    <!--    <insert id="insertSelective" parameterType="com.dxhy.order.model.InvoiceBatchRequestItem">-->
+
+    <!--        insert into invoice_batch_request_item-->
+    <!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                id,-->
+    <!--            </if>-->
+    <!--            <if test="invoiceBatchId != null">-->
+    <!--                invoice_batch_id,-->
+    <!--            </if>-->
+    <!--            <if test="fpqqpch != null">-->
+    <!--                fpqqpch,-->
+    <!--            </if>-->
+    <!--            <if test="fpqqlsh != null">-->
+    <!--                fpqqlsh,-->
+    <!--            </if>-->
+    <!--            <if test="kplsh != null">-->
+    <!--                kplsh,-->
+    <!--            </if>-->
+    <!--            <if test="status != null">-->
+    <!--                status,-->
+    <!--            </if>-->
+    <!--            <if test="message != null">-->
+    <!--                message,-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time,-->
+    <!--            </if>-->
+    <!--            <if test="updateTime != null">-->
+    <!--                update_time,-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--        <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                #{id,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceBatchId != null">-->
+    <!--                #{invoiceBatchId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpqqpch != null">-->
+    <!--                #{fpqqpch,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpqqlsh != null">-->
+    <!--                #{fpqqlsh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kplsh != null">-->
+    <!--                #{kplsh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="status != null">-->
+    <!--                #{status,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="message != null">-->
+    <!--                #{message,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="updateTime != null">-->
+    <!--                #{updateTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--    </insert>-->
+    <!--    <update id="updateInvoieBatchItem" parameterType="com.dxhy.order.model.InvoiceBatchRequestItem">-->
+
+    <!--        update invoice_batch_request_item-->
+    <!--        <set>-->
+    <!--            <if test="invoiceBatchId != null">-->
+    <!--                invoice_batch_id = #{invoiceBatchId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpqqpch != null">-->
+    <!--                fpqqpch = #{fpqqpch,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpqqlsh != null">-->
+    <!--                fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kplsh != null">-->
+    <!--                kplsh = #{kplsh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="status != null">-->
+    <!--                status = #{status,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="message != null">-->
+    <!--                message = #{message,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="updateTime != null">-->
+    <!--                update_time = #{updateTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </update>-->
+    <update id="updateInvoiceBatchItemByKplsh" parameterType="com.dxhy.order.model.InvoiceBatchRequestItem">
+
+        update invoice_batch_request_item
+        <set>
+            <if test="invoiceBatchItem.invoiceBatchId != null">
+                invoice_batch_id = #{invoiceBatchItem.invoiceBatchId,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.fpqqpch != null">
+                fpqqpch = #{invoiceBatchItem.fpqqpch,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.fpqqlsh != null">
+                fpqqlsh = #{invoiceBatchItem.fpqqlsh,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.kplsh != null">
+                kplsh = #{invoiceBatchItem.kplsh,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.xhfNsrsbh != null">
+                xhf_nsrsbh = #{invoiceBatchItem.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.status != null">
+                status = #{invoiceBatchItem.status,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.message != null">
+                message = #{invoiceBatchItem.message,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBatchItem.createTime != null">
+                create_time = #{invoiceBatchItem.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceBatchItem.updateTime != null">
+                update_time = #{invoiceBatchItem.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where kplsh = #{invoiceBatchItem.kplsh,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+    <!--    &lt;!&ndash; updateBatchItemStatusByFpqpch &ndash;&gt;-->
+    <!--    <update id="updateBatchItemStatusByFpqpch" parameterType="com.dxhy.order.model.InvoiceBatchRequestItem">-->
+    <!--        update invoice_batch_request_item-->
+    <!--        <set>-->
+    <!--            <if test="message != null">-->
+    <!--                message = #{message,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where fpqqpch = #{fpqqpch,jdbcType=VARCHAR}-->
+    <!--        and kplsh = #{kplsh,jdbcType=VARCHAR}-->
+    <!--    </update>-->
+    <!--selectByFpqqpch  -->
+    <select id="selectInvoiceBatchItemByFpqqpch" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice_batch_request_item
+        where fpqqpch = #{fpqqpch,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--selectInvoiceBatchItemByKplsh  -->
+    <select id="selectInvoiceBatchItemByKplsh" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice_batch_request_item
+        where kplsh = #{kplsh,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--selectInvoiceBatchItemByFpqqlsh  -->
+    <select id="selectInvoiceBatchItemByFpqqlsh" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice_batch_request_item
+        where fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--  insertBatchItem-->
+    <insert id="insertInvoiceBatchItemBatch" parameterType="java.util.List">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType == 0">
+            insert into invoice_batch_request_item (id, invoice_batch_id, fpqqpch,
+            fpqqlsh, kplsh,xhf_nsrsbh, status,
+            message, create_time, update_time
+            )
+            values
+            <foreach collection="list" item="batchItem" index="index" separator=",">
+                (#{batchItem.id,jdbcType=VARCHAR}, #{batchItem.invoiceBatchId,jdbcType=VARCHAR},
+                #{batchItem.fpqqpch,jdbcType=VARCHAR},
+                #{batchItem.fpqqlsh,jdbcType=VARCHAR},
+                #{batchItem.kplsh,jdbcType=VARCHAR},
+                #{batchItem.xhfNsrsbh,jdbcType=VARCHAR},
+                #{batchItem.status,jdbcType=VARCHAR},
+                #{batchItem.message,jdbcType=VARCHAR}, #{batchItem.createTime,jdbcType=TIMESTAMP},
+                #{batchItem.updateTime,jdbcType=TIMESTAMP})
+            </foreach>
+        </if>
+        <if test="dataType == 1">
+            BEGIN
+            <foreach collection="list" item="batchItem" index="index" separator="">
+                insert into invoice_batch_request_item (id, invoice_batch_id, fpqqpch,
+                fpqqlsh, kplsh,xhf_nsrsbh, status,
+                message, create_time, update_time
+                )
+                VALUES
+                (
+                #{batchItem.id,jdbcType=VARCHAR},
+                #{batchItem.invoiceBatchId,jdbcType=VARCHAR},
+                #{batchItem.fpqqpch,jdbcType=VARCHAR},
+                #{batchItem.fpqqlsh,jdbcType=VARCHAR},
+                #{batchItem.kplsh,jdbcType=VARCHAR},
+                #{batchItem.xhfNsrsbh,jdbcType=VARCHAR},
+                #{batchItem.status,jdbcType=VARCHAR},
+                #{batchItem.message,jdbcType=VARCHAR},
+                #{batchItem.createTime,jdbcType=TIMESTAMP},
+                #{batchItem.updateTime,jdbcType=TIMESTAMP});
+            </foreach>
+            COMMIT;
+            END;
+
+        </if>
+
+    </insert>
+    <!--    &lt;!&ndash;  selectBatchRequestItemId&ndash;&gt;-->
+    <!--    <select id="selectBatchRequestItemId" resultType="java.lang.String"-->
+    <!--            parameterType="com.dxhy.order.model.InvoiceBatchRequestItem">-->
+    <!--        select id from invoice_batch_request_item-->
+    <!--        <where>-->
+    <!--            <if test="fpqqpch != null">-->
+    <!--                fpqqpch = #{fpqqpch,jdbcType=VARCHAR}-->
+    <!--            </if>-->
+    <!--            <if test="kplsh != null">-->
+    <!--                and kplsh = #{kplsh,jdbcType=VARCHAR}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+</mapper>

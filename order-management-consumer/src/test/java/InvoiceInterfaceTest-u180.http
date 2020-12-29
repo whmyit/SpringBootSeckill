@@ -1,0 +1,229 @@
+### U180 已开发票作废 2
+POST http://10.1.2.51:58089/invoice/business/v1.0/ykfpzf
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "FP_DM": "str",
+  "FP_QH": "str",
+  "FP_ZH": "str",
+  "FPZLDM": "str",
+  "ISHISTORY": "str",
+  "NSRSBH": "str",
+  "SLDID": "str",
+  "ZFLX": "str",
+  "ZFPCH": "str",
+  "ZFYY": "str",
+  "ZFR": "str"
+}
+
+
+### U180 空白发票作废 3
+POST http://10.1.2.51:58089/invoice/business/v1.0/blankInvoiceZf
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "FP_DM": "str",
+  "FP_HM": "str",
+  "FPLB": "str",
+  "KPJH": "str",
+  "NSRSBH": "str",
+  "SLDID": "str",
+  "ZFLX": "str",
+  "ZFYY": "str",
+  "ZFR": "str"
+}
+
+
+### U180 获取pdf数据 4
+POST http://10.1.2.51:58089/invoice/business/v1.0/getPdf
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "id": "str",
+  "FPQQPCH": "str",
+  "NSRSBH": "str",
+  "REQUEST_EINVOICE_PDF": [
+    {
+      "ID": "str",
+      "FP_DM": "str",
+      "FP_HM": "str"
+    }
+  ]
+}
+
+### U180 查询开票点 5
+POST http://10.1.2.51:58089/invoice/business/v1.0/querySld
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "cpybs": "str",
+  "fpzldm": "str",
+  "fplxDm": "str",
+  "qyzt": "str",
+  "id": "str",
+  "nsrsbh": "str",
+  "fjh": "str"
+}
+
+### U180 查询开票点可用库存份数 6
+POST http://10.1.2.51:58089/invoice/business/v1.0/querySldKykc
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "sldid": "str",
+  "fpzldm": "str",
+  "nsrsbh": "str",
+  "fjh": "str",
+  "jqbh": "str"
+}
+
+
+### U180 查询票种开票限额 7
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryNsrpzKpxe
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "fjh": "str",
+  "fpzlDm": "str",
+  "id": "str",
+  "nsrsbh": "str",
+  "qysj": "str",
+  "zdh": "str"
+}
+
+### U180 查询受理点下一张发票 8
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryNextInvoice
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "fpzlDm": "str",
+  "nsrsbh": "str",
+  "sldId": "str"
+}
+
+### U180 月度统计查询 9
+POST http://10.1.2.51:58089/invoice/business/v1.0/ydtj
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "xhfNsrsbh": "str",
+  "xhfMc": "str",
+  "xhfDzdh": "str",
+  "xhfYhzh": "str",
+  "fjh": "str",
+  "year": "str",
+  "month": "str",
+  "fpzlDm": "str",
+  "xnsbh": "str"
+}
+
+
+### U180 打印机列表查询 10
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryDyjByDyjmcAndDyjzt
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "nsrsbh": "str",
+  "dyjzt": "str",
+  "dydMc": "str"
+}
+
+### U180 打印发票 11
+POST http://10.1.2.51:58089/invoice/business/v1.0/printInvoice
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "dyjId": "str",
+  "dyjMc": "str",
+  "dypch": "str",
+  "sbj": "str",
+  "zbj": "str",
+  "fpbs": "str",
+  "dylx": "str",
+  "spotKey": "str",
+  "invoicePrintPackageDetailList": [
+    {
+      "kpzdbs": "str",
+      "fpzlDm": "str",
+      "fpdm": "str",
+      "fpqh": "str",
+      "fpzh": "str",
+      "nsrsbh": "str",
+      "fjh": "str",
+      "sldId": "str",
+      "fpqqlsh": "str",
+      "ddqqlsh": "str"
+    }
+  ]
+}
+
+### U180 库存信息查询 12
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryKcxx
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "sldid": "str",
+  "fpzldm": "str",
+  "nsrsbh": "str",
+  "fjh": "str",
+  "jqbh": "str"
+}
+
+
+### U180 根据分机号查询发票种类代码 13
+POST http://10.1.2.51:58089/invoice/business/v1.0/getSearchFjhFpzlDm
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "nsrsbhs": [
+    {
+      "nsrsbh": "str"
+    }
+  ],
+  "qyzt": "str",
+  "fjh": "str",
+  "pageNo": "str",
+  "pageSize": "str"
+}
+
+
+### U180 查询发票开具状态 15
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryInvoiceStatus
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "NSRSBH": "str",
+  "FPQQLSH": "str"
+}
+
+### U180 发票开具 1
+POST http://10.1.2.51:58089/invoice/business/v1.0/invoiceIssuing
+Content-Type: application/json
+X-Request-Id: u180
+
+{
+  "COMMON_INVOICES_BATCH": {
+    "FPQQPCH": "str",
+    "NSRSBH": "str",
+    "SLDID": "str",
+    "KPJH": "str",
+    "FPLX": "str",
+    "FPLB": "str",
+    "KZZD": "str",
+    "CPYFP": true
+  },
+  "COMMON_INVOICE": "CommonInvoice[]"
+}

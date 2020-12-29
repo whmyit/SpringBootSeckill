@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+    <!--去掉 sqlMaxLimit 返回所有 -->
+    <schema name="sales_order" checkSQLschema="false">
+
+        <!--*******************   全局表,所有节点都会存储  start  *******************-->
+        <!--认证表-->
+        <table name="authentication" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--二维码配置主表-->
+        <table name="ewm_config" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--二维码配置明细表-->
+        <table name="ewm_config_item" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--二维码公众号配置表-->
+        <table name="ewm_gzh_config" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--发票快递表-->
+        <table name="fp_express" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--快递公司表-->
+        <table name="fp_kdbm" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--发票邮寄表-->
+        <table name="fp_sender" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--拆分规则表-->
+        <table name="rule_split" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--发票预警表-->
+        <table name="saler_warning" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--推送企业信息表-->
+        <table name="push_info" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--发票预警表-->
+        <table name="invoice_warning_info" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--字典表-->
+        <table name="sys_dictionary" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--税控设备表-->
+        <table name="t_sksb" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--消息表-->
+        <table name="t_message" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--税号队列表-->
+        <table name="sys_nsr_queue" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--红字申请单主表-->
+        <table name="special_invoice_reversal" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--红字申请单明细表-->
+        <table name="special_invoice_reversal_item" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--税编集团表-->
+        <table name="group_tax_class_code" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--购方分组表-->
+        <table name="group_commodity" primaryKey="id" type="global" dataNode="dn$1-3"/>
+        <!--*******************   全局表,所有节点都会存储  end  *******************-->
+
+
+        <!--*******************   分库  start *******************-->
+        <!--业务类型表-->
+        <table name="business_type_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--购货方信息表-->
+        <table name="buyer_manage_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--商品信息表-->
+        <table name="commodity_code" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--开票人表-->
+        <table name="drawer_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--发票类型扩展表-->
+        <table name="invoice_type_code_ext" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--纸票作废表-->
+        <table name="paper_invalid_invoice_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--批量开票请求批次表-->
+        <table name="invoice_batch_request" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--批量开票请求明细表-->
+        <table name="invoice_batch_request_item" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--批量订单请求批次表-->
+        <table name="order_batch_request" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单信息表-->
+        <table name="order_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单处理表-->
+        <table name="order_invoice_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单明细表-->
+        <table name="order_item_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单原始订单扩展表-->
+        <table name="order_orgin_extend_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单处理表-->
+        <table name="order_process_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单处理表-->
+        <table name="order_process_info_ext" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--订单二维码扩展表-->
+        <table name="order_qrcode_extend" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--静态码二维码主表-->
+        <table name="quick_response_code_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--静态码二维码明细表-->
+        <table name="quick_response_code_item_info" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--全税项目统计汇总表-->
+        <table name="invoice_item_request" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+        <!--全税率金额统计汇总表-->
+        <table name="invoice_taxrate_request" primaryKey="id" dataNode="dn$1-3" rule="xhfNsrsbhHashRule"/>
+
+        <!--*******************   分库  end *******************-->
+    </schema>
+
+
+    <dataNode name="dn1" dataHost="db1" database="sales_order"/>
+    <dataNode name="dn2" dataHost="db2" database="sales_order"/>
+    <dataNode name="dn3" dataHost="db3" database="sales_order"/>
+
+
+    <!--配置不同数据库连接,根据大区对应多套数据库-->
+    <dataHost name="db1" maxCon="1000" minCon="10" balance="0"
+              writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="sales_order_host1" url="10.1.1.224:3306" user="dxhy" password="Dxhy@123">
+            <!--<readHost host="hostS1" url="10.1.21.86:3306" password="123" user="dxhy"/>-->
+        </writeHost>
+    </dataHost>
+
+    <dataHost name="db2" maxCon="1000" minCon="10" balance="0"
+              writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="sales_order_host2" url="10.1.1.224:3306" user="dxhy" password="Dxhy@123">
+            <!--<readHost host="hostS1" url="10.1.21.86:3306" password="123" user="dxhy"/>-->
+        </writeHost>
+    </dataHost>
+
+
+    <dataHost name="db3" maxCon="1000" minCon="10" balance="0"
+              writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="sales_order_host3" url="10.1.1.224:3306" user="dxhy" password="Dxhy@123">
+            <!--<readHost host="hostS1" url="10.1.21.86:3306" password="123" user="dxhy"/>-->
+        </writeHost>
+    </dataHost>
+
+
+</mycat:schema>

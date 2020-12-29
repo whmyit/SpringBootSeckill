@@ -9,9 +9,10 @@ public class BaseException extends RuntimeException {
 
     private Integer code;
 
-    BaseException(){}
+    BaseException() {
+    }
 
-    BaseException(String msg){
+    BaseException(String msg) {
         super(msg);
     }
 

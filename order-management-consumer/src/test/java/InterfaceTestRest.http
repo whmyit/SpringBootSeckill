@@ -1,0 +1,33 @@
+POST http://test.5ifapiao.com:8888/fatsapi/uadmin/dept/queryDeptByNameAndCode
+Content-Type: application/json
+//{
+//  "taxpayerCode": "2333333333333333333F",
+//  "taxpayerName": "壳牌石家庄分公司"
+//}
+
+{
+  "taxpayerCode": "15000120561127953X",
+  "name": "销项测试有限公司"
+}
+
+###
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{}
+
+### 发票开具结果获取
+POST http://10.1.1.222:8087/order-api/v4/GetAllocatedInvoices
+Content-Type: application/json
+
+{
+  "FPLXDM": "026",
+  "NSRSBH": "",
+  "SFFHSBSJ": "0",
+  "DDQQPCH": "WJC_200513154305"
+}
+
+
+
+
+###

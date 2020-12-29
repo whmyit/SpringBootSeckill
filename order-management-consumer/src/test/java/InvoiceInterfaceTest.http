@@ -1,0 +1,46 @@
+POST http://localhost:80/api/item
+Content-Type: application/x-www-form-urlencoded
+
+id=99&content=new-element
+
+###
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryKcxx
+Content-Type: application/json
+X-Request-Id: ukey
+
+{
+  "nsrsbh": "110110202040307",
+  "fjh": "",
+  "jqbh": "237000120526",
+  "fpzlDm": "026"
+}
+
+
+### 百旺盘阵和新税控UKey获取分机号
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryJqbh
+Content-Type: application/json
+X-Request-Id: ukey
+
+{
+  "nsrsbh": "110110202040307",
+  "fjh": "",
+  "jqbh": "",
+  "fpzlDm": "026"
+}
+
+
+###
+POST http://10.1.2.51:58089/invoice/business/v1.0/queryNsrXnsbxx
+Content-Type: application/json
+X-Request-Id: newtax
+
+{
+  "cpybs": "",
+  "fplxDm": "026",
+  "qyzt": "",
+  "id": "",
+  "nsrsbh": "91500108MA004CPN95",
+  "fjh": ""
+}
+
+###

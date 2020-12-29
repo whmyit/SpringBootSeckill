@@ -11,9 +11,10 @@ public class MyException extends BaseException {
 
     private Integer code;
 
-    MyException(){}
+    MyException() {
+    }
 
-     public MyException (ResultEnum resultEnum){
+    public MyException(ResultEnum resultEnum) {
         super(resultEnum.getMsg());
         this.code = resultEnum.getCode();
     }

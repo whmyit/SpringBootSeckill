@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderStatusStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderStatusStatistics">
+
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="ddh" property="ddh" jdbcType="VARCHAR"/>
+        <result column="ddrq" property="ddrq" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="jssj" jdbcType="TIMESTAMP"/>
+        <result column="fpzl_dm" property="fpzldm" jdbcType="VARCHAR"/>
+        <result column="ghf_mc" property="ghfmc" jdbcType="VARCHAR"/>
+        <result column="ghf_nsrsbh" property="ghfnsrsbh" jdbcType="VARCHAR"/>
+        <result column="kphjje" property="kphjje" jdbcType="VARCHAR"/>
+        <result column="kpse" property="kpse" jdbcType="VARCHAR"/>
+        <result column="kpzt" property="kpzt" jdbcType="VARCHAR"/>
+        <result column="sbyy" property="sbyy" jdbcType="VARCHAR"/>
+        <result column="push_status" property="pushstatus" jdbcType="VARCHAR"/>
+        <result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryOrderStatusInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+        <bind name="dataType" value="${dataType}"/>
+        select
+        oii.id,
+        oii.ddh,
+        opi.create_time,
+        oii.fpzl_dm,
+        opi.ghf_mc,
+        opi.ghf_nsrsbh,
+        oii.kphjje,
+        oii.kpse,
+        oii.kpzt,
+        opi.sbyy,
+        oii.push_status,
+        oii.xhf_mc
+        from order_invoice_info oii , order_process_info opi where
+        oii.order_process_info_id=opi.id
+
+        <if test="map.startTime !=null and map.endTime !=null">
+            <if test="dataType == 0">
+                and DATE_FORMAT(oii.create_time,'%Y-%m-%d')
+                >=#{map.startTime,jdbcType=VARCHAR} and
+                #{map.endTime,jdbcType=VARCHAR}>=DATE_FORMAT(oii.create_time,'%Y-%m-%d')
+            </if>
+            <if test="dataType == 1">
+                and trunc(oii.create_time)
+                >=to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss') and
+                to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')>=trunc(oii.create_time)
+            </if>
+        </if>
+
+        <if test="map.fplx != null">
+            and oii.fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+        </if>
+
+        <if test="map.kpzt !=null and map.kpzt  !='' ">
+            and oii.kpzt = #{map.kpzt,jdbcType=VARCHAR}
+        </if>
+
+        <if test="map.pushStatus !=null and map.pushStatus  !='' ">
+            and oii.push_status = #{map.pushStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 0">
+            and oii.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and oii.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and oii.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by create_time desc
+    </select>
+
+
+
+</mapper>

@@ -8,7 +8,7 @@ import java.util.Date;
  * @Description: 秒杀成功记录
  * @Date: Created in 14:51  2018/11/7
  */
-public class SuccessKilled implements Serializable{
+public class SuccessKilled implements Serializable {
     private long seckillId;
     private long userPhone;
     private short state;

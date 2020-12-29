@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dxhy.order.dao.GroupCommodityDao">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.GroupCommodity">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="group_code" jdbcType="VARCHAR" property="groupCode" />
+        <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+        <result column="superior_coding" jdbcType="VARCHAR" property="superiorCoding" />
+        <result column="is_leaf" jdbcType="VARCHAR" property="isLeaf" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, group_code, group_name, superior_coding, is_leaf, create_time, user_id, xhf_nsrsbh
+  </sql>
+
+    <insert id="insertGroup" parameterType="com.dxhy.order.model.entity.GroupCommodity">
+        <bind name="dataType" value="${dataType}"/>
+
+        INSERT INTO group_commodity (
+        id,
+        group_code,
+        group_name,
+        superior_coding,
+        is_leaf,
+        create_time,
+        xhf_nsrsbh,
+        user_id
+        )
+        VALUES
+        (
+        #{id},
+        #{groupCode,jdbcType=VARCHAR},
+        #{groupName,jdbcType=VARCHAR},
+        #{superiorCoding,jdbcType=VARCHAR},
+        #{isLeaf},
+        <if test="dataType == 0">
+            now(),
+        </if>
+        <if test="dataType == 1">
+            SYSDATE,
+        </if>
+        #{xhfNsrsbh,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateGroup" parameterType="com.dxhy.order.model.entity.GroupCommodity">
+        <bind name="dataType" value="${dataType}"/>
+
+        UPDATE group_commodity SET
+        group_code=#{groupCommodity.groupCode,jdbcType=VARCHAR},
+        group_name= #{groupCommodity.groupName,jdbcType=VARCHAR},
+        superior_coding= #{groupCommodity.superiorCoding,jdbcType=VARCHAR},
+        is_leaf= #{groupCommodity.isLeaf,jdbcType=VARCHAR},
+        <if test="dataType == 0">
+            create_time = now(),
+        </if>
+        <if test="dataType == 1">
+            create_time = SYSDATE,
+        </if>
+        xhf_nsrsbh = #{groupCommodity.xhfNsrsbh,jdbcType=VARCHAR},
+        user_id= #{groupCommodity.userId,jdbcType=VARCHAR}
+        WHERE id = #{groupCommodity.id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+    <select id="selectGroupByName" parameterType="String" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        group_commodity
+        WHERE group_name = #{groupName,jdbcType=VARCHAR}
+          AND xhf_nsrsbh = #{taxpayerCode,jdbcType=VARCHAR}
+    </select>
+    <select id="selectGroupByNameAndUserId" parameterType="String" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        group_commodity
+        WHERE group_name = #{groupName,jdbcType=VARCHAR}
+          AND user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectGroupByCodeAndUserId" parameterType="String" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        group_commodity
+        WHERE group_code = #{groupCode,jdbcType=VARCHAR}
+          AND user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectGroupListByUserId" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        group_commodity
+        WHERE
+            user_id = #{userId,jdbcType=VARCHAR} order by  create_time desc
+    </select>
+
+    <select id="selectGroupIdByNameAndUserId" parameterType="String" resultType="String">
+        SELECT
+        id as groupId
+        FROM
+        group_commodity
+        WHERE group_name = #{groupName,jdbcType=VARCHAR}
+          AND user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteGroupById" parameterType="String">
+        DELETE
+        FROM group_commodity
+        WHERE id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+</mapper>

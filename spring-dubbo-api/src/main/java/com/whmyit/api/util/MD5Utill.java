@@ -13,12 +13,13 @@ public class MD5Utill {
 
     /**
      * 暴露秒杀接口加密
+     *
      * @param seckillId
      * @return
      */
     public static String getUrlMD5(long seckillId) {
-        String base=seckillId+MD5_URL_KEY;
-        String md5=DigestUtils.md5DigestAsHex(base.getBytes());
+        String base = seckillId + MD5_URL_KEY;
+        String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
         return md5;
     }
 

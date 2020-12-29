@@ -52,6 +52,13 @@
 			<!--<version>0.10</version>-->
 		</dependency>
 
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+
 
 		<!--消费者需要依赖生产者 service模块-->
 		<dependency>

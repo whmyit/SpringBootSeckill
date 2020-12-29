@@ -1,0 +1,21 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+## 父项目忽略文件
+.idea/
+.project
+.settings/
+*.iml
+## 子项目忽略文件
+*/.idea/
+*/.project
+*/.settings/
+*/.gitignore/
+
+*/target/
+*/.classpath
+*/*.iml
+
+## 其他web 模式忽略文件
+order-management-consumer/src/main/resources/META-INF/
+order-management-consumer/src/main/webapp/
+order-management-provider/src/main/webapp/

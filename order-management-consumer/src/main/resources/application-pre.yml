@@ -1,0 +1,153 @@
+dubbo:
+  ## ApplicationConfig Bean
+  application:
+    id: order-api
+    name: order-api
+    qos-port: 22223
+    qos-enable: true
+  ## RegistryConfig Bean
+  registry:
+    id: order
+    address: 172.20.2.25:2181
+    protocol: zookeeper
+  scan:
+    base-packages: com.dxhy.order.consumer.service
+  # 超时时间
+  consumer:
+    timeout: 300000
+    check: false
+  provider:
+    timeout: 300000
+
+management:
+  health:
+    redis:
+      enabled: false
+    rabbit:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+order:
+  url:
+    #当前服务对应的地址
+    domain: http://172.20.2.25/order-api
+    #如果是自建改为大B服务地址(http://itax-pre.ele-cloud.com:40001/wkt),如果是产品改为新用户中心地址
+    #ssoUrl: http://efats-pre.ele-cloud.com/fatsapi
+    ssoUrl: http://172.20.2.25/wkt
+    #调用大B获取销方信息接口,只针对自建项目配置,产品不需要配置,获取销方信息接口根据ssoUrl中是否包含fatsapi来判断走新用户中心还是大B获取销方信息
+    dBUserInfoUrl: http://172.20.2.25/benchApi
+    #辅助运营地址
+    fzyyUrl: http://efats-pre.ele-cloud.com/api-gateway
+    #辅助运营获取已开通销项企业信息eureka地址
+    fzyyEurekaUrl: http://aosp-customer
+    #我的发票地址
+    myinvoiceUrl: http://test.5ifapiao.com:8888
+    #C48打印服务地址
+    C48PrintUrl: http://10.1.1.223:8085/invoice-c-rest-1.0-SNAPSHOT
+    #底层开票服务URL
+    A9: http://172.20.2.25:58089
+    FG: http://10.1.2.169:58089
+    newtax: http://10.1.2.53:9079
+    #ofd转png地址
+    OfdToPngUrl: http://10.1.2.169:8091
+    frontUrl: http://sims.dxyun.com:52380/sims-scaninvoice
+  system:
+    bmbbbh: 33.0
+    printPdfWaterMark: Y
+    printPdfWaterMarkMsg: 仅作为预览使用
+    #套餐查询的产品id
+    productId: 54cc3fa8b64941d38fd75a1722e43be7
+    ofdUrl: http://sims.dxyun.com:52380/web-reader/reader?file=http://sims.dxyun.com:52380/order-api/invoiceDetails/previewInvoicePdf?invoiceCode=%s&invoiceNo=%s&invoiceType=%s&xhfNsrsbh=%s
+    orderCardPrefix: 02
+  weblogic:
+    # 0 tomcat 1 weblogic
+    webServerType: 0
+    downloadFileUrl: /home/dxhy/download/
+  # 定时任务推送时，查询未推送数据每个批次的查询数量
+  push:
+    batchPushNum: 300
+  gzh:
+    appid: wx58e5110a3caa92f0
+
+
+xxl:
+  job:
+    admin:
+      ### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+      addresses: http://172.20.2.25:18093/xxl
+    ### xxl-job executor address
+    executor:
+      appname: sims-order-job
+      ip:
+      port: 9898
+      ### xxl-job log path
+      logpath: /data/logs/
+      ### xxl-job log retention days
+      logretentiondays: -1
+    ### xxl-job, access token
+    accessToken: eyJ0eXBlIjoiMSIsImFsZyI6IkhTMjU2In0.eyJ1c2VyX2lkIjoiemhhb3FzIiwgImV4cGlyZV90aW1lIjoiMjA5OS0wMS0wMSAwOjAwOjAwIn0.cDNTtgIHKbbN6cqRlk5OkeTY7OirhCfa8MBDLYjhv74
+
+#eureka客户端配置
+#eureka:
+#  instance:
+#    statusPageUrlPath: ${server.servlet.context-path}/actuator/info
+#    #应用健康检查url
+#    healthCheckUrlPath: ${server.servlet.context-path}/actuator/health
+#    #是否优先使用IP地址作为主机名的标识
+#    preferIpAddress: true
+#    #客户端向服务端发送心跳的时间间隔
+#    leaseRenewalIntervalInSeconds: 25
+#    #服务端接收到客户端最后一次心跳之后等待的时间上限，超过这个时间服务端将会把客户端实例从清单中剔除
+#    leaseExpirationDurationInSeconds: 80
+#    #客户端实例名配置
+#    instance-id: ${eureka.instance.ip-address}:${eureka.instance.non-secure-port}:${spring.application.name}
+#    ip-address: sims.dxyun.com
+#    non-secure-port: 52380
+#  client:
+#    serviceUrl:
+#      #远程注册中心地址
+#      defaultZone: http://heaven:heaven6666@efats-pre.ele-cloud.com:10086/eureka
+#    healthcheck:
+#      enabled: false
+
+### 用户中心的配置信息 2020.04.08
+dxhy:
+  userCenter:
+    logoutPath: /logout
+    # 排除拦截路径
+    excludedPaths: "/enterPriseConfigManager/**,/supplyChain/**,/webjars/**,/swagger-ui.html/**,/users/getUserInfo,/fzyyTaxManager/**,/commodity/downloadFile,/pinvoice/specialInvoiceReversals/downloadTemplate,/pinvoice/specialInvoiceReversals/preview,/eInvoice/printInvoice,/groupTaxClassCodeController/downloadFile,/download/order,/eInvoice/downInvoice,/receive/invoice,/invoiceSummary/*,/actuator/**,/v*/*,/invoiceDetails/*,/tabInfo/*,/invoiceCount/**,/readyOrder/check,/readyOrder/excu,/api/**,/invoice/v2/*,/invoice/fangge/**,/invoice/api/**,/invoice/v1/*,/scanInvoice/*,/notes/*,/ws/**"
+    #用户中心重定向地址
+    #redirectUrl: https://sso-pre.ele-cloud.com/uoauth/authorize?client_id=fatc&response_type=code&redirect_uri=https%3a%2f%2fefats-pre.ele-cloud.com%2fntaxManage-110107002%3fCOMMONREPLACEURL%3dworkbench%252Fworkbench
+    #大B重定向地址
+    redirectUrl: http://172.20.2.25/itax-sso/login?redirect_url=http://172.20.2.25/itax-bench/
+
+#大B日志插件
+log:
+  #  是否启用 MQ 收集； true 是以 MQ 形式,false 是接口形式
+  isMq: true
+  #  队列名称
+  queueName: LOG_DATA
+  mq:
+    host: 10.1.2.125
+    port: 5672
+    username: mq
+    password: mq
+  rest:
+    #    当 isMq 为 false 时配置
+    pushUrl: http://172.20.2.25:18095/itax-base-api/api/sysLog/restPushMsg
+
+spring:
+  boot:
+    admin:
+      client:
+        instance:
+          service-base-url: http://${spring.cloud.client.ipaddress}:8080
+        url: http://10.1.2.9:8999
+        username: dxhy
+        password: dxhy123

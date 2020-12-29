@@ -1,0 +1,1127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderProcessInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderProcessInfo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="order_info_id" property="orderInfoId" jdbcType="VARCHAR"/>
+        <result column="ddqqpch" property="ddqqpch" jdbcType="VARCHAR"/>
+        <result column="fpqqlsh" property="fpqqlsh" jdbcType="VARCHAR"/>
+        <result column="ddh" property="ddh" jdbcType="VARCHAR"/>
+        <result column="tqm" property="tqm" jdbcType="VARCHAR"/>
+        <result column="kphjje" property="kphjje" jdbcType="VARCHAR"/>
+        <result column="hjbhsje" property="hjbhsje" jdbcType="VARCHAR"/>
+        <result column="kpse" property="kpse" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="ghf_mc" property="ghfMc" jdbcType="VARCHAR"/>
+        <result column="ghf_nsrsbh" property="ghfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="kpxm" property="kpxm" jdbcType="VARCHAR"/>
+        <result column="ddcjsj" property="ddcjsj" jdbcType="TIMESTAMP"/>
+        <result column="ddlx" property="ddlx" jdbcType="VARCHAR"/>
+        <result column="ddzt" property="ddzt" jdbcType="VARCHAR"/>
+        <result column="ddly" property="ddly" jdbcType="VARCHAR"/>
+        <result column="ywlx" property="ywlx" jdbcType="VARCHAR"/>
+        <result column="ywlx_id" property="ywlxId" jdbcType="VARCHAR"/>
+        <result column="protocol_type" property="protocolType" jdbcType="VARCHAR"/>
+        <result column="kpfs" property="kpfs" jdbcType="VARCHAR"/>
+        <result column="sbyy" property="sbyy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR"/>
+        <result column="fg_status" property="fgStatus" jdbcType="VARCHAR"/>
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
+        <result column="edit_status" property="editStatus" jdbcType="VARCHAR"/>
+        <result column="check_status" property="checkStatus" jdbcType="VARCHAR"/>
+        <result column="check_time" property="checkTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, order_info_id,ddqqpch, fpqqlsh, ddh, tqm, kphjje, hjbhsje, kpse, fpzl_dm,
+        ghf_mc, ghf_nsrsbh,
+        kpxm, ddcjsj, ddlx, ddzt, ddly, ywlx,ywlx_id,kpfs,protocol_type, sbyy, order_status, create_time,
+        update_time,xhf_nsrsbh,xhf_mc,fg_status,edit_status,check_status,check_time
+    </sql>
+    <select id="selectOrderProcessInfoByProcessId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info
+        where id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--根据发票请求流水号获取订单数据-->
+    <select id="queryOrderProcessInfoByFpqqlsh" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info
+        where fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR} and order_status = '0'
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--根据发票请求批次号获取订单数据-->
+    <select id="selectOrderProcessInfoByDdqqpch" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info
+        where ddqqpch = #{ddqqpch,jdbcType=VARCHAR} and order_status = '0'
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <insert id="insertOrderProcessInfo" parameterType="com.dxhy.order.model.OrderProcessInfo">
+
+        insert into order_process_info (id, order_info_id, ddqqpch, fpqqlsh,
+                                        ddh, tqm, kphjje, hjbhsje,
+                                        kpse, fpzl_dm, ghf_mc,
+                                        ghf_nsrsbh, kpxm, ddcjsj,
+                                        ddlx, ddzt, ddly, ywlx, ywlx_id,protocol_type, kpfs,
+                                        sbyy, order_status, create_time,
+                                        update_time, xhf_nsrsbh, xhf_mc,
+                                        edit_status,check_status,check_time)
+        values (#{id,jdbcType=VARCHAR}, #{orderInfoId,jdbcType=VARCHAR}, #{ddqqpch,jdbcType=VARCHAR},
+                #{fpqqlsh,jdbcType=VARCHAR},
+                #{ddh,jdbcType=VARCHAR}, #{tqm,jdbcType=VARCHAR}, #{kphjje,jdbcType=VARCHAR},
+                #{hjbhsje,jdbcType=VARCHAR},
+                #{kpse,jdbcType=VARCHAR}, #{fpzlDm,jdbcType=VARCHAR},
+                #{ghfMc,jdbcType=VARCHAR},
+                #{ghfNsrsbh,jdbcType=VARCHAR}, #{kpxm,jdbcType=VARCHAR}, #{ddcjsj,jdbcType=TIMESTAMP},
+                #{ddlx,jdbcType=VARCHAR}, #{ddzt,jdbcType=VARCHAR},
+                #{ddly,jdbcType=VARCHAR}, #{ywlx,jdbcType=VARCHAR}, #{ywlxId,jdbcType=VARCHAR},
+                #{protocolType,jdbcType=VARCHAR},
+                #{kpfs,jdbcType=VARCHAR},
+                #{sbyy,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP},
+                #{xhfNsrsbh,jdbcType=VARCHAR}, #{xhfMc,jdbcType=VARCHAR},
+                #{editStatus,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR},
+                #{checkTime,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateOrderProcessInfoByProcessId" parameterType="com.dxhy.order.model.OrderProcessInfo">
+
+        update order_process_info
+        <set>
+            <if test="processInfo.orderInfoId != null">
+                order_info_id = #{processInfo.orderInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddqqpch != null">
+                ddqqpch = #{processInfo.ddqqpch,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.fpqqlsh != null">
+                fpqqlsh = #{processInfo.fpqqlsh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddh != null">
+                ddh = #{processInfo.ddh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.tqm != null">
+                tqm = #{processInfo.tqm,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kphjje != null">
+                kphjje = #{processInfo.kphjje,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.hjbhsje != null">
+                hjbhsje = #{processInfo.hjbhsje,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kpse != null">
+                kpse = #{processInfo.kpse,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.fpzlDm != null">
+                fpzl_dm = #{processInfo.fpzlDm,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ghfMc != null">
+                ghf_mc = #{processInfo.ghfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ghfNsrsbh != null">
+                ghf_nsrsbh = #{processInfo.ghfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.xhfNsrsbh != null">
+                xhf_nsrsbh = #{processInfo.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.xhfMc != null">
+                xhf_mc = #{processInfo.xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kpxm != null">
+                kpxm = #{processInfo.kpxm,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddcjsj != null">
+                ddcjsj = #{processInfo.ddcjsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processInfo.ddlx != null">
+                ddlx = #{processInfo.ddlx,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddzt != null">
+                ddzt = #{processInfo.ddzt,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddly != null">
+                ddly = #{processInfo.ddly,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ywlx != null">
+                ywlx = #{processInfo.ywlx,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ywlxId != null">
+                ywlx_id = #{processInfo.ywlxId,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kpfs != null">
+                kpfs = #{processInfo.kpfs,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.sbyy != null">
+                sbyy = #{processInfo.sbyy,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.orderStatus != null">
+                order_status = #{processInfo.orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.createTime != null">
+                create_time = #{processInfo.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processInfo.updateTime != null">
+                update_time = #{processInfo.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processInfo.editStatus != null">
+                edit_status = #{processInfo.editStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.checkStatus != null">
+                check_status = #{processInfo.checkStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.checkTime != null">
+                check_time = #{processInfo.checkTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where>
+            <if test="processInfo.id != null and processInfo.id != '' ">
+                and id = #{processInfo.id,jdbcType=VARCHAR}
+            </if>
+            <if test="processInfo.orderInfoId != null and processInfo.orderInfoId != '' ">
+                and order_info_id = #{processInfo.orderInfoId,jdbcType=VARCHAR}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+
+    </update>
+
+    <select id="queryOrderInfo" resultType="hashMap"
+	   parameterType="java.util.Map">
+	   <bind name="dataType" value="${dataType}" />
+	   select
+	   op.id,
+	   op.order_info_id,
+	   op.fpqqlsh,
+	   op.ddh,
+	   op.kphjje,
+	   op.hjbhsje,
+	   op.kpse,
+	   op.fpzl_dm,
+	   op.ghf_mc,
+	   op.ghf_nsrsbh,
+	   op.kpxm,
+	   op.ddcjsj,
+	   op.ddlx,
+	   op.ddzt,
+	   op.ddly,
+	   op.ywlx,
+	   op.sbyy,
+	   op.order_status,
+	   op.create_time,
+	   op.update_time,
+       op.xhf_nsrsbh,
+       op.check_status,
+       op.check_time,
+	   o.xhf_mc,
+	   o.qd_bz,
+       o.sld
+	   from order_process_info op left join
+	   order_info o on
+	   op.order_info_id=o.id
+	   where
+	   1 = 1
+
+	   <!-- mysql数据库 -->
+	   <if test="dataType == 0">
+		  <choose>
+			 <when
+				    test="map.minhjje !=null and map.minhjje != '' and map.maxhjje !=null and map.maxhjje != ''">
+				    and cast(op.kphjje as DECIMAL) BETWEEN
+				    #{map.minhjje,jdbcType=DOUBLE}
+				    and
+				    #{map.maxhjje,jdbcType=DOUBLE}
+			 </when>
+			 <otherwise>
+				    <if test="map.minhjje !=null and map.minhjje != ''">
+					   and cast(op.kphjje as DECIMAL) >=
+					   #{map.minhjje,jdbcType=DOUBLE}
+				    </if>
+				    <if test="map.maxhjje !=null and map.maxhjje != ''">
+                        and #{map.maxhjje,jdbcType=DOUBLE}
+					   >= cast(op.kphjje as DECIMAL)
+				    </if>
+			 </otherwise>
+		  </choose>
+		  <if
+			 test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+			 and op.ddcjsj
+			 >= #{map.startTime} and
+			#{map.endTime} >= op.ddcjsj
+		  </if>
+		  <if test="map.ddh != null and map.ddh != ''">
+			 and op.ddh like "%"#{map.ddh,jdbcType=VARCHAR}"%"
+		  </if>
+
+		  <if test="map.gmfmc != null and map.gmfmc != ''">
+			 and op.ghf_mc like
+			 concat('%',#{map.gmfmc,jdbcType=VARCHAR},'%')
+		  </if>
+		  <if test="map.xhfmc != null and map.xhfmc != ''">
+			 and o.xhf_mc like
+			 concat('%',#{map.xhfmc,jdbcType=VARCHAR},'%')
+
+		  </if>
+	   </if>
+	<!-- oracle数据库 -->
+	   <if test="dataType == 1">
+		  <choose>
+			 <when
+				    test="map.minhjje !=null and map.minhjje != '' and map.maxhjje !=null and map.maxhjje != ''">
+				    and to_number(op.kphjje) BETWEEN
+				    #{map.minhjje,jdbcType=DOUBLE}
+				    and
+				    #{map.maxhjje,jdbcType=DOUBLE}
+			 </when>
+			 <otherwise>
+				    <if test="map.minhjje !=null and map.minhjje != ''">
+					   and to_number(op.kphjje) >=
+					   #{map.minhjje,jdbcType=DOUBLE}
+				    </if>
+				    <if test="map.maxhjje !=null and map.maxhjje != ''">
+                        and #{map.maxhjje,jdbcType=DOUBLE}
+					   >= to_number(op.kphjje)
+				    </if>
+			 </otherwise>
+		  </choose>
+		  <if
+			 test="map.startTime !=null and map.startTime != '' and  map.endTime !=null and map.endTime != ''">
+			 and trunc(op.ddcjsj)
+			 >=to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+			 and
+			 to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd
+			 hh24:mi:ss')>=trunc(op.ddcjsj)
+		  </if>
+		  <if test="map.ddh != null and map.ddh != ''">
+			 and op.ddh like '%' || #{map.ddh,jdbcType=VARCHAR} || '%'
+		  </if>
+		  <if test="map.gmfmc != null and map.gmfmc != ''">
+			 and op.ghf_mc like '%' || #{map.gmfmc,jdbcType=VARCHAR} ||
+			 '%'
+		  </if>
+		  <if test="map.xhfmc != null and map.xhfmc != ''">
+			 and o.xhf_mc like % || #{map.xhfmc,jdbcType=VARCHAR} ||
+			 '%'
+		  </if>
+	   </if>
+
+
+        <if test="map.ddzt != null and map.ddzt.size != 0">
+		  and op.ddzt in
+		  <foreach collection="map.ddzt" index="index" item="ddzti"
+			 open="(" separator="," close=")">
+			 #{ddzti,jdbcType=VARCHAR}
+		  </foreach>
+	   </if>
+	   <if test="map.ddly != null and map.ddly.size() != 0">
+		  and op.ddly in
+		  <foreach collection="map.ddly" index="index" item="ddlyit"
+			 open="(" separator="," close=")">
+			 #{ddlyit,jdbcType=VARCHAR}
+		  </foreach>
+	   </if>
+	   <if test="map.fpzldm != null and map.fpzldm.size() != 0">
+		  and op.fpzl_dm in
+		  <foreach collection="map.fpzldm" index="index" item="fpzldmit"
+			 open="(" separator="," close=")">
+			 #{fpzldmit,jdbcType=VARCHAR}
+		  </foreach>
+	   </if>
+	   <if test="map.xhfmc != null and map.xhfmc != ''">
+		  and o.xhf_mc = #{map.xhfmc,jdbcType=VARCHAR}
+	   </if>
+	   <if test="map.ywlx != null and map.ywlx != ''">
+		  and op.ywlx = #{map.ywlx,jdbcType=VARCHAR}
+       </if>
+        <if test="map.fplx != null and map.fplx != '' ">
+            and op.fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+        </if>
+        <if test="map.ghfNsrsbh != null and map.ghfNsrsbh != ''">
+            and op.ghf_nsrsbh = #{map.ghfNsrsbh,jdbcType=VARCHAR}
+        </if>
+        <if test="map.orderStatus !=null and map.orderStatus !='' ">
+            and op.order_status = #{map.orderStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="map.checkStatus !=null and map.checkStatus !='' ">
+            and op.check_status = #{map.checkStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 0">
+            and op.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and op.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and op.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <!-- 异常订单列表根据订单更新时间排序 -->
+        <choose>
+            <when test="map.orderBy !=null and map.orderBy == 'updateTime' ">
+                order by op.update_time desc
+            </when>
+            <when test="map.orderBy !=null and map.orderBy == 'createTimeAsc' ">
+                order by op.ddcjsj asc
+            </when>
+            <otherwise>
+                order by op.ddcjsj desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="selectByOrderId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info where order_info_id =
+        #{orderId,jdbcType=VARCHAR}
+
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <!--    &lt;!&ndash; selectProcessInfoById &ndash;&gt;-->
+    <!--    <select id="selectProcessInfoById" resultMap="BaseResultMap"-->
+    <!--            parameterType="com.dxhy.order.model.OrderProcessInfo">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from order_process_info-->
+    <!--        <where>-->
+    <!--            <if test="id != null">-->
+    <!--                id = #{id,jdbcType=VARCHAR}-->
+    <!--            </if>-->
+    <!--            <if test="orderInfoId != null">-->
+    <!--                order_info_id = #{orderInfoId,jdbcType=VARCHAR}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+
+
+    <!--    <update id="updateOrderStatusByList" parameterType="java.lang.String">-->
+    <!--        update-->
+    <!--        order_process_info-->
+    <!--        <set>-->
+    <!--            <if test="ddzt != null">-->
+    <!--                order_status = #{ddzt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where id in-->
+    <!--        <foreach collection="list" index="index" item="item" open="("-->
+    <!--                 separator="," close=")">-->
+    <!--            #{item.id}-->
+    <!--        </foreach>-->
+    <!--    </update>-->
+
+    <!--    <insert id="insertProcessByList" parameterType="java.util.List" useGeneratedKeys="false">-->
+
+    <!--        <bind name="dataType" value="${dataType}"/>-->
+    <!--        <if test="dataType ==0 ">-->
+    <!--            insert into order_process_info (id, order_info_id, fpqqlsh,-->
+    <!--            ddh, tqm,-->
+    <!--            kphjje, hjbhsje,-->
+    <!--            kpse, fpzl_dm, ghf_mc,-->
+    <!--            ghf_nsrsbh, kpxm, ddcjsj,-->
+    <!--            ddlx,-->
+    <!--            ddzt, ddly, ywlx,ywlx_id,kpfs,-->
+    <!--            sbyy, order_status, create_time,-->
+    <!--            update_time,xhf_nsrsbh,xhf_mc)-->
+    <!--            values-->
+    <!--            <foreach collection="list" item="item" index="index"-->
+    <!--                     separator=",">-->
+    <!--                (#{item.id,jdbcType=VARCHAR}, #{item.orderInfoId,jdbcType=VARCHAR},-->
+    <!--                #{item.fpqqlsh,jdbcType=VARCHAR},-->
+    <!--                #{item.ddh,jdbcType=VARCHAR}, #{item.tqm,jdbcType=VARCHAR},-->
+    <!--                #{item.kphjje,jdbcType=VARCHAR}, #{item.hjbhsje,jdbcType=VARCHAR},-->
+    <!--                #{item.kpse,jdbcType=VARCHAR}, #{item.fpzlDm,jdbcType=VARCHAR},-->
+    <!--                #{item.ghfMc,jdbcType=VARCHAR},-->
+    <!--                #{item.ghfNsrsbh,jdbcType=VARCHAR},-->
+    <!--                #{item.kpxm,jdbcType=VARCHAR}, #{item.ddcjsj,jdbcType=TIMESTAMP},-->
+    <!--                #{item.ddlx,jdbcType=VARCHAR}, #{item.ddzt,jdbcType=VARCHAR},-->
+    <!--                #{item.ddly,jdbcType=VARCHAR},-->
+    <!--                #{item.ywlx,jdbcType=VARCHAR},-->
+    <!--                #{item.ywlxId,jdbcType=VARCHAR},-->
+    <!--                #{item.kpfs,jdbcType=VARCHAR},-->
+    <!--                #{item.sbyy,jdbcType=VARCHAR}, #{item.orderStatus,jdbcType=VARCHAR},-->
+    <!--                #{item.createTime,jdbcType=TIMESTAMP},-->
+    <!--                #{item.updateTime,jdbcType=TIMESTAMP},-->
+    <!--                #{item.xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--                #{item.xhfMc,jdbcType=VARCHAR})-->
+    <!--            </foreach>-->
+    <!--        </if>-->
+    <!--        <if test="dataType == 1">-->
+    <!--            insert into order_process_info (id, order_info_id, fpqqlsh,-->
+    <!--            ddh, tqm,-->
+    <!--            kphjje, hjbhsje,-->
+    <!--            kpse, fpzl_dm, ghf_mc,-->
+    <!--            ghf_nsrsbh, kpxm, ddcjsj,-->
+    <!--            ddlx,-->
+    <!--            ddzt, ddly, ywlx,ywlx_id,-->
+    <!--            sbyy, order_status, create_time,-->
+    <!--            update_time,xhf_nsrsbh,xhf_mc)-->
+    <!--            <foreach collection="list" item="item" index="index"-->
+    <!--                     separator="union all">-->
+    <!--                (-->
+    <!--                SELECT-->
+    <!--                #{item.id,jdbcType=VARCHAR}, #{item.orderInfoId,jdbcType=VARCHAR},-->
+    <!--                #{item.fpqqlsh,jdbcType=VARCHAR},-->
+    <!--                #{item.ddh,jdbcType=VARCHAR}, #{item.tqm,jdbcType=VARCHAR},-->
+    <!--                #{item.kphjje,jdbcType=VARCHAR}, #{item.hjbhsje,jdbcType=VARCHAR},-->
+    <!--                #{item.kpse,jdbcType=VARCHAR}, #{item.fpzlDm,jdbcType=VARCHAR},-->
+    <!--                #{item.ghfMc,jdbcType=VARCHAR},-->
+    <!--                #{item.ghfNsrsbh,jdbcType=VARCHAR},-->
+    <!--                #{item.kpxm,jdbcType=VARCHAR}, #{item.ddcjsj,jdbcType=TIMESTAMP},-->
+    <!--                #{item.ddlx,jdbcType=VARCHAR}, #{item.ddzt,jdbcType=VARCHAR},-->
+    <!--                #{item.ddly,jdbcType=VARCHAR}, #{item.ywlx,jdbcType=VARCHAR},#{item.ywlxId,jdbcType=VARCHAR},-->
+    <!--                #{item.sbyy,jdbcType=VARCHAR}, #{item.orderStatus,jdbcType=VARCHAR},-->
+    <!--                #{item.createTime,jdbcType=TIMESTAMP},-->
+    <!--                #{item.updateTime,jdbcType=TIMESTAMP},-->
+    <!--                #{item.xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--                #{item.xhfMc,jdbcType=VARCHAR}-->
+    <!--                FROM DUAL-->
+    <!--                )-->
+    <!--            </foreach>-->
+    <!--        </if>-->
+
+    <!--    </insert>-->
+
+    <!-- 根据条件统计订单条数 -->
+    <select id="countByDdh" resultType="java.lang.Integer" parameterType="com.dxhy.order.model.OrderProcessInfo">
+        select count(1)
+        from order_process_info
+        where
+        order_status = 0
+        <if test="ddh != null and ddh != ''">
+            and ddh = #{ddh,jdbcType=VARCHAR}
+        </if>
+        <if test="xhfNsrsbh != null and xhfNsrsbh != ''">
+                and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!-- selectOrderProcessByFpqqlshDdhNsrsbh,根据销方税号,订单号,发票请求流水号,(流水号和订单号不能同时为空)进行查询 -->
+    <select id="selectOrderProcessByFpqqlshDdhNsrsbh" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        <bind name="dataType" value="${dataType}"/>
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info
+        <where>
+            <if test="orderMap.ddh !=null and orderMap.ddh  !='' ">
+                and ddh = #{orderMap.ddh,jdbcType=VARCHAR}
+            </if>
+            <if test="orderMap.tqm !=null and orderMap.tqm  !='' ">
+                and tqm = #{orderMap.tqm,jdbcType=VARCHAR}
+            </if>
+            <if test="orderMap.fpqqlsh !=null and orderMap.fpqqlsh  !='' ">
+                and fpqqlsh = #{orderMap.fpqqlsh,jdbcType=VARCHAR}
+            </if>
+            <if test="orderMap.orderStatus !=null and orderMap.orderStatus !='' ">
+                and order_status = #{orderMap.orderStatus,jdbcType=VARCHAR}
+            </if>
+
+            <if test="orderMap.ddzt != null and orderMap.ddzt.size != 0">
+                and ddzt in
+                <foreach collection="orderMap.ddzt" index="index" item="ddzti"
+                         open="(" separator="," close=")">
+                    #{ddzti,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="dataType == 0">
+                <if
+                        test="orderMap.startTime !=null and orderMap.startTime != '' and  orderMap.endTime !=null and orderMap.endTime != ''">
+                    and ddcjsj
+                    >= #{orderMap.startTime} and
+                    #{orderMap.endTime} >= ddcjsj
+                </if>
+            </if>
+            <if test="dataType == 1">
+                <if
+                        test="orderMap.startTime !=null and orderMap.startTime != '' and  orderMap.endTime !=null and orderMap.endTime != ''">
+                    and trunc(ddcjsj)
+                    >=to_date(#{orderMap.startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+                    and
+                    to_date(#{orderMap.endTime,jdbcType=VARCHAR},'yyyy-mm-dd
+                    hh24:mi:ss')>=trunc(ddcjsj)
+                </if>
+            </if>
+
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!-- selectOrderProcessInfoByDdqqlsh -->
+    <select id="selectOrderProcessInfoByDdqqlsh" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from order_process_info where fpqqlsh =
+        #{fpqqlsh,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+
+    <!-- 编辑更新购方信息 -->
+    <update id="updateOrderProcessInfo" parameterType="com.dxhy.order.model.OrderInfo">
+
+        <bind name="dataType" value="${dataType}"/>
+        update order_process_info
+        <set>
+            <if test="orderInfo.ghfMc != null">
+                ghf_mc = #{orderInfo.ghfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfNsrsbh != null">
+                ghf_nsrsbh = #{orderInfo.ghfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType == 0">
+                update_time = NOW()
+            </if>
+            <if test="dataType == 1">
+                update_time = sysdate
+            </if>
+        </set>
+        where id = #{orderInfo.processId,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+
+
+    <update id="updateOrderProcessInfoByFpqqlsh" parameterType="java.lang.String">
+
+        update order_process_info
+        <set>
+            <if test="processInfo.orderInfoId != null">
+                order_info_id = #{processInfo.orderInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddqqpch != null">
+                ddqqpch = #{processInfo.ddqqpch,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.fpqqlsh != null">
+                fpqqlsh = #{processInfo.fpqqlsh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddh != null">
+                ddh = #{processInfo.ddh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.tqm != null">
+                tqm = #{processInfo.tqm,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kphjje != null">
+                kphjje = #{processInfo.kphjje,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.hjbhsje != null">
+                hjbhsje = #{processInfo.hjbhsje,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kpse != null">
+                kpse = #{processInfo.kpse,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.fpzlDm != null">
+                fpzl_dm = #{processInfo.fpzlDm,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ghfMc != null">
+                ghf_mc = #{processInfo.ghfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ghfNsrsbh != null">
+                ghf_nsrsbh = #{processInfo.ghfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.xhfNsrsbh != null">
+                xhf_nsrsbh = #{processInfo.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.xhfMc != null">
+                xhf_mc = #{processInfo.xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kpxm != null">
+                kpxm = #{processInfo.kpxm,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddcjsj != null">
+                ddcjsj = #{processInfo.ddcjsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processInfo.ddlx != null">
+                ddlx = #{processInfo.ddlx,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddzt != null">
+                ddzt = #{processInfo.ddzt,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.fgStatus != null">
+                fg_status = #{processInfo.fgStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ddly != null">
+                ddly = #{processInfo.ddly,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ywlx != null">
+                ywlx = #{processInfo.ywlx,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.ywlxId != null">
+                ywlx_id = #{processInfo.ywlxId,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.kpfs != null">
+                kpfs = #{processInfo.kpfs,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.sbyy != null">
+                sbyy = #{processInfo.sbyy,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.orderStatus != null">
+                order_status = #{processInfo.orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.createTime != null">
+                create_time = #{processInfo.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processInfo.updateTime != null">
+                update_time = #{processInfo.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="processInfo.editStatus != null">
+                edit_status = #{processInfo.editStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.checkStatus != null">
+                check_status = #{processInfo.checkStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="processInfo.checkTime != null">
+                check_time = #{processInfo.checkTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where>
+            <if test="processInfo.id != null and processInfo.id != '' ">
+                and id = #{processInfo.id,jdbcType=VARCHAR}
+            </if>
+            <if test="processInfo.orderInfoId != null and processInfo.orderInfoId != '' ">
+                and order_info_id = #{processInfo.orderInfoId,jdbcType=VARCHAR}
+            </if>
+            <if test="processInfo.fpqqlsh != null and processInfo.fpqqlsh != '' ">
+                and fpqqlsh = #{processInfo.fpqqlsh,jdbcType=VARCHAR}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </update>
+
+    <!--     根据纳税人识别号，业务类型来统计金额和票数 -->
+
+    <select id="selectYwlxCount" resultType="HashMap" parameterType="map">
+        <bind name="dataType" value="${dataType}"/>
+
+        <!--        	mysql -->
+        <if test="dataType == 0">
+
+            select
+            process.xhf_nsrsbh,
+            process.xhf_mc,
+            process.ywlx,
+            process.ywlx_id,
+            CAST(sum( CAST(process.kphjje AS DECIMAL(18,2)) ) as CHAR ) hjje,
+            CAST(sum( CAST(process.kpse AS DECIMAL(18,2)) ) as CHAR ) hjse,
+            CAST(count(process.fpzl_dm) as CHAR ) zkps,
+            CAST(count(if(process.fpzl_dm=0 ,true,null)) as CHAR ) AS zpsum,
+            CAST(count(if(process.fpzl_dm=2 ,true,null)) as CHAR ) AS ptsum ,
+            CAST(count(if(process.fpzl_dm=51 ,true,null)) as CHAR ) AS dzsum
+
+            from order_invoice_info oii
+            left join order_process_info process on process.fpqqlsh = oii.fpqqlsh
+            LEFT JOIN business_type_info businesstype
+            on process.ywlx_id = businesstype.business_id
+            and process.xhf_nsrsbh = businesstype.xhf_nsrsbh
+
+            where
+            oii.kpzt = '2'
+            and process.ywlx IS NOT NULL and process.ywlx != ''
+            <if test="map.ywlxName != null">
+                and process.ywlx = #{map.ywlxName}
+            </if>
+
+            <if test="shList != null and shList.size() == 0">
+                and process.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and process.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and process.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            and DATE_FORMAT(oii.kprq, '%Y-%m-%d') &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND
+            DATE_FORMAT(oii.kprq, '%Y-%m-%d') &lt;= #{map.endDate,jdbcType=TIMESTAMP}
+
+            and process.order_status='0'
+            group by process.xhf_nsrsbh,ywlx
+        </if>
+
+        <!--        	oracle -->
+        <if test="dataType == 1">
+            select
+            process.xhf_nsrsbh,
+            process.xhf_mc,
+            process.ywlx,
+            process.ywlx_id,
+            CAST(sum( process.kphjje ) as CHAR ) hjje,
+            CAST(sum(process.kpse ) as CHAR ) hjse,
+            CAST(count(process.fpzl_dm) as CHAR ) zkps,
+            CAST(count(decode(process.fpzl_dm,'0',1,null) ) as CHAR ) AS zpsum,
+            CAST(count(decode(process.fpzl_dm,'2',1,null) ) as CHAR ) AS ptsum,
+            CAST(count(decode(process.fpzl_dm,'51',1,null) ) as CHAR ) AS dzsum
+
+            from order_invoice_info oii
+            left join order_process_info process on process.fpqqlsh = oii.fpqqlsh
+            LEFT JOIN business_type_info businesstype
+
+            on process.ywlx_id = businesstype.business_id
+            and process.xhf_nsrsbh = businesstype.xhf_nsrsbh
+
+            where
+            oii.kpzt = '2'
+            and process.ywlx IS NOT NULL
+            <if test="map.ywlxName != null">
+                and process.ywlx = #{map.ywlxName}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and process.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and process.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and process.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            and trunc(oii.kprq) &gt;= trunc(#{map.startDate,jdbcType=TIMESTAMP}) AND
+            trunc(oii.kprq) &lt;= trunc(#{map.endDate,jdbcType=TIMESTAMP})
+
+            and process.order_status='0'
+            group by process.xhf_nsrsbh,ywlx,process.xhf_mc,process.xhf_nsrsbh
+
+        </if>
+    </select>
+
+
+
+    <select id="selectYwlxCountTotal" resultType="HashMap" parameterType="map">
+        <bind name="dataType" value="${dataType}"/>
+
+        <!--        	mysql -->
+        <if test="dataType == 0">
+
+            select
+            CAST(sum( CAST(process.kphjje AS DECIMAL(18,2)) ) as CHAR ) hjje,
+            CAST(sum( CAST(process.kpse AS DECIMAL(18,2)) ) as CHAR ) hjse,
+            CAST(count(process.fpzl_dm) as CHAR ) zkps,
+            CAST(count(if(process.fpzl_dm='0' ,true,null)) as CHAR ) AS zpsum,
+            CAST(count(if(process.fpzl_dm='2' ,true,null)) as CHAR ) AS ptsum ,
+            CAST(count(if(process.fpzl_dm='51' ,true,null)) as CHAR ) AS dzsum
+            from order_invoice_info oii
+            left join order_process_info process on process.fpqqlsh = oii.fpqqlsh
+            LEFT JOIN business_type_info businesstype
+            on process.ywlx_id = businesstype.business_id
+            and process.xhf_nsrsbh = businesstype.xhf_nsrsbh
+
+            where
+            oii.kpzt = '2'
+            and process.ywlx IS NOT NULL and process.ywlx!=''
+
+            <if test="map.ywlxName != null">
+                and process.ywlx = #{map.ywlxName}
+
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and process.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and process.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and process.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            and DATE_FORMAT(oii.kprq, '%Y-%m-%d') &gt;= #{map.startDate,jdbcType=TIMESTAMP} AND
+            DATE_FORMAT(oii.kprq, '%Y-%m-%d') &lt;= #{map.endDate,jdbcType=TIMESTAMP}
+
+            and process.order_status='0'
+        </if>
+
+        <!--        	oracle -->
+        <if test="dataType == 1">
+            select
+            CAST(sum( CAST(process.kphjje AS DECIMAL(18,2)) ) as CHAR ) hjje,
+            CAST(sum( CAST(process.kpse AS DECIMAL(18,2)) ) as CHAR ) hjse,
+            CAST(count(process.fpzl_dm) as CHAR ) zkps,
+            CAST(count(decode(process.fpzl_dm,'0',1,null) ) as CHAR ) AS zpsum,
+            CAST(count(decode(process.fpzl_dm,'2',1,null) ) as CHAR ) AS ptsum,
+            CAST(count(decode(process.fpzl_dm,'51',1,null) ) as CHAR ) AS dzsum
+
+            from order_invoice_info oii
+            left join order_process_info process on process.fpqqlsh = oii.fpqqlsh
+            LEFT JOIN business_type_info businesstype
+
+            on process.ywlx_id = businesstype.business_id
+            and process.xhf_nsrsbh = businesstype.xhf_nsrsbh
+
+            where
+            oii.kpzt = '2'
+            and process.ywlx IS NOT NULL
+            <if test="map.ywlxName != null">
+                and process.ywlx = #{map.ywlxName}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and process.xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and process.xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and process.xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            and trunc(oii.kprq) &gt;= trunc(#{map.startDate,jdbcType=TIMESTAMP}) AND
+            trunc(oii.kprq) &lt;= trunc(#{map.endDate,jdbcType=TIMESTAMP})
+
+            and process.order_status='0'
+
+        </if>
+
+    </select>
+
+
+    <select id="isExistNoAuditOrder" resultType="java.lang.String"
+            parameterType="java.lang.String">
+        select
+        '1'
+        from order_process_info
+        <where>
+            <if test="shList != null and shList.size() == 0">
+
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="map.ddzt != null and map.ddzt.size != 0">
+                and ddzt in
+                <foreach collection="map.ddzt" index="index" item="ddzti"
+                         open="(" separator="," close=")">
+                    #{ddzti,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="map.ddly != null and map.ddly.size() != 0">
+                and ddly in
+                <foreach collection="map.ddly" index="index" item="ddlyit"
+                         open="(" separator="," close=")">
+                    #{ddlyit,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="map.fpzldm != null and map.fpzldm.size() != 0">
+                and fpzl_dm in
+                <foreach collection="map.fpzldm" index="index" item="fpzldmit"
+                         open="(" separator="," close=")">
+                    #{fpzldmit,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            <if test="map.ddh != null and map.ddh != ''">
+                and ddh = #{map.ddh,jdbcType=VARCHAR}
+            </if>
+            <if test="map.xhfmc != null and map.xhfmc != ''">
+                and xhf_mc = #{map.xhfmc,jdbcType=VARCHAR}
+            </if>
+            <if test="map.ywlx != null and map.ywlx != ''">
+                and ywlx = #{map.ywlx,jdbcType=VARCHAR}
+            </if>
+            <if test="map.fplx != null and map.fplx != '' ">
+                and fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+            </if>
+            <if test="map.ghfNsrsbh != null and map.ghfNsrsbh != ''">
+                and ghf_nsrsbh = #{map.ghfNsrsbh,jdbcType=VARCHAR}
+            </if>
+            <if test="map.orderStatus !=null and map.orderStatus !='' ">
+                and order_status = #{map.orderStatus,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+
+
+
+</mapper>

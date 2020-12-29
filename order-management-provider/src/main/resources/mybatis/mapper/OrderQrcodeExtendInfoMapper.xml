@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderQrcodeExtendInfoMapper">
+	<resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderQrcodeExtendInfo">
+
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="order_info_id" property="orderInfoId" jdbcType="VARCHAR" />
+		<result column="auth_order_id" property="authOrderId" jdbcType="VARCHAR" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+		<result column="union_id" property="unionId" jdbcType="VARCHAR" />
+		<result column="quick_response_code_type" property="quickResponseCodeType"
+			jdbcType="VARCHAR" />
+		<result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR" />
+		<result column="fpqqlsh" property="fpqqlsh" jdbcType="VARCHAR" />
+		<result column="tqm" property="tqm" jdbcType="VARCHAR" />
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="kphjje" property="kphjje" jdbcType="VARCHAR" />
+		<result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR" />
+		<result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR" />
+		<result column="zfzt" property="zfzt" jdbcType="VARCHAR" />
+		<result column="card_status" property="cardStatus" jdbcType="VARCHAR" />
+		<result column="ewmzt" property="ewmzt" jdbcType="VARCHAR" />
+		<result column="quick_response_code_url" property="quickResponseCodeUrl"
+			jdbcType="VARCHAR" />
+		<result column="quick_response_code_valid_time" property="quickResponseCodeValidTime"
+			jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="data_status" property="dataStatus" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+
+		id, order_info_id, auth_order_id, open_id, union_id,
+		quick_response_code_type, fpzl_dm,
+		fpqqlsh, tqm, ddh, kphjje, xhf_mc,
+		xhf_nsrsbh, zfzt, card_status, ewmzt,
+		quick_response_code_url,
+		quick_response_code_valid_time, create_time, update_time, data_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+
+		select
+		<include refid="Base_Column_List"/>
+		from order_qrcode_extend
+		where id = #{id,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<!--	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+
+	<!--		delete from order_qrcode_extend-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+
+	<!--	</delete>-->
+	<insert id="insertQrCodeInfo" parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">
+
+		insert into order_qrcode_extend (id, order_info_id, auth_order_id,
+										 open_id, union_id, quick_response_code_type,
+										 fpzl_dm, fpqqlsh, tqm,
+										 ddh, kphjje, xhf_mc,
+										 xhf_nsrsbh, zfzt, card_status,
+										 ewmzt,
+										 quick_response_code_url, quick_response_code_valid_time,
+										 create_time,
+										 update_time, data_status)
+		values (#{id,jdbcType=VARCHAR},
+				#{orderInfoId,jdbcType=VARCHAR},
+				#{authOrderId,jdbcType=VARCHAR},
+				#{openId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR},
+				#{quickResponseCodeType,jdbcType=VARCHAR},
+				#{fpzlDm,jdbcType=VARCHAR},
+				#{fpqqlsh,jdbcType=VARCHAR}, #{tqm,jdbcType=VARCHAR},
+				#{ddh,jdbcType=VARCHAR}, #{kphjje,jdbcType=VARCHAR},
+				#{xhfMc,jdbcType=VARCHAR},
+				#{xhfNsrsbh,jdbcType=VARCHAR},
+				#{zfzt,jdbcType=VARCHAR}, #{cardStatus,jdbcType=VARCHAR},
+				#{ewmzt,jdbcType=VARCHAR}, #{quickResponseCodeUrl,jdbcType=VARCHAR},
+				#{quickResponseCodeValidTime,jdbcType=TIMESTAMP},
+				#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+				#{dataStatus,jdbcType=VARCHAR})
+	</insert>
+	<!--	<insert id="insertSelective" parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">-->
+
+	<!--		insert into order_qrcode_extend-->
+	<!--		<trim prefix="(" suffix=")" suffixOverrides=",">-->
+	<!--			<if test="id != null">-->
+	<!--				id,-->
+	<!--			</if>-->
+	<!--			<if test="orderInfoId != null">-->
+	<!--				order_info_id,-->
+	<!--			</if>-->
+	<!--			<if test="authOrderId != null">-->
+	<!--				auth_order_id,-->
+	<!--			</if>-->
+	<!--			<if test="openId != null">-->
+	<!--				open_id,-->
+	<!--			</if>-->
+	<!--			<if test="unionId != null">-->
+	<!--				union_id,-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeType != null">-->
+	<!--				quick_response_code_type,-->
+	<!--			</if>-->
+	<!--			<if test="fpzlDm != null">-->
+	<!--				fpzl_dm,-->
+	<!--			</if>-->
+	<!--			<if test="fpqqlsh != null">-->
+	<!--				fpqqlsh,-->
+	<!--			</if>-->
+	<!--			<if test="tqm != null">-->
+	<!--				tqm,-->
+	<!--			</if>-->
+	<!--			<if test="ddh != null">-->
+	<!--				ddh,-->
+	<!--			</if>-->
+	<!--			<if test="kphjje != null">-->
+	<!--				kphjje,-->
+	<!--			</if>-->
+	<!--			<if test="xhfMc != null">-->
+	<!--				xhf_mc,-->
+	<!--			</if>-->
+	<!--			<if test="xhfNsrsbh != null">-->
+	<!--				xhf_nsrsbh,-->
+	<!--			</if>-->
+	<!--			<if test="zfzt != null">-->
+	<!--				zfzt,-->
+	<!--			</if>-->
+	<!--			<if test="cardStatus != null">-->
+	<!--				card_status,-->
+	<!--			</if>-->
+	<!--			<if test="ewmzt != null">-->
+	<!--				ewmzt,-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeUrl != null">-->
+	<!--				quick_response_code_url,-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeValidTime != null">-->
+	<!--				quick_response_code_valid_time,-->
+	<!--			</if>-->
+	<!--			<if test="createTime != null">-->
+	<!--				create_time,-->
+	<!--			</if>-->
+	<!--			<if test="updateTime != null">-->
+	<!--				update_time,-->
+	<!--			</if>-->
+	<!--			<if test="dataStatus != null">-->
+	<!--				data_status,-->
+	<!--			</if>-->
+	<!--		</trim>-->
+	<!--		<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+	<!--			<if test="id != null">-->
+	<!--				#{id,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="orderInfoId != null">-->
+	<!--				#{orderInfoId,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="authOrderId != null">-->
+	<!--				#{authOrderId,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="openId != null">-->
+	<!--				#{openId,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="unionId != null">-->
+	<!--				#{unionId,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeType != null">-->
+	<!--				#{quickResponseCodeType,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="fpzlDm != null">-->
+	<!--				#{fpzlDm,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="fpqqlsh != null">-->
+	<!--				#{fpqqlsh,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="tqm != null">-->
+	<!--				#{tqm,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="ddh != null">-->
+	<!--				#{ddh,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="kphjje != null">-->
+	<!--				#{kphjje,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="xhfMc != null">-->
+	<!--				#{xhfMc,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="xhfNsrsbh != null">-->
+	<!--				#{xhfNsrsbh,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="zfzt != null">-->
+	<!--				#{zfzt,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="cardStatus != null">-->
+	<!--				#{cardStatus,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="ewmzt != null">-->
+	<!--				#{ewmzt,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeUrl != null">-->
+	<!--				#{quickResponseCodeUrl,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeValidTime != null">-->
+	<!--				#{quickResponseCodeValidTime,jdbcType=TIMESTAMP},-->
+	<!--			</if>-->
+	<!--			<if test="createTime != null">-->
+	<!--				#{createTime,jdbcType=TIMESTAMP},-->
+	<!--			</if>-->
+	<!--			<if test="updateTime != null">-->
+	<!--				#{updateTime,jdbcType=TIMESTAMP},-->
+	<!--			</if>-->
+	<!--			<if test="dataStatus != null">-->
+	<!--				#{dataStatus,jdbcType=VARCHAR},-->
+	<!--			</if>-->
+	<!--		</trim>-->
+	<!--	</insert>-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">
+		update order_qrcode_extend
+		<set>
+			<if test="qrCodeExt.orderInfoId != null">
+				order_info_id = #{qrCodeExt.orderInfoId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.authOrderId != null">
+				auth_order_id = #{qrCodeExt.authOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.openId != null">
+				open_id = #{qrCodeExt.openId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.unionId != null">
+				union_id = #{qrCodeExt.unionId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.quickResponseCodeType != null">
+				quick_response_code_type =
+				#{qrCodeExt.quickResponseCodeType,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.fpzlDm != null">
+				fpzl_dm = #{qrCodeExt.fpzlDm,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.fpqqlsh != null">
+				fpqqlsh = #{qrCodeExt.fpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.tqm != null">
+				tqm = #{qrCodeExt.tqm,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.ddh != null">
+				ddh = #{qrCodeExt.ddh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.kphjje != null">
+				kphjje = #{qrCodeExt.kphjje,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.xhfMc != null">
+				xhf_mc = #{qrCodeExt.xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.xhfNsrsbh != null">
+				xhf_nsrsbh = #{qrCodeExt.xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.zfzt != null">
+				zfzt = #{qrCodeExt.zfzt,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.cardStatus != null">
+				card_status = #{qrCodeExt.cardStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.ewmzt != null">
+				ewmzt = #{qrCodeExt.ewmzt,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.quickResponseCodeUrl != null">
+				quick_response_code_url =
+				#{qrCodeExt.quickResponseCodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.quickResponseCodeValidTime != null">
+				quick_response_code_valid_time =
+				#{qrCodeExt.quickResponseCodeValidTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCodeExt.createTime != null">
+				create_time = #{qrCodeExt.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCodeExt.updateTime != null">
+				update_time = #{qrCodeExt.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCodeExt.dataStatus != null">
+				data_status = #{qrCodeExt.dataStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{qrCodeExt.id,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+	<!--	<update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">-->
+	<!--		-->
+	<!--		update order_qrcode_extend-->
+	<!--		set order_info_id =-->
+	<!--		#{orderInfoId,jdbcType=VARCHAR},-->
+	<!--		auth_order_id =-->
+	<!--		#{authOrderId,jdbcType=VARCHAR},-->
+	<!--		open_id = #{openId,jdbcType=VARCHAR},-->
+	<!--		union_id = #{unionId,jdbcType=VARCHAR},-->
+	<!--		quick_response_code_type =-->
+	<!--		#{quickResponseCodeType,jdbcType=VARCHAR},-->
+	<!--		fpzl_dm =-->
+	<!--		#{fpzlDm,jdbcType=VARCHAR},-->
+	<!--		fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR},-->
+	<!--		tqm =-->
+	<!--		#{tqm,jdbcType=VARCHAR},-->
+	<!--		ddh = #{ddh,jdbcType=VARCHAR},-->
+	<!--		kphjje =-->
+	<!--		#{kphjje,jdbcType=VARCHAR},-->
+	<!--		xhf_mc = #{xhfMc,jdbcType=VARCHAR},-->
+	<!--		xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+	<!--		zfzt =-->
+	<!--		#{zfzt,jdbcType=VARCHAR},-->
+	<!--		card_status = #{cardStatus,jdbcType=VARCHAR},-->
+	<!--		ewmzt = #{ewmzt,jdbcType=VARCHAR},-->
+	<!--		quick_response_code_url =-->
+	<!--		#{quickResponseCodeUrl,jdbcType=VARCHAR},-->
+	<!--		quick_response_code_valid_time =-->
+	<!--		#{quickResponseCodeValidTime,jdbcType=TIMESTAMP},-->
+	<!--		create_time =-->
+	<!--		#{createTime,jdbcType=TIMESTAMP},-->
+	<!--		update_time =-->
+	<!--		#{updateTime,jdbcType=TIMESTAMP},-->
+	<!--		data_status =-->
+	<!--		#{dataStatus,jdbcType=VARCHAR}-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</update>-->
+
+	<select id="selectByOrderQrcodeExtendInfo" resultMap="BaseResultMap"
+			parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">
+
+		select
+		<include refid="Base_Column_List"/>
+		from order_qrcode_extend
+		<where>
+			<if test="qrCodeExt.id != null and qrCodeExt.id != ''">
+				and id = #{qrCodeExt.id,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.orderInfoId != null and qrCodeExt.orderInfoId != ''">
+				and order_info_id = #{qrCodeExt.orderInfoId,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.authOrderId != null and qrCodeExt.authOrderId != ''">
+				and auth_order_id = #{qrCodeExt.authOrderId,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.quickResponseCodeType != null and qrCodeExt.quickResponseCodeType != ''">
+				and quick_response_code_type =
+				#{qrCodeExt.quickResponseCodeType,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.fpzlDm != null and qrCodeExt.fpzlDm != ''">
+				and fpzl_dm = #{qrCodeExt.fpzlDm,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.tqm != null and qrCodeExt.tqm != ''">
+				and tqm = #{qrCodeExt.tqm,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.fpqqlsh != null and qrCodeExt.fpqqlsh != ''">
+                and fpqqlsh = #{qrCodeExt.fpqqlsh,jdbcType=VARCHAR}
+            </if>
+			<if test="qrCodeExt.ddh != null and qrCodeExt.ddh != ''">
+				and ddh = #{qrCodeExt.ddh,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.xhfMc != null and qrCodeExt.xhfMc != ''">
+				and xhf_mc = #{qrCodeExt.xhfMc,jdbcType=VARCHAR}
+			</if>
+			<if test="qrCodeExt.dataStatus != null and qrCodeExt.dataStatus != ''">
+				and data_status = #{qrCodeExt.dataStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="shList != null and shList.size() == 0">
+				and xhf_nsrsbh = ''
+			</if>
+			<if test="shList != null and shList.size() == 1">
+				and xhf_nsrsbh =
+				<foreach collection="shList" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="shList != null and shList.size() > 1">
+				and xhf_nsrsbh in
+				<foreach collection="shList" index="index" item="item"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+<!-- 定时任务查询异常状态处理-->
+	<select id="selectOrderQrcodeExtendInfoForTask" resultMap="BaseResultMap"
+			parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">
+
+		select
+		<include refid="Base_Column_List"/>
+		from order_qrcode_extend
+
+		<where>
+			data_status = '0'
+			and ewmzt = '1'
+			and zfzt = '0'
+			and auth_order_id != ''
+			and card_status != '1'
+
+			and quick_response_code_type = '1'
+
+			<if test="paraMap.startTime != null and paraMap.startTime != ''">
+				and create_time >= #{paraMap.startTime,jdbcType=VARCHAR}
+			</if>
+			<if test="paraMap.endTime != null and paraMap.endTime != ''">
+				and #{paraMap.endTime,jdbcType=VARCHAR} >= create_time
+			</if>
+
+			<if test="shList != null and shList.size() == 0">
+				and xhf_nsrsbh = ''
+			</if>
+			<if test="shList != null and shList.size() == 1">
+				and xhf_nsrsbh =
+				<foreach collection="shList" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="shList != null and shList.size() > 1">
+				and xhf_nsrsbh in
+				<foreach collection="shList" index="index" item="item"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+
+	<select id="selectDynamicQrCodeList" resultType="java.util.HashMap"
+        parameterType="map">
+        <bind name="dataType" value="${dataType}" />
+        select
+		opi.ddcjsj create_time,
+		opi.ddh,
+		opi.kphjje,
+		opi.ddzt,
+		oii.kpzt,
+		opi.ghf_mc,
+		opi.kpxm,
+		oqe.zfzt,
+		oqe.id,
+		oqe.ewmzt,
+		oqe.fpqqlsh,
+		opi.xhf_nsrsbh,
+		opi.order_info_id,
+		opi.xhf_mc,
+		oqe.quick_response_code_valid_time
+		from order_qrcode_extend oqe
+		left join order_process_info opi on oqe.order_info_id = opi.order_info_id
+		left join order_invoice_info oii on opi.id = oii.order_process_info_id
+		<where>
+			oqe.quick_response_code_type = '1'
+			and opi.order_status = '0'
+			<if test="map.startTime != null">
+				and opi.ddcjsj >= #{map.startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="map.endTime != null">
+				and #{map.endTime,jdbcType=TIMESTAMP} >= opi.ddcjsj
+			</if>
+
+			<if test="map.minJe != null and map.minJe != ''">
+				and cast(opi.kphjje as DECIMAL(18,2)) >= #{map.minJe,jdbcType=DOUBLE}
+			</if>
+			<if test="map.maxJe != null and map.maxJe != ''">
+				and #{map.maxJe,jdbcType=DOUBLE} >= cast(opi.kphjje as DECIMAL(18,2))
+			</if>
+			<if test="map.ghfmc != null and map.ghfmc != ''">
+				and opi.ghf_mc like CONCAT('%', #{map.ghfmc,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="map.fpzldm != null and map.fpzldm != ''">
+				and opi.fpzl_dm = #{map.fpzldm,jdbcType=VARCHAR}
+			</if>
+			<if test="map.ddh != null and map.ddh != ''">
+				and oqe.ddh like CONCAT(#{map.ddh,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="map.kpzt != null and map.kpzt != ''">
+				<choose>
+					<when test="map.kpzt == 0">
+						and (kpzt = '0' or kpzt = '' or kpzt is null)
+					</when>
+					<otherwise>
+						and oii.kpzt = #{map.kpzt,jdbcType=VARCHAR}
+					</otherwise>
+				</choose>
+			</if>
+			<if test="map.zfzt != null and map.zfzt != ''">
+				and oqe.zfzt = #{map.zfzt,jdbcType=VARCHAR}
+			</if>
+			<if test="map.ewmzt != null and map.ewmzt != ''">
+				and oqe.ewmzt = #{map.ewmzt,jdbcType=VARCHAR}
+			</if>
+			<if test="map.startValidTime != null">
+				and oqe.quick_response_code_valid_time >= #{map.startValidTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="map.endValidTime != null">
+				and #{map.endValidTime,jdbcType=TIMESTAMP} >= oqe.quick_response_code_valid_time
+			</if>
+			<if test="shList != null and shList.size() == 0">
+				and opi.xhf_nsrsbh = ''
+			</if>
+			<if test="shList != null and shList.size() == 1">
+				and opi.xhf_nsrsbh =
+				<foreach collection="shList" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="shList != null and shList.size() > 1">
+				and opi.xhf_nsrsbh in
+				<foreach collection="shList" index="index" item="item"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		order by opi.ddcjsj desc
+	</select>
+
+	<select id="queryEwmDetailByFpqqlsh" resultType="java.util.HashMap"
+			parameterType="java.lang.String">
+		<bind name="dataType" value="${dataType}"/>
+		select
+		oi.*,
+		opi.*
+		from order_qrcode_extend oqe
+		left join order_info oi on oqe.fpqqlsh = oi.fpqqlsh
+		left join order_process_info opi on oi.fpqqlsh = opi.fpqqlsh
+		where oqe.fpqqlsh = #{fpqqlsh ,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and opi.xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and opi.xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and opi.xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryQrcodeAndInvoiceDetail" resultType="java.util.HashMap"
+			parameterType="java.lang.String">
+		<bind name="dataType" value="${dataType}"/>
+		select
+		opi.ddcjsj create_time,
+		opi.ddh,
+		opi.kphjje,
+		opi.ddzt,
+		oii.kpzt,
+		opi.ghf_mc,
+		opi.kpxm,
+		oqe.zfzt,
+		oqe.id,
+		oqe.ewmzt,
+		oqe.tqm,
+		oqe.fpqqlsh,
+		opi.xhf_nsrsbh,
+		opi.order_info_id,
+		opi.id process_id,
+		opi.xhf_mc,
+		oqe.quick_response_code_valid_time
+		from order_qrcode_extend oqe
+		left join order_process_info opi on oqe.fpqqlsh = opi.fpqqlsh
+		left join order_invoice_info oii on oqe.order_info_id = oii.order_info_id
+		where oqe.id = #{qrcodeId ,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and oqe.xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and oqe.xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and oqe.xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<update id="updateByOrderIdSelective" parameterType="com.dxhy.order.model.OrderQrcodeExtendInfo">
+		update order_qrcode_extend
+		<set>
+			<if test="qrCodeExt.authOrderId != null">
+				auth_order_id = #{qrCodeExt.authOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.openId != null">
+				open_id = #{qrCodeExt.openId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.unionId != null">
+				union_id = #{qrCodeExt.unionId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.quickResponseCodeType != null">
+				quick_response_code_type =
+				#{qrCodeExt.quickResponseCodeType,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.fpzlDm != null">
+				fpzl_dm = #{qrCodeExt.fpzlDm,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.fpqqlsh != null">
+				fpqqlsh = #{qrCodeExt.fpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.tqm != null">
+				tqm = #{qrCodeExt.tqm,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.ddh != null">
+				ddh = #{qrCodeExt.ddh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.kphjje != null">
+				kphjje = #{qrCodeExt.kphjje,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.xhfMc != null">
+				xhf_mc = #{qrCodeExt.xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.zfzt != null">
+				zfzt = #{qrCodeExt.zfzt,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.cardStatus != null">
+				card_status = #{qrCodeExt.cardStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.ewmzt != null">
+				ewmzt = #{qrCodeExt.ewmzt,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.quickResponseCodeUrl != null">
+				quick_response_code_url =
+				#{qrCodeExt.quickResponseCodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCodeExt.quickResponseCodeValidTime != null">
+				quick_response_code_valid_time =
+				#{qrCodeExt.quickResponseCodeValidTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCodeExt.createTime != null">
+				create_time = #{qrCodeExt.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCodeExt.updateTime != null">
+				update_time = #{qrCodeExt.updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCodeExt.dataStatus != null">
+				data_status = #{qrCodeExt.dataStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where order_info_id =  #{qrCodeExt.orderInfoId,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+</mapper>

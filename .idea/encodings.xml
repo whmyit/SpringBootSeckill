@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/order-file-operate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-mail/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-mail/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-consumer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-consumer/src/main/resources/download" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-consumer/src/main/resources/redinvoice" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-generatepdf/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-generatepdf/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-generatepdf/src/main/resources/fonts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-generatepdf/src/main/resources/template" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-management-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-merge/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-price-separation/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-rabbitmq-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-sms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-sms/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-split/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-dubbo-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-dubbo-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-dubbo-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-dubbo-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spring-dubbo-service/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

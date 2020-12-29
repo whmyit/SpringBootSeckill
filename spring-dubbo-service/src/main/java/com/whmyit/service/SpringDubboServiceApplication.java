@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @MapperScan("com.whmyit.service.dao")//将项目中对应的mapper类的路径加进来就可以了
-@ImportResource("classpath:providers.xml")
+//@ImportResource("classpath:providers.xml")
 @RestController
 public class SpringDubboServiceApplication {
 

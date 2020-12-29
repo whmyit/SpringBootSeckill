@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.TaxEquipmentInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.TaxEquipmentInfo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR"/>
+        <result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="sksb_code" property="sksbCode" jdbcType="VARCHAR"/>
+        <result column="sksb_name" property="sksbName" jdbcType="VARCHAR"/>
+        <result column="sksb_type" property="sksbType" jdbcType="VARCHAR"/>
+        <result column="link_time" property="linkTime" jdbcType="TIMESTAMP"/>
+        <result column="sfdm" property="sfdm" jdbcType="VARCHAR"/>
+        <result column="sfmc" property="sfmc" jdbcType="VARCHAR"/>
+        <result column="bz" property="bz" jdbcType="VARCHAR"/>
+        <result column="create_user_id" property="createUserId"
+                jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId"
+                jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, xhf_nsrsbh, xhf_mc, group_id, group_name, sksb_code, sksb_name,
+		sksb_type, link_time,sfdm,sfmc,
+		bz, create_user_id, update_user_id,deleted, create_time, update_time
+    </sql>
+    <!--	<select id="selectByPrimaryKey" resultMap="BaseResultMap"-->
+    <!--		parameterType="java.lang.String">-->
+
+    <!--		select-->
+    <!--		<include refid="Base_Column_List" />-->
+    <!--		from t_sksb-->
+    <!--		where id = #{id,jdbcType=VARCHAR}-->
+    <!--	</select>-->
+    <!--	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+
+    <!--		delete from t_sksb-->
+    <!--		where id = #{id,jdbcType=VARCHAR}-->
+    <!--	</delete>-->
+    <insert id="insertTaxEquipment" parameterType="com.dxhy.order.model.TaxEquipmentInfo">
+        insert into t_sksb (id, xhf_nsrsbh, xhf_mc,
+                            group_id, group_name, sksb_code,
+                            sksb_name, sksb_type, link_time,sfdm,sfmc,
+                            bz, create_user_id, update_user_id,deleted,
+                            create_time, update_time)
+        values (#{id,jdbcType=VARCHAR}, #{xhfNsrsbh,jdbcType=VARCHAR},
+                #{xhfMc,jdbcType=VARCHAR},
+                #{groupId,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, #{sksbCode,jdbcType=VARCHAR},
+                #{sksbName,jdbcType=VARCHAR}, #{sksbType,jdbcType=VARCHAR},
+                #{linkTime,jdbcType=TIMESTAMP},#{sfdm,jdbcType=VARCHAR},#{sfmc,jdbcType=VARCHAR},
+                #{bz,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <!--	<insert id="insertSelective" parameterType="com.dxhy.order.model.TaxEquipmentInfo">-->
+
+    <!--		insert into t_sksb-->
+    <!--		<trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--			<if test="id != null">-->
+    <!--				id,-->
+    <!--			</if>-->
+    <!--			<if test="xhfNsrsbh != null">-->
+    <!--				xhf_nsrsbh,-->
+    <!--			</if>-->
+    <!--			<if test="xhfMc != null">-->
+    <!--				xhf_mc,-->
+    <!--			</if>-->
+    <!--			<if test="groupId != null">-->
+    <!--				group_id,-->
+    <!--			</if>-->
+    <!--			<if test="groupName != null">-->
+    <!--				group_name,-->
+    <!--			</if>-->
+    <!--			<if test="sksbCode != null">-->
+    <!--				sksb_code,-->
+    <!--			</if>-->
+    <!--			<if test="sksbName != null">-->
+    <!--				sksb_name,-->
+    <!--			</if>-->
+    <!--			<if test="sksbType != null">-->
+    <!--				sksb_type,-->
+    <!--			</if>-->
+    <!--			<if test="linkTime != null">-->
+    <!--				link_time,-->
+    <!--			</if>-->
+    <!--			<if test="bz != null">-->
+    <!--				bz,-->
+    <!--			</if>-->
+    <!--			<if test="createUserId != null">-->
+    <!--				create_user_id,-->
+    <!--			</if>-->
+    <!--			<if test="updateUserId != null">-->
+    <!--				update_user_id,-->
+    <!--			</if>-->
+    <!--			<if test="createTime != null">-->
+    <!--				create_time,-->
+    <!--			</if>-->
+    <!--			<if test="updateTime != null">-->
+    <!--				update_time,-->
+    <!--			</if>-->
+    <!--		</trim>-->
+    <!--		<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--			<if test="id != null">-->
+    <!--				#{id,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="xhfNsrsbh != null">-->
+    <!--				#{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="xhfMc != null">-->
+    <!--				#{xhfMc,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="groupId != null">-->
+    <!--				#{groupId,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="groupName != null">-->
+    <!--				#{groupName,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="sksbCode != null">-->
+    <!--				#{sksbCode,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="sksbName != null">-->
+    <!--				#{sksbName,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="sksbType != null">-->
+    <!--				#{sksbType,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="linkTime != null">-->
+    <!--				#{linkTime,jdbcType=TIMESTAMP},-->
+    <!--			</if>-->
+    <!--			<if test="bz != null">-->
+    <!--				#{bz,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="createUserId != null">-->
+    <!--				#{createUserId,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="updateUserId != null">-->
+    <!--				#{updateUserId,jdbcType=VARCHAR},-->
+    <!--			</if>-->
+    <!--			<if test="createTime != null">-->
+    <!--				#{createTime,jdbcType=TIMESTAMP},-->
+    <!--			</if>-->
+    <!--			<if test="updateTime != null">-->
+    <!--				#{updateTime,jdbcType=TIMESTAMP},-->
+    <!--			</if>-->
+    <!--		</trim>-->
+    <!--	</insert>-->
+    <update id="updateTaxEquipment" parameterType="com.dxhy.order.model.TaxEquipmentInfo">
+        update t_sksb
+        <set>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfMc != null">
+                xhf_mc = #{xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="groupId != null">
+                group_id = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="groupName != null">
+                group_name = #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="sksbCode != null">
+                sksb_code = #{sksbCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sksbName != null">
+                sksb_name = #{sksbName,jdbcType=VARCHAR},
+            </if>
+            <if test="sksbType != null">
+                sksb_type = #{sksbType,jdbcType=VARCHAR},
+            </if>
+            <if test="linkTime != null">
+                link_time = #{linkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sfdm != null">
+                sfdm = #{sfdm,jdbcType=VARCHAR},
+            </if>
+            <if test="sfmc != null">
+                sfmc = #{sfmc,jdbcType=VARCHAR},
+            </if>
+            <if test="bz != null">
+                bz = #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <!--	<update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.TaxEquipmentInfo">-->
+
+    <!--		update t_sksb-->
+    <!--		set xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--		xhf_mc = #{xhfMc,jdbcType=VARCHAR},-->
+    <!--		group_id = #{groupId,jdbcType=VARCHAR},-->
+    <!--		group_name = #{groupName,jdbcType=VARCHAR},-->
+    <!--		sksb_code = #{sksbCode,jdbcType=VARCHAR},-->
+    <!--		sksb_name = #{sksbName,jdbcType=VARCHAR},-->
+    <!--		sksb_type = #{sksbType,jdbcType=VARCHAR},-->
+    <!--		link_time = #{linkTime,jdbcType=TIMESTAMP},-->
+    <!--		bz = #{bz,jdbcType=VARCHAR},-->
+    <!--		create_user_id = #{createUserId,jdbcType=VARCHAR},-->
+    <!--		update_user_id = #{updateUserId,jdbcType=VARCHAR},-->
+    <!--		create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--		update_time = #{updateTime,jdbcType=TIMESTAMP}-->
+    <!--		where id = #{id,jdbcType=VARCHAR}-->
+    <!--	</update>-->
+
+    <select id="queryTaxEquipmentList" resultMap="BaseResultMap"
+            parameterType="com.dxhy.order.model.TaxEquipmentInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sksb
+        <where>
+            deleted = '0'
+            <if test="data.id != null and  data.id != ''">
+                and id= #{data.id ,jdbcType = VARCHAR}
+            </if>
+
+            <if test="data.xhfMc != null and  data.xhfMc != ''">
+                and xhf_mc= #{data.xhfMc ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.groupId != null and  data.groupId != ''">
+                and group_id=
+                #{data.groupId ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.groupName != null and  data.groupName != ''">
+                and group_name=
+                #{data.groupName ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.sksbCode != null and  data.sksbCode != ''">
+                and sksb_code=
+                #{data.sksbCode ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.sksbName != null and  data.sksbName != ''">
+                and sksb_name =
+                #{data.sksbName ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.sksbType != null and  data.sksbType != ''">
+                and sksb_type=
+                #{data.sksbType ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.linkTime != null">
+                and link_time=
+                #{data.linkTime ,jdbcType = TIMESTAMP}
+            </if>
+            <if test="data.sfdm != null and  data.sfdm != ''">
+                and sfdm= #{data.sfdm ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.sfmc != null and  data.sfmc != ''">
+                and sfmc= #{data.sfmc ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.bz != null and  data.bz != ''">
+                and bz= #{data.bz ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.createUserId != null and  data.createUserId != ''">
+                and create_user_id= #{data.createUserId ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.updateUserId != null and  data.updateUserId != ''">
+                and update_user_id = #{data.updateUserId ,jdbcType = VARCHAR}
+            </if>
+            <if test="data.createTime != null">
+                and create_time= #{data.createTime ,jdbcType = TIMESTAMP}
+            </if>
+            <if test="data.updateTime != null">
+                and update_time= #{data.updateTime ,jdbcType = TIMESTAMP}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    <!-- 以下方法在调用数据库之前添加redis缓存方法 -->
+    <select id="selectByNsrsbh" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sksb
+        where deleted = '0' and xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+    </select>
+</mapper>

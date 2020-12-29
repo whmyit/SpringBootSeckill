@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="order-rabbitmq-core" />
+        <module name="order-split" />
+        <module name="order-management-common" />
+        <module name="order-mail" />
+        <module name="order-management-provider" />
+        <module name="order-file-operate" />
+        <module name="order-merge" />
+        <module name="order-management-generatepdf" />
+        <module name="order-price-separation" />
+        <module name="order-management-api" />
+        <module name="order-sms" />
+        <module name="order-management-consumer" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="order-file-operate" target="1.8" />
+      <module name="order-mail" target="1.8" />
+      <module name="order-management-api" target="1.8" />
+      <module name="order-management-common" target="1.8" />
+      <module name="order-management-consumer" target="1.8" />
+      <module name="order-management-generatepdf" target="1.8" />
+      <module name="order-management-provider" target="1.8" />
+      <module name="order-merge" target="1.8" />
+      <module name="order-price-separation" target="1.8" />
+      <module name="order-rabbitmq-core" target="1.8" />
+      <module name="order-sms" target="1.8" />
+      <module name="order-split" target="1.8" />
+      <module name="spring-dubbo-api" target="1.8" />
+      <module name="spring-dubbo-client" target="1.8" />
+      <module name="spring-dubbo-service" target="1.8" />
+      <module name="SpringBootSeckill" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

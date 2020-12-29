@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvoiceTypeCodeExtMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.InvoiceTypeCodeExt">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="invoice_type_code_id" property="invoiceTypeCodeId" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm_mc" property="fpzlDmMc" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, invoice_type_code_id, fpzl_dm, fpzl_dm_mc, create_time, xhf_nsrsbh
+    </sql>
+    <!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >-->
+
+    <!--    select-->
+    <!--    <include refid="Base_Column_List" />-->
+    <!--    from invoice_type_code_ext-->
+    <!--    where id = #{id,jdbcType=VARCHAR}-->
+    <!--  </select>-->
+    <!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >-->
+
+    <!--    delete from invoice_type_code_ext-->
+    <!--    where id = #{id,jdbcType=VARCHAR}-->
+    <!--  </delete>-->
+    <!--  <insert id="insert" parameterType="com.dxhy.order.model.InvoiceTypeCodeExt" >-->
+
+    <!--    insert into invoice_type_code_ext (id, invoice_type_code_id, fpzl_dm,-->
+    <!--      fpzl_dm_mc, create_time)-->
+    <!--    values (#{id,jdbcType=VARCHAR}, #{invoiceTypeCodeId,jdbcType=VARCHAR}, #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--      #{fpzlDmMc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})-->
+    <!--  </insert>-->
+    <insert id="insertInvoiceTypeCodeExt" parameterType="com.dxhy.order.model.InvoiceTypeCodeExt">
+        insert into invoice_type_code_ext
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="invoiceTypeCodeId != null">
+                invoice_type_code_id,
+            </if>
+            <if test="fpzlDm != null">
+                fpzl_dm,
+            </if>
+            <if test="fpzlDmMc != null">
+                fpzl_dm_mc,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceTypeCodeId != null">
+                #{invoiceTypeCodeId,jdbcType=VARCHAR},
+            </if>
+            <if test="fpzlDm != null">
+                #{fpzlDm,jdbcType=VARCHAR},
+            </if>
+            <if test="fpzlDmMc != null">
+                #{fpzlDmMc,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="xhfNsrsbh != null">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.InvoiceTypeCodeExt" >-->
+
+    <!--    update invoice_type_code_ext-->
+    <!--    <set >-->
+    <!--      <if test="invoiceTypeCodeId != null" >-->
+    <!--        invoice_type_code_id = #{invoiceTypeCodeId,jdbcType=VARCHAR},-->
+    <!--      </if>-->
+    <!--      <if test="fpzlDm != null" >-->
+    <!--        fpzl_dm = #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--      </if>-->
+    <!--      <if test="fpzlDmMc != null" >-->
+    <!--        fpzl_dm_mc = #{fpzlDmMc,jdbcType=VARCHAR},-->
+    <!--      </if>-->
+    <!--      <if test="createTime != null" >-->
+    <!--        create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--      </if>-->
+    <!--    </set>-->
+    <!--    where id = #{id,jdbcType=VARCHAR}-->
+    <!--  </update>-->
+    <!--  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.InvoiceTypeCodeExt" >-->
+
+    <!--    update invoice_type_code_ext-->
+    <!--    set invoice_type_code_id = #{invoiceTypeCodeId,jdbcType=VARCHAR},-->
+    <!--      fpzl_dm = #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--      fpzl_dm_mc = #{fpzlDmMc,jdbcType=VARCHAR},-->
+    <!--      create_time = #{createTime,jdbcType=TIMESTAMP}-->
+    <!--    where id = #{id,jdbcType=VARCHAR}-->
+    <!--  </update>-->
+
+    <!--  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.dxhy.order.model.InvoiceTypeCodeExt" >-->
+    <!--    select-->
+    <!--    <include refid="Base_Column_List" />-->
+    <!--    from invoice_type_code_ext-->
+    <!--    <where>-->
+    <!--    	<if test="invoiceTypeCodeId != null" >-->
+    <!--        	and invoice_type_code_id = #{invoiceTypeCodeId,jdbcType=VARCHAR}-->
+    <!--    	</if>-->
+    <!--    </where>-->
+    <!--  </select>-->
+    <select id="selectByQrcodeId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        invoice_type_code_ext
+        WHERE
+        invoice_type_code_id = #{qrcodeId,jdbcType=VARCHAR}
+
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <delete id="deleteByQrId" parameterType="java.lang.String">
+        delete from invoice_type_code_ext
+        where invoice_type_code_id = #{qrId,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+</mapper>

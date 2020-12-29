@@ -1,0 +1,10 @@
+POST http://test.5ifapiao.com:8888/wxservice/api/getAuthData
+Content-Type: application/json
+
+{
+  "authAppId": "",
+  "s_pappid": "",
+  "order_id": "01456221383502024704"
+}
+
+###

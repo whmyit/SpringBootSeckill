@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxhy.order.dao.EwmGzhConfigMapper">
+
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.EwmGzhConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="nsrsbh" jdbcType="VARCHAR" property="nsrsbh" />
+    <result column="appid" jdbcType="VARCHAR" property="appid" />
+    <result column="appkey" jdbcType="VARCHAR" property="appkey" />
+    <result column="gzh_subcribe_ewm" jdbcType="VARCHAR" property="gzhSubcribeEwm" />
+    <result column="home_page_logo" jdbcType="VARCHAR" property="homePageLogo" />
+    <result column="force_subcribe" jdbcType="VARCHAR" property="forceSubcribe" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, nsrsbh, appid, appkey, gzh_subcribe_ewm, home_page_logo, force_subcribe
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ewm_gzh_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ewm_gzh_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.dxhy.order.model.EwmGzhConfig">
+    insert into ewm_gzh_config (id, nsrsbh, appid, 
+      appkey, gzh_subcribe_ewm, home_page_logo, 
+      force_subcribe)
+    values (#{id,jdbcType=VARCHAR}, #{nsrsbh,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{appkey,jdbcType=VARCHAR}, #{gzhSubcribeEwm,jdbcType=VARCHAR}, #{homePageLogo,jdbcType=VARCHAR}, 
+      #{forceSubcribe,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dxhy.order.model.EwmGzhConfig">
+    insert into ewm_gzh_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nsrsbh != null">
+        nsrsbh,
+      </if>
+      <if test="appid != null">
+        appid,
+      </if>
+      <if test="appkey != null">
+        appkey,
+      </if>
+      <if test="gzhSubcribeEwm != null">
+        gzh_subcribe_ewm,
+      </if>
+      <if test="homePageLogo != null">
+        home_page_logo,
+      </if>
+      <if test="forceSubcribe != null">
+        force_subcribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="nsrsbh != null">
+        #{nsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null">
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="gzhSubcribeEwm != null">
+        #{gzhSubcribeEwm,jdbcType=VARCHAR},
+      </if>
+      <if test="homePageLogo != null">
+        #{homePageLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="forceSubcribe != null">
+        #{forceSubcribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.EwmGzhConfig">
+    update ewm_gzh_config
+    <set>
+      <if test="nsrsbh != null">
+        nsrsbh = #{nsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null">
+        appkey = #{appkey,jdbcType=VARCHAR},
+      </if>
+      <if test="gzhSubcribeEwm != null">
+        gzh_subcribe_ewm = #{gzhSubcribeEwm,jdbcType=VARCHAR},
+      </if>
+      <if test="homePageLogo != null">
+        home_page_logo = #{homePageLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="forceSubcribe != null">
+        force_subcribe = #{forceSubcribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.EwmGzhConfig">
+    update ewm_gzh_config
+    set nsrsbh = #{nsrsbh,jdbcType=VARCHAR},
+      appid = #{appid,jdbcType=VARCHAR},
+      appkey = #{appkey,jdbcType=VARCHAR},
+      gzh_subcribe_ewm = #{gzhSubcribeEwm,jdbcType=VARCHAR},
+      home_page_logo = #{homePageLogo,jdbcType=VARCHAR},
+      force_subcribe = #{forceSubcribe,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByEwmGzhConfig" parameterType="com.dxhy.order.model.EwmGzhConfig" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ewm_gzh_config
+    <where>
+      <if test="nsrsbh != null and nsrsbh != ''">
+        and nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+      </if>
+      <if test="appid != null and appid != ''">
+        and appid = #{appid,jdbcType=VARCHAR}
+      </if>
+      <if test="id != null and id != ''">
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectListByEwmGzhConfig" parameterType="com.dxhy.order.model.EwmGzhConfig" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ewm_gzh_config
+    <where>
+      <if test="data.appid != null and data.appid != ''">
+        and appid = #{data.appid,jdbcType=VARCHAR}
+      </if>
+      <if test="data.id != null and data.id != ''">
+        and id = #{data.id,jdbcType=VARCHAR}
+      </if>
+      <if test="shList != null and shList.size() == 0">
+        and nsrsbh = ''
+      </if>
+      <if test="shList != null and shList.size() == 1">
+        and nsrsbh =
+        <foreach collection="shList" index="index" item="item">
+          #{item}
+        </foreach>
+      </if>
+      <if test="shList != null and shList.size() > 1">
+        and nsrsbh in
+        <foreach collection="shList" index="index" item="item"
+                 open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </select>
+</mapper>

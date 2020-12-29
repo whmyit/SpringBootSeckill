@@ -22,7 +22,9 @@ public class SeckillExecution implements Serializable {
 
     //秒杀成功返回内容
     private SuccessKilled successKilled;
-    SeckillExecution(){}
+
+    SeckillExecution() {
+    }
 
     //秒杀成功
     public SeckillExecution(long seckillId, SeckillEnum seckillEnum, SuccessKilled successKilled) {

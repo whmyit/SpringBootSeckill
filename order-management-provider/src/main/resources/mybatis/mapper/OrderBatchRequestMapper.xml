@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderBatchRequestMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderBatchRequest">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="ddqqpch" property="ddqqpch" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="kpfs" property="kpfs" jdbcType="VARCHAR"/>
+        <result column="sldid" property="sldid" jdbcType="VARCHAR"/>
+        <result column="kpjh" property="kpjh" jdbcType="VARCHAR"/>
+        <result column="fpzldm" property="fpzldm" jdbcType="VARCHAR"/>
+        <result column="sfcpy" property="sfcpy" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+        <result column="kzzd" property="kzzd" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        ddqqpch,
+        xhf_nsrsbh,
+        kpfs,
+        sldid,
+        kpjh,
+        fpzldm,
+        sfcpy,
+        status,
+        message,
+        kzzd,
+        create_time,
+        update_time
+    </sql>
+
+
+    <!--    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+    <!--        delete from order_batch_request-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--        <if test="xhfNsrsbh != null">-->
+    <!--            and xhf_nsrsbh in-->
+    <!--            <foreach collection="xhfNsrsbh" index="index" item="item"-->
+    <!--                     open="(" separator="," close=")">-->
+    <!--                #{item}-->
+    <!--            </foreach>-->
+    <!--        </if>-->
+    <!--    </delete>-->
+    <insert id="insertOrderBatch" parameterType="com.dxhy.order.model.OrderBatchRequest">
+        insert into order_batch_request (id,
+                                         ddqqpch,
+                                         xhf_nsrsbh,
+                                         kpfs,
+                                         sldid,
+                                         kpjh,
+                                         fpzldm,
+                                         sfcpy,
+                                         status,
+                                         message,
+                                         kzzd,
+                                         create_time,
+                                         update_time)
+        values (#{id,jdbcType=VARCHAR},
+                #{ddqqpch,jdbcType=VARCHAR},
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+                #{kpfs,jdbcType=VARCHAR},
+                #{sldid,jdbcType=VARCHAR},
+                #{kpjh,jdbcType=VARCHAR},
+                #{fpzldm,jdbcType=VARCHAR},
+                #{sfcpy,jdbcType=VARCHAR},
+                #{status,jdbcType=VARCHAR},
+                #{message,jdbcType=VARCHAR},
+                #{kzzd,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!--    <insert id="insertSelective" parameterType="com.dxhy.order.model.OrderBatchRequest">-->
+    <!--        insert into order_batch_request-->
+    <!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                id,-->
+    <!--            </if>-->
+    <!--            <if test="ddqqpch != null">-->
+    <!--                ddqqpch,-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                xhf_nsrsbh,-->
+    <!--            </if>-->
+    <!--            <if test="kpfs != null">-->
+    <!--                kpfs,-->
+    <!--            </if>-->
+    <!--            <if test="sldid != null">-->
+    <!--                sldid,-->
+    <!--            </if>-->
+    <!--            <if test="kpjh != null">-->
+    <!--                kpjh,-->
+    <!--            </if>-->
+    <!--            <if test="fpzldm != null">-->
+    <!--                fpzldm,-->
+    <!--            </if>-->
+    <!--            <if test="sfcpy != null">-->
+    <!--                sfcpy,-->
+    <!--            </if>-->
+    <!--            <if test="status != null">-->
+    <!--                status,-->
+    <!--            </if>-->
+    <!--            <if test="message != null">-->
+    <!--                message,-->
+    <!--            </if>-->
+    <!--            <if test="kzzd != null">-->
+    <!--                kzzd,-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time,-->
+    <!--            </if>-->
+    <!--            <if test="updateTime != null">-->
+    <!--                update_time,-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--        <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                #{id,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="ddqqpch != null">-->
+    <!--                #{ddqqpch,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kpfs != null">-->
+    <!--                #{kpfs,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="sldid != null">-->
+    <!--                #{sldid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kpjh != null">-->
+    <!--                #{kpjh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpzldm != null">-->
+    <!--                #{fpzldm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="sfcpy != null">-->
+    <!--                #{sfcpy,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="status != null">-->
+    <!--                #{status,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="message != null">-->
+    <!--                #{message,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kzzd != null">-->
+    <!--                #{kzzd,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="updateTime != null">-->
+    <!--                #{updateTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--    </insert>-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.OrderBatchRequest">
+        update order_batch_request
+        <set>
+            <if test="orderBatchRequest.ddqqpch != null">
+                ddqqpch = #{orderBatchRequest.ddqqpch,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.kpfs != null">
+                kpfs = #{orderBatchRequest.kpfs,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.sldid != null">
+                sldid = #{orderBatchRequest.sldid,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.kpjh != null">
+                kpjh = #{orderBatchRequest.kpjh,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.fpzldm != null">
+                fpzldm = #{orderBatchRequest.fpzldm,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.sfcpy != null">
+                sfcpy = #{orderBatchRequest.sfcpy,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.status != null">
+                status = #{orderBatchRequest.status,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.message != null">
+                message = #{orderBatchRequest.message,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.kzzd != null">
+                kzzd = #{orderBatchRequest.kzzd,jdbcType=VARCHAR},
+            </if>
+            <if test="orderBatchRequest.createTime != null">
+                create_time =
+                #{orderBatchRequest.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderBatchRequest.updateTime != null">
+                update_time =
+                #{orderBatchRequest.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{orderBatchRequest.id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+
+    <select id="selectOrderBatchRequestByDdqqpch" parameterType="string"
+            resultType="int">
+        select
+        COUNT(*)
+        from order_batch_request
+        where ddqqpch = #{ddqqpch}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+	</select>
+</mapper>

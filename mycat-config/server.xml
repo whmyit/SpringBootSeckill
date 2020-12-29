@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - - Licensed under the Apache License, Version 2.0 (the "License");
+	- you may not use this file except in compliance with the License. - You
+	may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0
+	- - Unless required by applicable law or agreed to in writing, software -
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the
+	License for the specific language governing permissions and - limitations
+	under the License. -->
+<!DOCTYPE mycat:server SYSTEM "server.dtd">
+<mycat:server xmlns:mycat="http://io.mycat/">
+	<system>
+
+		<!-- 配置该属性的时候一定要保证mycat的字符集和mysql 的字符集是一致的。
+            如果需要配置特殊字符集，如：utf8mb4，则可以在index_to_charset.properties中配置，配置格式
+            为“ID=字符集”,例如：“224=utf8mb4”-->
+		<property name="charset">utf8</property>
+		<!-- 1为开启实时统计、0为关闭 -->
+		<property name="useSqlStat">0</property>
+
+		<!--	这个属性主要用于指定系统可用的线程数，默认值为机器 CPU 核心线程数。
+        主要影响 processorBufferPool、processorBufferLocalPercent、processorExecutor 属性。
+        NIOProcessor 的个数也是由这个属性定义的，所以调优的时候可以适当的调高这个属性。-->
+		<property name="processors">16</property>
+
+		<!--	这个属性主要用于指定 NIOProcessor 上共享的 businessExecutor 固定线程池大小。mycat 在需要处理一
+        些异步逻辑的时候会把任务提交到这个线程池中。新版本中这个连接池的使用频率不是很大了，可以设置一个较
+        小的值-->
+		<property name="processorExecutor">32</property>
+
+
+		<property name="processorBufferChunk">40960</property>
+		<property name="processorBufferPool">16384000</property>
+		<!-- 默认为type 0: DirectByteBufferPool | type 1 ByteBufferArena | type 2 NettyBufferPool -->
+		<property name="processorBufferPoolType">0</property>
+
+		<!-- 0为需要密码登陆、1为不需要密码登陆 ,默认为0，设置为1则需要指定默认账户-->
+		<property name="nonePasswordLogin">0</property>
+		<property name="useHandshakeV10">1</property>
+		<!-- 1为开启全加班一致性检测、0为关闭 -->
+		<property name="useGlobleTableCheck">0</property>
+		<!-- SQL 执行超时 单位:秒-->
+		<property name="sqlExecuteTimeout">300</property>
+		<!-- 指定使用 Mycat 全局序列的类型。 0 为本地文件方式，1 为数据库方式，2 为时间戳序列方式，3 为分布式ZK ID 生成器，4 为 zk 递增 id 生成。 -->
+		<property name="sequnceHandlerType">2</property>
+		<!-- 必须带有MYCATSEQ_或者 mycatseq_进入序列匹配流程 注意MYCATSEQ_有空格的情况 -->
+		<!--	<property name="sequnceHandlerPattern">(?:(\s*next\s+value\s+for\s*MYCATSEQ_(\w+))(,|\)|\s)*)+</property>-->
+		<!-- 子查询中存在关联查询的情况下,检查关联字段中是否有分片字段 .默认 false -->
+		<property name="subqueryRelationshipCheck">false</property>
+		<property name="sequenceHanlderClass">io.mycat.route.sequence.handler.HttpIncrSequenceHandler</property>
+
+		<!-- 分布式事务开关，0为不过滤分布式事务，1为过滤分布式事务（如果分布式事务内只涉及全局表，则不过滤），2为不过滤分布式事务,但是记录分布式事务日志-->
+		<property name="handleDistributedTransactions">0</property>
+		<!-- off heap for merge/order/group/limit      1开启   0关闭 -->
+		<property name="useOffHeapForMerge">0</property>
+		<!-- 单位为m -->
+		<property name="memoryPageSize">64k</property>
+		<!-- 单位为k -->
+		<property name="spillsFileBufferSize">1k</property>
+		<property name="useStreamOutput">0</property>
+		<!-- 单位为m -->
+		<property name="systemReserveMemorySize">384m</property>
+		<!--是否采用zookeeper协调切换  -->
+		<property name="useZKSwitch">false</property>
+		<!--如果为 true的话 严格遵守隔离级别,不会在仅仅只有select语句的时候在事务中切换连接-->
+		<property name="strictTxIsolation">false</property>
+		<property name="useZKSwitch">true</property>
+		<property name="dataNodeIdleCheckPeriod">300000</property>
+		<!--		对后端连接进行空闲、超时检查的时间间隔，默认是 300 秒，单位毫秒。-->
+
+		<property name="dataNodeHeartbeatPeriod">10000</property>
+		<!--		对后端所有读、写库发起心跳的间隔时间，默认是 10 秒，单位毫秒。-->
+
+		<property name="bindIp">0.0.0.0</property>
+		<!--		mycat 服务监听的 IP 地址，默认值为 0.0.0.0。-->
+
+		<property name="serverPort">8066</property>
+		<!--		定义 mycat 的使用端口，默认值为 8066。-->
+
+		<property name="managerPort">9066</property>
+		<!--		定义 mycat 的管理端口，默认值为 9066。-->
+
+		<property name="fakeMySQLVersion">5.6</property>
+		<!--		mycat 模拟的 mysql 版本号，默认值为 5.6 版本，如非特需，不要修改这个值，目前支持设置 5.5,5.6,5.7 版本，其他版本可能会有问题。-->
+
+		<!-- XA Recovery Log日志路径 -->
+		<!--<property name="XARecoveryLogBaseDir">./</property>-->
+
+		<!-- XA Recovery Log日志名称 -->
+		<!--<property name="XARecoveryLogBaseName">tmlog</property>-->
+
+	</system>
+
+
+	<user name="sims-order-dxhy">
+		<property name="password">1hOxERyrVeGD</property>
+		<property name="schemas">sales_order</property>
+		<!-- 表级权限: Table 级的 dml(curd)控制，未设置的 Table 继承 schema 的 dml -->
+		<!--  非 CURD SQL 语句, 透明传递至后端 -->
+		<!--		<privileges check="true">-->
+		<!--			<schema name="TESTDB" dml="0110" >-->
+		<!--				<table name="table01" dml="0111"></table>-->
+		<!--				<table name="table02" dml="1111"></table>-->
+		<!--			</schema>-->
+		<!--			<schema name="TESTDB1" dml="0110">-->
+		<!--				<table name="table03" dml="1110"></table>-->
+		<!--				<table name="table04" dml="1010"></table>-->
+		<!--			</schema>-->
+		<!--		</privileges>-->
+	</user>
+
+
+</mycat:server>

@@ -1,0 +1,16 @@
+
+
+### 发票开具结果获取
+POST http://10.1.1.222:8087/order-api/v2/GetAllocatedInvoices
+Content-Type: application/json
+
+{
+  "FPLX": "2",
+  "FPQQPCH": "421219914298380288"
+}
+
+
+
+
+
+###

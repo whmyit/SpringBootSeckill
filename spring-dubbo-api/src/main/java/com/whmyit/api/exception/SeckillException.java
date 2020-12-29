@@ -10,13 +10,14 @@ import java.io.Serializable;
  * @Description: 自定义异常
  * @Date: Created in 15:22  2018/10/29
  */
-public class SeckillException extends BaseException{
+public class SeckillException extends BaseException {
 
     private Integer code;
 
-    SeckillException(){}
+    SeckillException() {
+    }
 
-    public SeckillException(SeckillEnum resultEnum){
+    public SeckillException(SeckillEnum resultEnum) {
         super(resultEnum.getMsg());
         this.code = resultEnum.getCode();
     }

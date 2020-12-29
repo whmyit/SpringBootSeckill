@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderInfoMapper">
+	<resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderInfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="process_id" property="processId" jdbcType="VARCHAR" />
+		<result column="fpqqlsh" property="fpqqlsh" jdbcType="VARCHAR" />
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="thdh" property="thdh" jdbcType="VARCHAR" />
+		<result column="ddlx" property="ddlx" jdbcType="VARCHAR" />
+		<result column="dsptbm" property="dsptbm" jdbcType="VARCHAR" />
+		<result column="nsrsbh" property="nsrsbh" jdbcType="VARCHAR" />
+		<result column="nsrmc" property="nsrmc" jdbcType="VARCHAR" />
+		<result column="nsrdzdah" property="nsrdzdah" jdbcType="VARCHAR" />
+		<result column="swjg_dm" property="swjgDm" jdbcType="VARCHAR" />
+		<result column="dkbz" property="dkbz" jdbcType="VARCHAR" />
+		<result column="pydm" property="pydm" jdbcType="VARCHAR" />
+		<result column="kpxm" property="kpxm" jdbcType="VARCHAR" />
+		<result column="bbm_bbh" property="bbmBbh" jdbcType="VARCHAR" />
+		<result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR" />
+		<result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR" />
+		<result column="xhf_dz" property="xhfDz" jdbcType="VARCHAR" />
+		<result column="xhf_dh" property="xhfDh" jdbcType="VARCHAR" />
+		<result column="xhf_yh" property="xhfYh" jdbcType="VARCHAR" />
+		<result column="xhf_zh" property="xhfZh" jdbcType="VARCHAR" />
+		<result column="ghf_qylx" property="ghfQylx" jdbcType="VARCHAR" />
+		<result column="ghf_sf" property="ghfSf" jdbcType="VARCHAR" />
+		<result column="ghf_id" property="ghfId" jdbcType="VARCHAR" />
+		<result column="ghf_mc" property="ghfMc" jdbcType="VARCHAR" />
+		<result column="ghf_nsrsbh" property="ghfNsrsbh" jdbcType="VARCHAR" />
+		<result column="ghf_dz" property="ghfDz" jdbcType="VARCHAR" />
+		<result column="ghf_dh" property="ghfDh" jdbcType="VARCHAR" />
+		<result column="ghf_yh" property="ghfYh" jdbcType="VARCHAR" />
+		<result column="ghf_zh" property="ghfZh" jdbcType="VARCHAR" />
+		<result column="ghf_sj" property="ghfSj" jdbcType="VARCHAR" />
+		<result column="ghf_email" property="ghfEmail" jdbcType="VARCHAR" />
+		<result column="hy_dm" property="hyDm" jdbcType="VARCHAR" />
+		<result column="hy_mc" property="hyMc" jdbcType="VARCHAR" />
+		<result column="kpr" property="kpr" jdbcType="VARCHAR" />
+		<result column="skr" property="skr" jdbcType="VARCHAR" />
+		<result column="fhr" property="fhr" jdbcType="VARCHAR" />
+		<result column="ddrq" property="ddrq" jdbcType="TIMESTAMP" />
+		<result column="kplx" property="kplx" jdbcType="VARCHAR" />
+		<result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR" />
+		<result column="yfp_dm" property="yfpDm" jdbcType="VARCHAR" />
+		<result column="yfp_hm" property="yfpHm" jdbcType="VARCHAR" />
+		<result column="chyy" property="chyy" jdbcType="VARCHAR" />
+		<result column="tschbz" property="tschbz" jdbcType="VARCHAR" />
+		<result column="czdm" property="czdm" jdbcType="VARCHAR" />
+		<result column="qd_bz" property="qdBz" jdbcType="VARCHAR" />
+		<result column="qd_xmmc" property="qdXmmc" jdbcType="VARCHAR" />
+		<result column="kphjje" property="kphjje" jdbcType="VARCHAR" />
+		<result column="hjbhsje" property="hjbhsje" jdbcType="VARCHAR" />
+		<result column="hjse" property="hjse" jdbcType="VARCHAR" />
+		<result column="mdh" property="mdh" jdbcType="VARCHAR" />
+		<result column="ywlx" property="ywlx" jdbcType="VARCHAR" />
+		<result column="tqm" property="tqm" jdbcType="VARCHAR"/>
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="kpjh" property="kpjh" jdbcType="VARCHAR" />
+		<result column="sld" property="sld" jdbcType="VARCHAR" />
+		<result column="byzd1" property="byzd1" jdbcType="VARCHAR" />
+		<result column="byzd2" property="byzd2" jdbcType="VARCHAR" />
+		<result column="byzd3" property="byzd3" jdbcType="VARCHAR" />
+		<result column="byzd4" property="byzd4" jdbcType="VARCHAR" />
+		<result column="byzd5" property="byzd5" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+        id, process_id, fpqqlsh, ddh, thdh, ddlx, dsptbm, nsrsbh, nsrmc,
+		nsrdzdah, swjg_dm,
+		dkbz, pydm, kpxm, bbm_bbh, xhf_mc, xhf_nsrsbh, xhf_dz,
+		xhf_dh,
+		xhf_yh, xhf_zh,
+		ghf_qylx, ghf_sf, ghf_id, ghf_mc, ghf_nsrsbh, ghf_dz, ghf_dh, ghf_yh, ghf_zh,
+		ghf_sj,
+		ghf_email,
+		hy_dm, hy_mc, kpr, skr, fhr, ddrq, kplx, fpzl_dm, yfp_dm, yfp_hm, chyy,
+		tschbz, czdm,
+		qd_bz, qd_xmmc, kphjje, hjbhsje, hjse, mdh, ywlx, tqm,bz, kpjh, sld,
+	    byzd1, byzd2, byzd3, byzd4, byzd5, create_time,
+		update_time
+	</sql>
+	<select id="selectOrderInfoByOrderId" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"/>
+		from order_info
+		where id = #{id,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+<!--	<delete id="deleteOrderInfoById" parameterType="java.lang.String">-->
+<!--		delete-->
+<!--		from order_info-->
+<!--		where id = #{id,jdbcType=VARCHAR}-->
+<!--		<if test="shList != null and shList.size() == 0">-->
+<!--			and xhf_nsrsbh = ''-->
+<!--		</if>-->
+<!--		<if test="shList != null and shList.size() == 1">-->
+<!--			and xhf_nsrsbh =-->
+<!--			<foreach collection="shList" index="index" item="item">-->
+<!--				#{item}-->
+<!--			</foreach>-->
+<!--		</if>-->
+<!--		<if test="shList != null and shList.size() > 1">-->
+<!--			and xhf_nsrsbh in-->
+<!--			<foreach collection="shList" index="index" item="item"-->
+<!--					 open="(" separator="," close=")">-->
+<!--				#{item}-->
+<!--			</foreach>-->
+<!--		</if>-->
+<!--	</delete>-->
+	<insert id="insertOrderInfo" parameterType="com.dxhy.order.model.OrderInfo">
+		insert into order_info (id,
+								process_id,
+								fpqqlsh,
+								ddh,
+								thdh,
+								ddlx,
+								dsptbm,
+								nsrsbh,
+								nsrmc,
+								nsrdzdah,
+								swjg_dm,
+								dkbz,
+								pydm,
+								kpxm,
+								bbm_bbh,
+								xhf_mc,
+								xhf_nsrsbh,
+								xhf_dz,
+								xhf_dh,
+								xhf_yh,
+								xhf_zh,
+								ghf_qylx,
+								ghf_sf,
+								ghf_id,
+								ghf_mc,
+								ghf_nsrsbh,
+								ghf_dz,
+								ghf_dh,
+								ghf_yh,
+								ghf_zh,
+								ghf_sj,
+								ghf_email,
+								hy_dm,
+								hy_mc,
+								kpr,
+								skr,
+								fhr,
+								ddrq,
+								kplx,
+								fpzl_dm,
+								yfp_dm,
+								yfp_hm,
+								chyy,
+								tschbz,
+								czdm,
+								qd_bz,
+								qd_xmmc,
+								kphjje,
+								hjbhsje,
+								hjse,
+								mdh,
+								ywlx,
+								tqm,
+								bz,
+								kpjh,
+								sld,
+								byzd1,
+								byzd2,
+								byzd3,
+								byzd4,
+								byzd5,
+								create_time,
+								update_time)
+		values (#{id,jdbcType=VARCHAR},
+				#{processId,jdbcType=VARCHAR},
+				#{fpqqlsh,jdbcType=VARCHAR},
+				#{ddh,jdbcType=VARCHAR},
+				#{thdh,jdbcType=VARCHAR},
+				#{ddlx,jdbcType=VARCHAR},
+				#{dsptbm,jdbcType=VARCHAR},
+				#{nsrsbh,jdbcType=VARCHAR},
+				#{nsrmc,jdbcType=VARCHAR},
+				#{nsrdzdah,jdbcType=VARCHAR},
+				#{swjgDm,jdbcType=VARCHAR},
+				#{dkbz,jdbcType=VARCHAR},
+				#{pydm,jdbcType=VARCHAR},
+				#{kpxm,jdbcType=VARCHAR},
+				#{bbmBbh,jdbcType=VARCHAR},
+				#{xhfMc,jdbcType=VARCHAR},
+				#{xhfNsrsbh,jdbcType=VARCHAR},
+				#{xhfDz,jdbcType=VARCHAR},
+				#{xhfDh,jdbcType=VARCHAR},
+				#{xhfYh,jdbcType=VARCHAR},
+				#{xhfZh,jdbcType=VARCHAR},
+				#{ghfQylx,jdbcType=VARCHAR},
+				#{ghfSf,jdbcType=VARCHAR},
+				#{ghfId,jdbcType=VARCHAR},
+				#{ghfMc,jdbcType=VARCHAR},
+				#{ghfNsrsbh,jdbcType=VARCHAR},
+				#{ghfDz,jdbcType=VARCHAR},
+				#{ghfDh,jdbcType=VARCHAR},
+				#{ghfYh,jdbcType=VARCHAR},
+				#{ghfZh,jdbcType=VARCHAR},
+				#{ghfSj,jdbcType=VARCHAR},
+				#{ghfEmail,jdbcType=VARCHAR},
+				#{hyDm,jdbcType=VARCHAR},
+				#{hyMc,jdbcType=VARCHAR},
+				#{kpr,jdbcType=VARCHAR},
+				#{skr,jdbcType=VARCHAR},
+				#{fhr,jdbcType=VARCHAR},
+				#{ddrq,jdbcType=TIMESTAMP},
+				#{kplx,jdbcType=VARCHAR},
+				#{fpzlDm,jdbcType=VARCHAR},
+				#{yfpDm,jdbcType=VARCHAR},
+				#{yfpHm,jdbcType=VARCHAR},
+				#{chyy,jdbcType=VARCHAR},
+				#{tschbz,jdbcType=VARCHAR},
+				#{czdm,jdbcType=VARCHAR},
+				#{qdBz,jdbcType=VARCHAR},
+				#{qdXmmc,jdbcType=VARCHAR},
+				#{kphjje,jdbcType=VARCHAR},
+				#{hjbhsje,jdbcType=VARCHAR},
+				#{hjse,jdbcType=VARCHAR},
+				#{mdh,jdbcType=VARCHAR},
+				#{ywlx,jdbcType=VARCHAR},
+				#{tqm,jdbcType=VARCHAR},
+				#{bz,jdbcType=VARCHAR},
+				#{kpjh,jdbcType=VARCHAR},
+				#{sld,jdbcType=VARCHAR},
+				#{byzd1,jdbcType=VARCHAR},
+				#{byzd2,jdbcType=VARCHAR},
+				#{byzd3,jdbcType=VARCHAR},
+				#{byzd4,jdbcType=VARCHAR},
+				#{byzd5,jdbcType=VARCHAR},
+				#{createTime,jdbcType=TIMESTAMP},
+				#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+
+	<update id="updateOrderInfoByOrderId" parameterType="com.dxhy.order.model.OrderInfo">
+		update order_info
+		<set>
+			<if test="orderInfo.processId != null">
+				process_id = #{orderInfo.processId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.fpqqlsh != null">
+				fpqqlsh = #{orderInfo.fpqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ddh != null">
+				ddh = #{orderInfo.ddh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.thdh != null">
+				thdh = #{orderInfo.thdh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ddlx != null">
+				ddlx = #{orderInfo.ddlx,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.dsptbm != null">
+				dsptbm = #{orderInfo.dsptbm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.nsrsbh != null">
+				nsrsbh = #{orderInfo.nsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.nsrmc != null">
+				nsrmc = #{orderInfo.nsrmc,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.nsrdzdah != null">
+				nsrdzdah = #{orderInfo.nsrdzdah,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.swjgDm != null">
+				swjg_dm = #{orderInfo.swjgDm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.dkbz != null">
+				dkbz = #{orderInfo.dkbz,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.pydm != null">
+				pydm = #{orderInfo.pydm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.kpxm != null">
+				kpxm = #{orderInfo.kpxm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.bbmBbh != null">
+				bbm_bbh = #{orderInfo.bbmBbh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.xhfMc != null">
+				xhf_mc = #{orderInfo.xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.xhfNsrsbh != null">
+				xhf_nsrsbh = #{orderInfo.xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.xhfDz != null">
+				xhf_dz = #{orderInfo.xhfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.xhfDh != null">
+				xhf_dh = #{orderInfo.xhfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.xhfYh != null">
+				xhf_yh = #{orderInfo.xhfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.xhfZh != null">
+				xhf_zh = #{orderInfo.xhfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfQylx != null">
+				ghf_qylx = #{orderInfo.ghfQylx,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfSf != null">
+				ghf_sf = #{orderInfo.ghfSf,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfMc != null">
+				ghf_mc = #{orderInfo.ghfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfId != null">
+				ghf_id = #{orderInfo.ghfId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfNsrsbh != null">
+				ghf_nsrsbh = #{orderInfo.ghfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfDz != null">
+				ghf_dz = #{orderInfo.ghfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfDh != null">
+				ghf_dh = #{orderInfo.ghfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfYh != null">
+				ghf_yh = #{orderInfo.ghfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfZh != null">
+				ghf_zh = #{orderInfo.ghfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfSj != null">
+				ghf_sj = #{orderInfo.ghfSj,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ghfEmail != null">
+				ghf_email = #{orderInfo.ghfEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.hyDm != null">
+				hy_dm = #{orderInfo.hyDm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.hyMc != null">
+				hy_mc = #{orderInfo.hyMc,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.kpr != null">
+				kpr = #{orderInfo.kpr,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.skr != null">
+				skr = #{orderInfo.skr,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.fhr != null">
+				fhr = #{orderInfo.fhr,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ddrq != null">
+				ddrq = #{orderInfo.ddrq,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderInfo.kplx != null">
+				kplx = #{orderInfo.kplx,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.fpzlDm != null">
+				fpzl_dm = #{orderInfo.fpzlDm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.yfpDm != null">
+				yfp_dm = #{orderInfo.yfpDm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.yfpHm != null">
+				yfp_hm = #{orderInfo.yfpHm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.chyy != null">
+				chyy = #{orderInfo.chyy,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.tschbz != null">
+				tschbz = #{orderInfo.tschbz,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.czdm != null">
+				czdm = #{orderInfo.czdm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.qdBz != null">
+				qd_bz = #{orderInfo.qdBz,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.qdXmmc != null">
+				qd_xmmc = #{orderInfo.qdXmmc,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.kphjje != null">
+				kphjje = #{orderInfo.kphjje,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.hjbhsje != null">
+				hjbhsje = #{orderInfo.hjbhsje,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.hjse != null">
+				hjse = #{orderInfo.hjse,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.mdh != null">
+				mdh = #{orderInfo.mdh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.ywlx != null">
+				ywlx = #{orderInfo.ywlx,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.tqm != null">
+				tqm = #{orderInfo.tqm,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.bz != null">
+				bz = #{orderInfo.bz,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.kpjh != null">
+				kpjh = #{orderInfo.kpjh,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.sld != null">
+				sld = #{orderInfo.sld,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.byzd1 != null">
+				byzd1 = #{orderInfo.byzd1,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.byzd2 != null">
+				byzd2 = #{orderInfo.byzd2,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.byzd3 != null">
+				byzd3 = #{orderInfo.byzd3,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.byzd4 != null">
+				byzd4 = #{orderInfo.byzd4,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.byzd5 != null">
+				byzd5 = #{orderInfo.byzd5,jdbcType=VARCHAR},
+			</if>
+			<if test="orderInfo.createTime != null">
+				create_time = #{orderInfo.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderInfo.updateTime != null">
+				update_time = #{orderInfo.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{orderInfo.id,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+
+	<resultMap id="orderItemInfo" type="com.dxhy.order.model.OrderItemInfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="order_info_id" property="orderInfoId" jdbcType="VARCHAR" />
+		<result column="sphxh" property="sphxh" jdbcType="VARCHAR" />
+		<result column="xmmc" property="xmmc" jdbcType="VARCHAR" />
+		<result column="xmdw" property="xmdw" jdbcType="VARCHAR" />
+		<result column="ggxh" property="ggxh" jdbcType="VARCHAR" />
+		<result column="xmsl" property="xmsl" jdbcType="VARCHAR" />
+		<result column="hsbz" property="hsbz" jdbcType="VARCHAR" />
+		<result column="fphxz" property="fphxz" jdbcType="VARCHAR" />
+		<result column="xmdj" property="xmdj" jdbcType="VARCHAR" />
+		<result column="spbm" property="spbm" jdbcType="VARCHAR"/>
+		<result column="zxbm" property="zxbm" jdbcType="VARCHAR"/>
+		<result column="yhzcbs" property="yhzcbs" jdbcType="VARCHAR"/>
+		<result column="lslbs" property="lslbs" jdbcType="VARCHAR"/>
+		<result column="zzstsgl" property="zzstsgl" jdbcType="VARCHAR"/>
+		<result column="kce" property="kce" jdbcType="VARCHAR"/>
+		<result column="xmje" property="xmje" jdbcType="VARCHAR"/>
+		<result column="sl" property="sl" jdbcType="VARCHAR"/>
+		<result column="se" property="se" jdbcType="VARCHAR"/>
+		<result column="wcje" property="wcje" jdbcType="VARCHAR"/>
+		<result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+		<result column="byzd1" property="byzd1" jdbcType="VARCHAR"/>
+		<result column="byzd2" property="byzd2" jdbcType="VARCHAR"/>
+		<result column="byzd3" property="byzd3" jdbcType="VARCHAR"/>
+		<result column="byzd4" property="byzd4" jdbcType="VARCHAR"/>
+		<result column="byzd5" property="byzd5" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<sql id="OrderItem_Column_List1">
+		id, order_info_id, sphxh, xmmc, xmdw, ggxh, xmsl, hsbz, fphxz, xmdj,
+		spbm, zxbm,
+		yhzcbs, lslbs, zzstsgl, kce, xmje, sl, se, wcje,xhf_nsrsbh, byzd1, byzd2, byzd3,
+		byzd4, byzd5, create_time
+	</sql>
+
+	<!-- selectOrderInfoByYfpdmhm -->
+	<select id="selectOrderInfoByYfpdmhm" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"/>
+		from order_info
+		where yfp_dm = #{fpdm,jdbcType=VARCHAR} and yfp_hm =
+		#{fphm,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!-- selectOrderInfoByDdqqlsh -->
+	<select id="selectOrderInfoByDdqqlsh" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"/>
+		from order_info
+		where fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<!--    <insert id="insertByList" parameterType="java.util.List" useGeneratedKeys="false">-->
+	<!--        <bind name="dataType" value="${dataType}"/>-->
+	<!--        <if test="dataType ==0 ">-->
+
+	<!--            insert into order_info (id,-->
+	<!--            process_id,-->
+	<!--            fpqqlsh,-->
+	<!--            ddh,-->
+	<!--            thdh,-->
+	<!--            ddlx,-->
+	<!--            dsptbm,-->
+	<!--            nsrsbh,-->
+	<!--            nsrmc,-->
+	<!--            nsrdzdah,-->
+	<!--            swjg_dm,-->
+	<!--            dkbz,-->
+	<!--            pydm,-->
+	<!--            kpxm,-->
+	<!--            bbm_bbh,-->
+	<!--            xhf_mc,-->
+	<!--            xhf_nsrsbh,-->
+	<!--            xhf_dz,-->
+	<!--            xhf_dh,-->
+	<!--            xhf_yh,-->
+	<!--            xhf_zh,-->
+	<!--            ghf_qylx,-->
+	<!--            ghf_sf,-->
+	<!--            ghf_id,-->
+	<!--            ghf_mc,-->
+	<!--            ghf_nsrsbh,-->
+	<!--            ghf_dz,-->
+	<!--            ghf_dh,-->
+	<!--            ghf_yh,-->
+	<!--            ghf_zh,-->
+	<!--            ghf_sj,-->
+	<!--            ghf_email,-->
+	<!--            hy_dm,-->
+	<!--            hy_mc,-->
+	<!--            kpr,-->
+	<!--            skr,-->
+	<!--            fhr,-->
+	<!--            ddrq,-->
+	<!--            kplx,-->
+	<!--            fpzl_dm,-->
+	<!--            yfp_dm,-->
+	<!--            yfp_hm,-->
+	<!--            chyy,-->
+	<!--            tschbz,-->
+	<!--            czdm,-->
+	<!--            qd_bz,-->
+	<!--            qd_xmmc,-->
+	<!--            kphjje,-->
+	<!--            hjbhsje,-->
+	<!--            hjse,-->
+	<!--            mdh,-->
+	<!--            ywlx,-->
+	<!--            bz,-->
+	<!--            kpjh,-->
+	<!--            sld,-->
+	<!--            byzd1,-->
+	<!--            byzd2,-->
+	<!--            byzd3,-->
+	<!--            byzd4,-->
+	<!--            byzd5,-->
+	<!--            create_time,-->
+	<!--            update_time)-->
+	<!--            values-->
+	<!--            <foreach collection="list" item="item" index="index"-->
+	<!--                     separator=",">-->
+	<!--                (-->
+	<!--                #{item.id,jdbcType=VARCHAR},-->
+	<!--                #{item.processId,jdbcType=VARCHAR},-->
+	<!--                #{item.fpqqlsh,jdbcType=VARCHAR},-->
+	<!--                #{item.ddh,jdbcType=VARCHAR},-->
+	<!--                #{item.thdh,jdbcType=VARCHAR},-->
+	<!--                #{item.ddlx,jdbcType=VARCHAR},-->
+	<!--                #{item.dsptbm,jdbcType=VARCHAR},-->
+	<!--                #{item.nsrsbh,jdbcType=VARCHAR},-->
+	<!--                #{item.nsrmc,jdbcType=VARCHAR},-->
+	<!--                #{item.nsrdzdah,jdbcType=VARCHAR},-->
+	<!--                #{item.swjgDm,jdbcType=VARCHAR},-->
+	<!--                #{item.dkbz,jdbcType=VARCHAR},-->
+	<!--                #{item.pydm,jdbcType=VARCHAR},-->
+	<!--                #{item.kpxm,jdbcType=VARCHAR},-->
+	<!--                #{item.bbmBbh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfMc,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfNsrsbh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfDz,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfDh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfYh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfZh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfQylx,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfSf,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfId,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfMc,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfNsrsbh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfDz,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfDh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfYh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfZh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfSj,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfEmail,jdbcType=VARCHAR},-->
+	<!--                #{item.hyDm,jdbcType=VARCHAR},-->
+	<!--                #{item.hyMc,jdbcType=VARCHAR},-->
+	<!--                #{item.kpr,jdbcType=VARCHAR},-->
+	<!--                #{item.skr,jdbcType=VARCHAR},-->
+	<!--                #{item.fhr,jdbcType=VARCHAR},-->
+	<!--                #{item.ddrq,jdbcType=TIMESTAMP},-->
+	<!--                #{item.kplx,jdbcType=VARCHAR},-->
+	<!--                #{item.fpzlDm,jdbcType=VARCHAR},-->
+	<!--                #{item.yfpDm,jdbcType=VARCHAR},-->
+	<!--                #{item.yfpHm,jdbcType=VARCHAR},-->
+	<!--                #{item.chyy,jdbcType=VARCHAR},-->
+	<!--                #{item.tschbz,jdbcType=VARCHAR},-->
+	<!--                #{item.czdm,jdbcType=VARCHAR},-->
+	<!--                #{item.qdBz,jdbcType=VARCHAR},-->
+	<!--                #{item.qdXmmc,jdbcType=VARCHAR},-->
+	<!--                #{item.kphjje,jdbcType=VARCHAR},-->
+	<!--                #{item.hjbhsje,jdbcType=VARCHAR},-->
+	<!--                #{item.hjse,jdbcType=VARCHAR},-->
+	<!--                #{item.mdh,jdbcType=VARCHAR},-->
+	<!--                #{item.ywlx,jdbcType=VARCHAR},-->
+	<!--                #{item.bz,jdbcType=VARCHAR},-->
+	<!--                #{item.kpjh,jdbcType=VARCHAR},-->
+	<!--                #{item.sld,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd1,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd2,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd3,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd4,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd5,jdbcType=VARCHAR},-->
+	<!--                #{item.createTime,jdbcType=TIMESTAMP},-->
+	<!--                #{item.updateTime,jdbcType=TIMESTAMP}-->
+	<!--                )-->
+	<!--            </foreach>-->
+	<!--        </if>-->
+	<!--        <if test="dataType == 1">-->
+
+	<!--            insert into order_info-->
+	<!--            (id,-->
+	<!--            process_id,-->
+	<!--            fpqqlsh,-->
+	<!--            ddh,-->
+	<!--            thdh,-->
+	<!--            ddlx,-->
+	<!--            dsptbm,-->
+	<!--            nsrsbh,-->
+	<!--            nsrmc,-->
+	<!--            nsrdzdah,-->
+	<!--            swjg_dm,-->
+	<!--            dkbz,-->
+	<!--            pydm,-->
+	<!--            kpxm,-->
+	<!--            bbm_bbh,-->
+	<!--            xhf_mc,-->
+	<!--            xhf_nsrsbh,-->
+	<!--            xhf_dz,-->
+	<!--            xhf_dh,-->
+	<!--            xhf_yh,-->
+	<!--            xhf_zh,-->
+	<!--            ghf_qylx,-->
+	<!--            ghf_sf,-->
+	<!--            ghf_id,-->
+	<!--            ghf_mc,-->
+	<!--            ghf_nsrsbh,-->
+	<!--            ghf_dz,-->
+	<!--            ghf_dh,-->
+	<!--            ghf_yh,-->
+	<!--            ghf_zh,-->
+	<!--            ghf_sj,-->
+	<!--            ghf_email,-->
+	<!--            hy_dm,-->
+	<!--            hy_mc,-->
+	<!--            kpr,-->
+	<!--            skr,-->
+	<!--            fhr,-->
+	<!--            ddrq,-->
+	<!--            kplx,-->
+	<!--            fpzl_dm,-->
+	<!--            yfp_dm,-->
+	<!--            yfp_hm,-->
+	<!--            chyy,-->
+	<!--            tschbz,-->
+	<!--            czdm,-->
+	<!--            qd_bz,-->
+	<!--            qd_xmmc,-->
+	<!--            kphjje,-->
+	<!--            hjbhsje,-->
+	<!--            hjse,-->
+	<!--            mdh,-->
+	<!--            ywlx,-->
+	<!--            bz,-->
+	<!--            kpjh,-->
+	<!--            sld,-->
+	<!--            byzd1,-->
+	<!--            byzd2,-->
+	<!--            byzd3,-->
+	<!--            byzd4,-->
+	<!--            byzd5,-->
+	<!--            create_time,-->
+	<!--            update_time)-->
+	<!--            <foreach collection="list" item="item" index="index" separator="union all">-->
+	<!--                (-->
+	<!--                select-->
+	<!--                #{item.id,jdbcType=VARCHAR},-->
+	<!--                #{item.processId,jdbcType=VARCHAR},-->
+	<!--                #{item.fpqqlsh,jdbcType=VARCHAR},-->
+	<!--                #{item.ddh,jdbcType=VARCHAR},-->
+	<!--                #{item.thdh,jdbcType=VARCHAR},-->
+	<!--                #{item.ddlx,jdbcType=VARCHAR},-->
+	<!--                #{item.dsptbm,jdbcType=VARCHAR},-->
+	<!--                #{item.nsrsbh,jdbcType=VARCHAR},-->
+	<!--                #{item.nsrmc,jdbcType=VARCHAR},-->
+	<!--                #{item.nsrdzdah,jdbcType=VARCHAR},-->
+	<!--                #{item.swjgDm,jdbcType=VARCHAR},-->
+	<!--                #{item.dkbz,jdbcType=VARCHAR},-->
+	<!--                #{item.pydm,jdbcType=VARCHAR},-->
+	<!--                #{item.kpxm,jdbcType=VARCHAR},-->
+	<!--                #{item.bbmBbh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfMc,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfNsrsbh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfDz,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfDh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfYh,jdbcType=VARCHAR},-->
+	<!--                #{item.xhfZh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfQylx,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfSf,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfId,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfMc,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfNsrsbh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfDz,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfDh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfYh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfZh,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfSj,jdbcType=VARCHAR},-->
+	<!--                #{item.ghfEmail,jdbcType=VARCHAR},-->
+	<!--                #{item.hyDm,jdbcType=VARCHAR},-->
+	<!--                #{item.hyMc,jdbcType=VARCHAR},-->
+	<!--                #{item.kpr,jdbcType=VARCHAR},-->
+	<!--                #{item.skr,jdbcType=VARCHAR},-->
+	<!--                #{item.fhr,jdbcType=VARCHAR},-->
+	<!--                #{item.ddrq,jdbcType=TIMESTAMP},-->
+	<!--                #{item.kplx,jdbcType=VARCHAR},-->
+	<!--                #{item.fpzlDm,jdbcType=VARCHAR},-->
+	<!--                #{item.yfpDm,jdbcType=VARCHAR},-->
+	<!--                #{item.yfpHm,jdbcType=VARCHAR},-->
+	<!--                #{item.chyy,jdbcType=VARCHAR},-->
+	<!--                #{item.tschbz,jdbcType=VARCHAR},-->
+	<!--                #{item.czdm,jdbcType=VARCHAR},-->
+	<!--                #{item.qdBz,jdbcType=VARCHAR},-->
+	<!--                #{item.qdXmmc,jdbcType=VARCHAR},-->
+	<!--                #{item.kphjje,jdbcType=VARCHAR},-->
+	<!--                #{item.hjbhsje,jdbcType=VARCHAR},-->
+	<!--                #{item.hjse,jdbcType=VARCHAR},-->
+	<!--                #{item.mdh,jdbcType=VARCHAR},-->
+	<!--                #{item.ywlx,jdbcType=VARCHAR},-->
+	<!--                #{item.bz,jdbcType=VARCHAR},-->
+	<!--                #{item.kpjh,jdbcType=VARCHAR},-->
+	<!--                #{item.sld,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd1,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd2,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd3,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd4,jdbcType=VARCHAR},-->
+	<!--                #{item.byzd5,jdbcType=VARCHAR},-->
+	<!--                #{item.createTime,jdbcType=TIMESTAMP},-->
+	<!--                #{item.updateTime,jdbcType=TIMESTAMP}-->
+	<!--                from dual-->
+	<!--                )-->
+	<!--            </foreach>-->
+	<!--        </if>-->
+	<!--	</insert>-->
+
+	<!-- 编辑更新购方信息 -->
+	<update id="updateOrderInfo" parameterType="com.dxhy.order.model.OrderInfo">
+
+		<bind name="dataType" value="${dataType}"/>
+
+		update order_info
+		<set>
+			<if test="orderInfo.ghfQylx != null">
+				ghf_qylx = #{orderInfo.ghfQylx,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfDz != null">
+                ghf_dz = #{orderInfo.ghfDz,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfMc != null">
+                ghf_mc = #{orderInfo.ghfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfNsrsbh != null">
+                ghf_nsrsbh = #{orderInfo.ghfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfYh != null">
+                ghf_yh = #{orderInfo.ghfYh,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfZh != null">
+                ghf_zh = #{orderInfo.ghfZh,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfSj != null">
+                ghf_sj = #{orderInfo.ghfSj,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfEmail != null">
+                ghf_email = #{orderInfo.ghfEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="orderInfo.ghfDh != null">
+				ghf_dh = #{orderInfo.ghfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="dataType == 0">
+				update_time = NOW()
+			</if>
+			<if test="dataType == 1">
+				update_time = sysdate
+			</if>
+		</set>
+		where process_id = #{orderInfo.processId,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+</mapper>

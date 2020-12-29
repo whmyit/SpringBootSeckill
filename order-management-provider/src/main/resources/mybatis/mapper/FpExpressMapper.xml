@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.FpExpressDao" >
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.FpExpress" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="sender_name" property="senderName" jdbcType="VARCHAR" />
+    <result column="sender_address" property="senderAddress" jdbcType="VARCHAR" />
+    <result column="sender_phone" property="senderPhone" jdbcType="VARCHAR" />
+    <result column="sender_mail" property="senderMail" jdbcType="VARCHAR" />
+    <result column="sender_post_code" property="senderPostCode" jdbcType="VARCHAR" />
+    <result column="recipients_name" property="recipientsName" jdbcType="VARCHAR" />
+    <result column="recipients_address" property="recipientsAddress" jdbcType="VARCHAR" />
+    <result column="recipients_phone" property="recipientsPhone" jdbcType="VARCHAR" />
+    <result column="recipients_mail" property="recipientsMail" jdbcType="VARCHAR" />
+    <result column="recipients_post_code" property="recipientsPostCode" jdbcType="VARCHAR" />
+    <result column="express_company_name" property="expressCompanyName" jdbcType="VARCHAR" />
+    <result column="express_company_code" property="expressCompanyCode" jdbcType="VARCHAR" />
+    <result column="express_number" property="expressNumber" jdbcType="VARCHAR" />
+    <result column="buyer_name" property="buyerName" jdbcType="VARCHAR" />
+    <result column="express_state" property="expressState" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dxhy.order.model.entity.FpExpress" extends="BaseResultMap" >
+    <result column="express_items" property="expressItems" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, org_id, sender_name, sender_address, sender_phone, sender_mail, sender_post_code,
+    recipients_name, recipients_address, recipients_phone, recipients_mail, recipients_post_code,
+    express_company_name,express_company_code, express_number, buyer_name, express_state, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    express_items
+  </sql>
+
+
+  <select id="queryList" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fp_express
+    where 1 = 1
+    <if test="userId != null" >
+      and user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="orgId != null and orgId.trim() != ''" >
+      and org_id = #{orgId,jdbcType=VARCHAR}
+    </if>
+    <if test="buyerName != null and buyerName.trim() != ''" >
+      and buyer_name like concat (concat('%',#{buyerName,jdbcType=VARCHAR}),'%')
+    </if>
+    <if test="expressNumber != null and expressNumber.trim() != ''" >
+      and express_number like concat (concat('%',#{expressNumber,jdbcType=VARCHAR}),'%')
+    </if>
+     <if test="expressState != null and expressState != ''" >
+      and express_state = #{expressState,jdbcType=VARCHAR}
+    </if>
+    order by create_time desc
+  </select>
+
+  <select id="expressCompanyList" resultMap="ResultMapWithBLOBs">
+    SELECT
+	  fk.*
+    FROM
+	  fp_kdbm fk
+    WHERE
+	  api_id= 'kdniao'
+  </select>
+
+  <insert id="insertFpExpress" parameterType="com.dxhy.order.model.entity.FpExpress" >
+      insert into fp_express (id, user_id, org_id,
+      sender_name, sender_address, sender_phone,
+      sender_mail, sender_post_code, recipients_name,
+      recipients_address, recipients_phone, recipients_mail,
+      recipients_post_code, express_company_name, express_company_code,
+      express_number, buyer_name, express_state,
+      create_time, express_items)
+      values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR},
+              #{senderName,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR}, #{senderPhone,jdbcType=VARCHAR},
+              #{senderMail,jdbcType=VARCHAR}, #{senderPostCode,jdbcType=VARCHAR}, #{recipientsName,jdbcType=VARCHAR},
+              #{recipientsAddress,jdbcType=VARCHAR}, #{recipientsPhone,jdbcType=VARCHAR}, #{recipientsMail,jdbcType=VARCHAR},
+              #{recipientsPostCode,jdbcType=VARCHAR}, #{expressCompanyName,jdbcType=VARCHAR}, #{expressCompanyCode,jdbcType=VARCHAR},
+              #{expressNumber,jdbcType=VARCHAR}, #{buyerName,jdbcType=VARCHAR}, #{expressState,jdbcType=VARCHAR},
+              #{createTime,jdbcType=TIMESTAMP}, #{expressItems,jdbcType=LONGVARCHAR})
+  </insert>
+<!--  <insert id="insertSelective" parameterType="com.dxhy.order.model.entity.FpExpress" >-->
+<!--    insert into fp_express-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--          id,-->
+<!--      </if>-->
+<!--      <if test="userId != null" >-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="orgId != null" >-->
+<!--        org_id,-->
+<!--      </if>-->
+<!--      <if test="senderName != null" >-->
+<!--        sender_name,-->
+<!--      </if>-->
+<!--      <if test="senderAddress != null" >-->
+<!--        sender_address,-->
+<!--      </if>-->
+<!--      <if test="senderPhone != null" >-->
+<!--        sender_phone,-->
+<!--      </if>-->
+<!--      <if test="senderMail != null" >-->
+<!--        sender_mail,-->
+<!--      </if>-->
+<!--      <if test="senderPostCode != null" >-->
+<!--        sender_post_code,-->
+<!--      </if>-->
+<!--      <if test="recipientsName != null" >-->
+<!--        recipients_name,-->
+<!--      </if>-->
+<!--      <if test="recipientsAddress != null" >-->
+<!--        recipients_address,-->
+<!--      </if>-->
+<!--      <if test="recipientsPhone != null" >-->
+<!--        recipients_phone,-->
+<!--      </if>-->
+<!--      <if test="recipientsMail != null" >-->
+<!--        recipients_mail,-->
+<!--      </if>-->
+<!--      <if test="recipientsPostCode != null" >-->
+<!--        recipients_post_code,-->
+<!--      </if>-->
+<!--      <if test="expressCompanyName != null" >-->
+<!--        express_company_name,-->
+<!--      </if>-->
+<!--      <if test="expressNumber != null" >-->
+<!--        express_number,-->
+<!--      </if>-->
+<!--      <if test="buyerName != null" >-->
+<!--        buyer_name,-->
+<!--      </if>-->
+<!--      <if test="expressState != null" >-->
+<!--        express_state,-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        create_time,-->
+<!--      </if>-->
+<!--      <if test="expressItems != null" >-->
+<!--        express_items,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="id != null" >-->
+<!--        #{id,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userId != null" >-->
+<!--        #{userId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="orgId != null" >-->
+<!--        #{orgId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="senderName != null" >-->
+<!--        #{senderName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="senderAddress != null" >-->
+<!--        #{senderAddress,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="senderPhone != null" >-->
+<!--        #{senderPhone,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="senderMail != null" >-->
+<!--        #{senderMail,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="senderPostCode != null" >-->
+<!--        #{senderPostCode,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="recipientsName != null" >-->
+<!--        #{recipientsName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="recipientsAddress != null" >-->
+<!--        #{recipientsAddress,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="recipientsPhone != null" >-->
+<!--        #{recipientsPhone,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="recipientsMail != null" >-->
+<!--        #{recipientsMail,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="recipientsPostCode != null" >-->
+<!--        #{recipientsPostCode,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="expressCompanyName != null" >-->
+<!--        #{expressCompanyName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="expressNumber != null" >-->
+<!--        #{expressNumber,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="buyerName != null" >-->
+<!--        #{buyerName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="expressState != null" >-->
+<!--        #{expressState,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        #{createTime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="expressItems != null" >-->
+<!--        #{expressItems,jdbcType=LONGVARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.entity.FpExpress" >
+    update fp_express
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null" >
+        sender_name = #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderAddress != null" >
+        sender_address = #{senderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="senderPhone != null" >
+        sender_phone = #{senderPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="senderMail != null" >
+        sender_mail = #{senderMail,jdbcType=VARCHAR},
+      </if>
+      <if test="senderPostCode != null" >
+        sender_post_code = #{senderPostCode,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsName != null" >
+        recipients_name = #{recipientsName,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsAddress != null" >
+        recipients_address = #{recipientsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsPhone != null" >
+        recipients_phone = #{recipientsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsMail != null" >
+        recipients_mail = #{recipientsMail,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsPostCode != null" >
+        recipients_post_code = #{recipientsPostCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompanyName != null" >
+        express_company_name = #{expressCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNumber != null" >
+        express_number = #{expressNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null" >
+        buyer_name = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressState != null" >
+        express_state = #{expressState,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressItems != null" >
+        express_items = #{expressItems,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBlobs" parameterType="com.dxhy.order.model.entity.FpExpress" >
+    update fp_express
+    set user_id = #{userId,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      sender_address = #{senderAddress,jdbcType=VARCHAR},
+      sender_phone = #{senderPhone,jdbcType=VARCHAR},
+      sender_mail = #{senderMail,jdbcType=VARCHAR},
+      sender_post_code = #{senderPostCode,jdbcType=VARCHAR},
+      recipients_name = #{recipientsName,jdbcType=VARCHAR},
+      recipients_address = #{recipientsAddress,jdbcType=VARCHAR},
+      recipients_phone = #{recipientsPhone,jdbcType=VARCHAR},
+      recipients_mail = #{recipientsMail,jdbcType=VARCHAR},
+      recipients_post_code = #{recipientsPostCode,jdbcType=VARCHAR},
+      express_company_name = #{expressCompanyName,jdbcType=VARCHAR},
+      express_number = #{expressNumber,jdbcType=VARCHAR},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      express_state = #{expressState,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      express_items = #{expressItems,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.entity.FpExpress" >
+    update fp_express
+    set user_id = #{userId,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      sender_address = #{senderAddress,jdbcType=VARCHAR},
+      sender_phone = #{senderPhone,jdbcType=VARCHAR},
+      sender_mail = #{senderMail,jdbcType=VARCHAR},
+      sender_post_code = #{senderPostCode,jdbcType=VARCHAR},
+      recipients_name = #{recipientsName,jdbcType=VARCHAR},
+      recipients_address = #{recipientsAddress,jdbcType=VARCHAR},
+      recipients_phone = #{recipientsPhone,jdbcType=VARCHAR},
+      recipients_mail = #{recipientsMail,jdbcType=VARCHAR},
+      recipients_post_code = #{recipientsPostCode,jdbcType=VARCHAR},
+      express_company_name = #{expressCompanyName,jdbcType=VARCHAR},
+      express_number = #{expressNumber,jdbcType=VARCHAR},
+      buyer_name = #{buyerName,jdbcType=VARCHAR},
+      express_state = #{expressState,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="queryWqs" resultMap="ResultMapWithBLOBs">
+    select
+    fp.id,
+    fp.express_company_code,
+    fp.express_number
+    from fp_express fp
+    where
+    fp.express_state = '0'
+    <if test="userId != null" >
+      and fp.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="orgId != null" >
+      and fp.org_id = #{orgId,jdbcType=VARCHAR}
+    </if>
+    order by fp.create_time desc
+  </select>
+</mapper>

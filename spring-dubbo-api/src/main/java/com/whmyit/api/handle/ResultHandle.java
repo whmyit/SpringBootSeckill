@@ -25,9 +25,9 @@ public class ResultHandle implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object object, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if(object instanceof GlobalResult){
-            GlobalResult<Object> result=(GlobalResult<Object>)object;
-            if(!(result.getCode()==0));
+        if (object instanceof GlobalResult) {
+            GlobalResult<Object> result = (GlobalResult<Object>) object;
+            if (!(result.getCode() == 0)) ;
             return result;
         }
 

@@ -1,0 +1,254 @@
+
+### 测试环境-发票开具接口
+POST http://10.1.1.222:8087/order-api/v4/AllocateInvoices
+#POST http://10.1.31.90:8081/order-api/v4/AllocateInvoices
+Content-Type: application/json
+
+{
+  "DDPCXX": {
+    "CPYBS": "",
+    "DDQQPCH": "zsc000000000000061",
+    "FPLXDM": "51",
+    "KPFS": "0",
+    "KPZD": "-1",
+    "KZZD": "",
+    "NSRSBH": "91110108MA004CPN95"
+  },
+  "DDZXX": [
+    {
+      "DDTXX": {
+        "DDH": "zsc00000000223",
+        "DDQQLSH": "zsc000000000000000061",
+        "NSRMC": "大象慧云信息技术有限公司",
+        "NSRSBH": "91110108MA004CPN95",
+        "XHFMC": "大象慧云信息技术有限公司",
+        "XHFSBH": "91110108MA004CPN95",
+        "BMBBBH": "33.0",
+        "BYZD1": "",
+        "BYZD2": "",
+        "BYZD3": "",
+        "BYZD4": "",
+        "BYZD5": "",
+        "BZ": "",
+        "CHYY": "",
+        "DDSJ": "",
+        "FHR": "田亚利",
+        "GMFBM": "",
+        "GMFDH": "010-53568011",
+        "GMFDZ": "北京市海淀区中关村南大街2号A座31层3106室",
+        "GMFDZYX": "",
+        "GMFLX": "01",
+        "GMFMC": "航天信息股份有限公司",
+        "GMFSBH": "91110000710927388B",
+        "GMFSF": "",
+        "GMFSJH": "",
+        "GMFYH": "",
+        "GMFZH": "",
+        "HJJE": "0",
+        "HJSE": "0",
+        "JSHJ": "0.01",
+        "KPLX": "0",
+        "KPR": "孙欢",
+        "QDBZ": "0",
+        "QDXMMC": "",
+        "SKR": "衡巍",
+        "THDH": "",
+        "TQM": "",
+        "TSCHBZ": "",
+        "XHFDH": "53568011",
+        "XHFDZ": "北京市海淀区中关村南大街2号A座31层3106室",
+        "XHFYH": "交通银行北京海淀支行",
+        "XHFZH": "110060576018800012490",
+        "YFPDM": "",
+        "YFPHM": "",
+        "YWLX": ""
+      },
+      "DDMXXX": [
+        {
+          "BYZD1": "",
+          "BYZD2": "",
+          "BYZD3": "",
+          "DJ": "",
+          "DW": "",
+          "FPHXZ": "0",
+          "GGXH": "",
+          "HSBZ": "1",
+          "JE": "0.01",
+          "KCE": "",
+          "LSLBS": "",
+          "SE": "0.00",
+          "SL": "0.06",
+          "SPBM": "3040101000000000000",
+          "SPSL": "1",
+          "XH": "1",
+          "XMMC": "技术服务费",
+          "YHZCBS": "0",
+          "ZXBM": "",
+          "ZZSTSGL": ""
+        }
+      ]
+    }
+  ]
+}
+
+
+
+### 测试环境-发票开具结果获取
+POST http://10.1.1.222:8087/order-api/v4/GetAllocatedInvoices
+#POST http://10.1.31.90:8081/order-api/v4/GetAllocatedInvoices
+Content-Type: application/json
+
+{
+  "FPLXDM": "2",
+  "NSRSBH": "110110202040203",
+  "DDQQPCH": "zsc000000000000025"
+}
+
+
+### 测试环境-订单查询接口
+#POST http://10.1.1.222:8087/order-api/v4/
+POST http://10.1.31.90:8081/order-api/v4/GetOrderInfoAndInvoiceInfo
+Content-Type: application/json
+
+{
+  "NSRSBH": "110110202040203",
+  "DDQQLSH": "zsc000000000000000025",
+  "TQM": "",
+  "DDH": ""
+}
+
+### 测试环境-发票作废接口
+POST http://10.1.1.222:8087/order-api/v4/DeprecateInvoices
+#POST http://10.1.31.90:8081/order-api/v4/DeprecateInvoices
+Content-Type: application/json
+
+{
+  "ZFPCH": "zsczf123123123127",
+  "XHFSBH": "110110202040203",
+  "FPDM": "011111111007",
+  "FPQH": "00190000",
+  "FPZH": "00190000",
+  "ZFLX": "1",
+  "ZFYY": "asdfasdfasf"
+}
+
+
+### 测试环境-红字信息表上传接口
+#GET http://10.1.28.133:8081/order-api/invoice/api/v4/AllocateRedInvoiceApplication
+#POST http://10.1.31.90:8081/order-api/v4/AllocateRedInvoiceApplication
+ GET http://10.1.28.133:8081/order-api/invoice/api/v4/AllocateRedInvoiceApplication
+Content-Type: application/json
+
+{
+  "HZSQDSCPC": {
+    "FPLXDM": "0",
+    "KPZD": "",
+    "KZZD": "",
+    "NSRSBH": "6666659FRN9PGU5",
+    "SQBSCQQPCH": "zschzxxb123123123125",
+    "SQLB": "0"
+  },
+  "HZSQDSCZXX": [
+    {
+      "DDMXXX": [
+        {
+          "DJ": "10.00",
+          "DW": "",
+          "FPHXZ": "0",
+          "GGXH": "",
+          "HSBZ": "0",
+          "JE": "-100.00",
+          "LSLBS": "",
+          "SE": "-6.00",
+          "SL": "0.06",
+          "SPBM": "1010115010200000000",
+          "SPSL": "-10",
+          "XH": "1",
+          "XMMC": "商品",
+          "YHZCBS": "0",
+          "ZXBM": "",
+          "ZZSTSGL": ""
+        }
+      ],
+      "HZSQDTXX": {
+        "BMBBBH": "34",
+        "GMFMC": "140301206111099566",
+        "GMFSBH": "140301206111099566",
+        "HJJE": "-100.00",
+        "HJSE": "-6.00",
+        "KZZD1": "",
+        "KZZD2": "",
+        "SQBSCQQLSH": "zschzxxb123123123125",
+        "SQSM": "0000000100",
+        "TKSJ": "20200721060220",
+        "XHFMC": "6666659FRN9PGU5",
+        "XHFSBH": "6666659FRN9PGU5",
+        "XXBLX": "0",
+        "YFPDM": "5000201530",
+        "YFPHM": "50956245",
+        "YFPKPRQ": "2020-02-10 12:34:56",
+        "YYSBZ": "0000000000"
+      }
+    }
+  ]
+}
+
+
+### 测试环境-红字信息表上传接口
+POST http://10.1.1.222:8087/order-api/v4/DownloadRedInvoiceApplicationResult
+#POST http://10.1.31.90:8081/order-api/v4/DownloadRedInvoiceApplicationResult
+Content-Type: application/json
+
+{
+  "SQBXZQQPCH": "zschzsqdxz12312412412314",
+  "NSRSBH": "15000120561127953X",
+  "FPLXDM": "004",
+  "TKRQQ": "20200801",
+  "TKRQZ": "20200729",
+  "GMFSBH": "",
+  "XHFSBH": "",
+  "XXBBH": "",
+  "XXBFW": "0",
+  "YS": "1",
+  "GS": "10"
+}
+
+
+### 测试环境-税控设备维护接口
+POST http://10.1.1.222:8087/order-api/v4/SyncTaxEquipmentInfo
+#POST http://10.1.31.90:8081/order-api/v4/SyncTaxEquipmentInfo
+Content-Type: application/json
+
+[
+  {
+    "XHFSBH": "911101053180868951",
+    "XHFMC": "北京每日优鲜电子商务有限公司",
+    "SKSBDM": "004",
+    "SKSBXH": "税控设备型号",
+    "CZLX": "1",
+    "GLSJ": "2020-07-30 21:54:23",
+    "BZ": "备注"
+  },
+  {
+    "XHFSBH": "911101010648937416",
+    "XHFMC": "北京纷扬科技有限责任公司",
+    "SKSBDM": "004",
+    "SKSBXH": "税控设备型号",
+    "CZLX": "2",
+    "GLSJ": "2020-07-30 21:54:23",
+    "BZ": "备注1"
+  }
+]
+
+
+
+### 测试环境-发票余量查询接口
+#POST http://10.1.1.222:8087/order-api/v4/QueryInvoiceStore
+POST http://10.1.31.90:8081/order-api/v4/QueryInvoiceStore
+Content-Type: application/json
+
+{
+  "XHFSBH": "6666659FRN9PGU5"
+}
+
+###

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!--配置文件读取-->
+    <properties resource="generator.properties"/>
+
+    <!-- 数据库驱动包位置 -->
+    <classPathEntry location="${mysqlConJarPath}"/>
+
+    <context id="infoGuardian">
+        <!-- 是否去掉生成出来的代码的注解 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="${jdbc_driver}"
+                        connectionURL="${jdbc_url}" userId="${jdbc_user}"
+                        password="${jdbc_password}"/>
+
+        <javaTypeResolver>
+            <!--默认false 把jdbc DECIMAL 和 NUMERIC 类型解析为Integer，为true时，解析为java.math.BigDecimal-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成pojo类的包名和位置 -->
+        <javaModelGenerator targetPackage="${javaModelTargetPath}"
+                            targetProject="${projectPath}">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="${xmlTargetPath}" targetProject="${mapLocation}">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapper的包名和位置 -->
+        <javaClientGenerator targetPackage="${daoTargetPath}"
+                             targetProject="${projectPath}" type="XMLMAPPER">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
+        <table schema="${jdbc_user}" tableName="${tableName}"
+               domainObjectName="${domainObjectName}" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <!-- schema��Ϊ���ݿ��� tableNameΪ��Ӧ�����ݿ�� domainObjectName��Ҫ���ɵ�ʵ���� enable*ByExample
+                �Ƿ����� example��   -->
+
+            <!-- �����У�������bean �ֶ� -->
+            <!--  <ignoreColumn column="FRED" /> -->
+            <!-- ָ���е�java�������� -->
+            <!-- <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> -->
+        </table>
+    </context>
+</generatorConfiguration>

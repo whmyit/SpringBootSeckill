@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.EwmConfigInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.EwmConfigInfo" >
+
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR" />
+    <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR" />
+    <result column="fpzldm" property="fpzldm" jdbcType="VARCHAR" />
+    <result column="invalid_time" property="invalidTime" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, xhf_mc, xhf_nsrsbh, fpzldm, invalid_time, create_time
+  </sql>
+<!--  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from ewm_config-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >-->
+<!--    delete from ewm_config-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.dxhy.order.model.EwmConfigInfo" >-->
+<!--    insert into ewm_config (id, xhf_mc, xhf_nsrsbh,-->
+<!--    fpzldm, invalid_time, create_time-->
+<!--    )-->
+<!--    values (#{id,jdbcType=VARCHAR}, #{xhfMc,jdbcType=VARCHAR}, #{xhfNsrsbh,jdbcType=VARCHAR},-->
+<!--    #{fpzldm,jdbcType=VARCHAR}, #{invalidTime,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}-->
+<!--    )-->
+<!--  </insert>-->
+  <insert id="insertSelective" parameterType="com.dxhy.order.model.EwmConfigInfo" >
+    insert into ewm_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="xhfMc != null" >
+        xhf_mc,
+      </if>
+      <if test="xhfNsrsbh != null" >
+        xhf_nsrsbh,
+      </if>
+      <if test="fpzldm != null" >
+        fpzldm,
+      </if>
+      <if test="invalidTime != null" >
+        invalid_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfMc != null" >
+        #{xhfMc,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfNsrsbh != null" >
+        #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="fpzldm != null" >
+        #{fpzldm,jdbcType=VARCHAR},
+      </if>
+      <if test="invalidTime != null" >
+        #{invalidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.EwmConfigInfo" >
+
+    update ewm_config
+    <set >
+      <if test="xhfMc != null" >
+        xhf_mc = #{xhfMc,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfNsrsbh != null" >
+        xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="fpzldm != null" >
+        fpzldm = #{fpzldm,jdbcType=VARCHAR},
+      </if>
+      <if test="invalidTime != null" >
+        invalid_time = #{invalidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+<!--  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.EwmConfigInfo" >-->
+
+<!--    update ewm_config-->
+<!--    set xhf_mc = #{xhfMc,jdbcType=VARCHAR},-->
+<!--      xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+<!--      fpzldm = #{fpzldm,jdbcType=VARCHAR},-->
+<!--      invalid_time = #{invalidTime,jdbcType=VARCHAR},-->
+<!--      create_time = #{createTime,jdbcType=TIMESTAMP}-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </update>-->
+  <select id="queryEwmConfigInfo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+
+    select
+    <include refid="Base_Column_List" />
+    from ewm_config
+    <where>
+      <if test="id != null and  id != '' ">
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="xhfNsrsbh != null and  xhfNsrsbh != '' ">
+        and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+      </if>
+      <if test="xhfMc != null and  xhfMc != '' ">
+        and xhf_mc = #{xhfMc,jdbcType=VARCHAR}
+      </if>
+      <if test="fpzldm != null and  fpzldm != '' ">
+        and fpzldm = #{fpzldm,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+<!--  <update id="updateByXhfNsrsbh" parameterType="com.dxhy.order.model.EwmConfigInfo">-->
+
+<!--    update ewm_config-->
+<!--    <set>-->
+<!--      <if test="xhfMc != null">-->
+<!--        xhf_mc = #{xhfMc,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="fpzldm != null">-->
+<!--        fpzldm = #{fpzldm,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="invalidTime != null">-->
+<!--        invalid_time = #{invalidTime,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="createTime != null">-->
+<!--        create_time = #{createTime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}-->
+<!--   </update>-->
+</mapper>

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvoiceItemRequestInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.InvoiceItemRequestInfo">
+
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="company_id" property="companyId" jdbcType="VARCHAR"/>
+        <result column="report_period" property="reportPeriod" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="hzrq" property="hzrq" jdbcType="VARCHAR"/>
+        <result column="spbm" property="spbm" jdbcType="VARCHAR"/>
+        <result column="xmmc" property="xmmc" jdbcType="VARCHAR"/>
+        <result column="invoice_num" property="invoiceNum" jdbcType="VARCHAR"/>
+        <result column="xmje" property="xmje" jdbcType="VARCHAR"/>
+        <result column="se" property="se" jdbcType="VARCHAR"/>
+        <result column="kphjje" property="kphjje" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="complete_flag" property="completeFlag" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="itemMap" type="com.dxhy.order.model.InvoiceItemPO">
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="xmmc" property="xmmc" jdbcType="VARCHAR"/>
+        <result column="spbm" property="spbm" jdbcType="VARCHAR"/>
+        <result column="xmje" property="xmje" jdbcType="VARCHAR"/>
+        <result column="se" property="se" jdbcType="VARCHAR"/>
+        <result column="kphjje" property="kphjje" jdbcType="VARCHAR"/>
+        <result column="sl" property="sl" jdbcType="VARCHAR"/>
+        <result column="xmlx" property="xmlx" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        id, company_id, report_period, xhf_nsrsbh, fpzl_dm, hzrq, spbm, xmmc, invoice_num,
+        xmje, se, kphjje, create_time, complete_flag
+    </sql>
+    <!--    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from invoice_item_request-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+
+
+    <!--    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+
+    <!--        delete from invoice_item_request-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </delete>-->
+    <insert id="insertInvoiceItemRequest" parameterType="com.dxhy.order.model.InvoiceItemRequestInfo">
+
+        insert into invoice_item_request (id, company_id, report_period,
+                                          xhf_nsrsbh, fpzl_dm, hzrq,
+                                          spbm, xmmc, invoice_num,
+                                          xmje, se, kphjje, create_time,
+                                          complete_flag)
+        values (#{id,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{reportPeriod,jdbcType=VARCHAR},
+                #{xhfNsrsbh,jdbcType=VARCHAR}, #{fpzlDm,jdbcType=VARCHAR}, #{hzrq,jdbcType=VARCHAR},
+                #{spbm,jdbcType=VARCHAR}, #{xmmc,jdbcType=VARCHAR}, #{invoiceNum,jdbcType=VARCHAR},
+                #{xmje,jdbcType=VARCHAR}, #{se,jdbcType=VARCHAR}, #{kphjje,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{completeFlag,jdbcType=VARCHAR})
+    </insert>
+    <!--    <insert id="insertSelective" parameterType="com.dxhy.order.model.InvoiceItemRequestInfo">-->
+
+    <!--        insert into invoice_item_request-->
+    <!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                id,-->
+    <!--            </if>-->
+    <!--            <if test="companyId != null">-->
+    <!--                company_id,-->
+    <!--            </if>-->
+    <!--            <if test="reportPeriod != null">-->
+    <!--                report_period,-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                xhf_nsrsbh,-->
+    <!--            </if>-->
+    <!--            <if test="fpzlDm != null">-->
+    <!--                fpzl_dm,-->
+    <!--            </if>-->
+    <!--            <if test="hzrq != null">-->
+    <!--                hzrq,-->
+    <!--            </if>-->
+    <!--            <if test="spbm != null">-->
+    <!--                spbm,-->
+    <!--            </if>-->
+    <!--            <if test="xmmc != null">-->
+    <!--                xmmc,-->
+    <!--            </if>-->
+    <!--            <if test="invoiceNum != null">-->
+    <!--                invoice_num,-->
+    <!--            </if>-->
+    <!--            <if test="xmje != null">-->
+    <!--                xmje,-->
+    <!--            </if>-->
+    <!--            <if test="se != null">-->
+    <!--                se,-->
+    <!--            </if>-->
+    <!--            <if test="kphjje != null">-->
+    <!--                kphjje,-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time,-->
+    <!--            </if>-->
+    <!--            <if test="completeFlag != null ">-->
+    <!--                complete_flag,-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--        <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                #{id,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="companyId != null">-->
+    <!--                #{companyId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="reportPeriod != null">-->
+    <!--                #{reportPeriod,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpzlDm != null">-->
+    <!--                #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="hzrq != null">-->
+    <!--                #{hzrq,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="spbm != null">-->
+    <!--                #{spbm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xmmc != null">-->
+    <!--                #{xmmc,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceNum != null">-->
+    <!--                #{invoiceNum,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xmje != null">-->
+    <!--                #{xmje,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="se != null">-->
+    <!--                #{se,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kphjje != null">-->
+    <!--                #{kphjje,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="completeFlag != null">-->
+    <!--                #{completeFlag,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--    </insert>-->
+    <!--    <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.InvoiceItemRequestInfo">-->
+
+    <!--        update invoice_item_request-->
+    <!--        <set>-->
+    <!--            <if test="companyId != null">-->
+    <!--                company_id = #{companyId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="reportPeriod != null">-->
+    <!--                report_period = #{reportPeriod,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpzlDm != null">-->
+    <!--                fpzl_dm = #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="hzrq != null">-->
+    <!--                hzrq = #{hzrq,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="spbm != null">-->
+    <!--                spbm = #{spbm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xmmc != null">-->
+    <!--                xmmc = #{xmmc,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceNum != null">-->
+    <!--                invoice_num = #{invoiceNum,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xmje != null">-->
+    <!--                xmje = #{xmje,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="se != null">-->
+    <!--                se = #{se,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kphjje != null">-->
+    <!--                kphjje = #{kphjje,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="completeFlag != null">-->
+    <!--                complete_flag = #{completeFlag,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </update>-->
+    <update id="updateInvoiceItemRequestById" parameterType="com.dxhy.order.model.InvoiceItemRequestInfo">
+
+        update invoice_item_request
+        set company_id    = #{companyId,jdbcType=VARCHAR},
+            report_period = #{reportPeriod,jdbcType=VARCHAR},
+            xhf_nsrsbh    = #{xhfNsrsbh,jdbcType=VARCHAR},
+            fpzl_dm       = #{fpzlDm,jdbcType=VARCHAR},
+            hzrq          = #{hzrq,jdbcType=VARCHAR},
+            spbm          = #{spbm,jdbcType=VARCHAR},
+            xmmc          = #{xmmc,jdbcType=VARCHAR},
+            invoice_num   = #{invoiceNum,jdbcType=VARCHAR},
+            xmje          = #{xmje,jdbcType=VARCHAR},
+            se            = #{se,jdbcType=VARCHAR},
+            kphjje        = #{kphjje,jdbcType=VARCHAR},
+            create_time   = #{createTime,jdbcType=TIMESTAMP},
+            complete_flag = #{completeFlag,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+          and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+    </update>
+    <!--获取项目汇总数据状态-->
+    <select id="getSummaryItemState" resultType="hashMap" parameterType="java.lang.String">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT t.xhf_nsrsbh tax_number,
+        t.hzrq billing_date,
+
+        <if test="dataType == 0">
+            CASE
+            WHEN max(t.complete_flag) = 3 THEN
+            '3'
+            WHEN max(t.complete_flag) = 1 THEN
+            '1'
+            WHEN min(t.complete_flag) = 2 THEN
+            '2'
+            else '1'
+
+            END complete_flag
+        </if>
+        <if test="dataType == 1">
+            (CASE
+            WHEN to_char(max(t.complete_flag)) = '3' THEN
+            '3'
+            WHEN to_char(max(t.complete_flag)) = '1' THEN
+            '1'
+            WHEN to_char(min(t.complete_flag)) = '2' THEN
+            '2'
+            else '1'
+
+            END ) complete_flag
+        </if>
+        FROM invoice_item_request t
+        WHERE t.xhf_nsrsbh = #{nsrsbh}
+        AND t.hzrq = #{hzrq}
+        GROUP BY t.xhf_nsrsbh,
+        t.hzrq
+    </select>
+
+    <!--查询项目汇总数据-->
+    <select id="selectSummaryItemData" resultType="hashMap"
+            parameterType="java.lang.String">
+        SELECT fpzl_dm     invoice_kind_code,
+               spbm        item_code,
+               xmmc        item_name,
+               invoice_num invoice_num,
+               xmje        invoice_amount,
+               se          tax_amount,
+               kphjje      total_amount
+        FROM invoice_item_request t
+        where xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+          and hzrq = #{hzrq,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询项目汇总数据-->
+    <select id="selectSummaryItemStatistics" resultMap="itemMap">
+        <bind name="dataType" value="${dataType}"/>
+
+        <if test="dataType == 0">
+            SELECT
+            oini.xhf_nsrsbh,
+            oi.fpzl_dm,
+            oii.xmmc,
+            oii.spbm,
+            oii.xmje,
+            oii.se,
+            oi.kphjje,
+            oii.sl,
+            CASE
+            WHEN find_in_set( '即征即退', oi.bz ) THEN
+            '即征即退'
+            WHEN find_in_set( '免税', oi.bz )
+            OR find_in_set( '免税', oii.zzstsgl ) THEN
+            '免税'
+            WHEN find_in_set( '不征税', oi.bz )
+            OR find_in_set( '不征税', oii.zzstsgl ) THEN
+            '不征税' ELSE '非即征即退'
+            END xmlx
+            FROM
+            order_info oi
+            LEFT JOIN order_item_info oii ON oi.id = oii.order_info_id
+            LEFT JOIN order_invoice_info oini ON oi.id = oini.order_info_id
+            WHERE
+            oini.zf_bz != 1
+            and oini.kpzt = '2'
+            AND DATE_FORMAT( oini.kprq, '%Y%m' ) in
+            <foreach collection="hzrqList" index="index" item="hzrq" open="(" separator="," close=")">
+                #{hzrq}
+            </foreach>
+            and oini.xhf_nsrsbh = #{nsrsbh}
+        </if>
+        <!-- oracle -->
+        <if test="dataType == 1">
+            SELECT
+            oini.xhf_nsrsbh,
+            oi.fpzl_dm,
+            oii.xmmc,
+            oii.spbm,
+            oii.xmje,
+            oii.se,
+            oi.kphjje,
+            oii.sl,
+            CASE
+            WHEN instr(oi.bz, '即征即退' )>0 THEN
+            '即征即退'
+            WHEN instr( oi.bz,'免税' )>0
+            OR instr( oii.zzstsgl,'免税' )>0 THEN
+            '免税'
+            WHEN instr( oi.bz,'不征税' )>0
+            OR instr( oii.zzstsgl,'不征税' )>0 THEN
+            '不征税' ELSE '非即征即退'
+            END xmlx
+            FROM
+            order_info oi
+            LEFT JOIN order_item_info oii ON oi.id = oii.order_info_id
+            LEFT JOIN order_invoice_info oini ON oi.id = oini.order_info_id
+            WHERE
+            oini.zf_bz != 1
+            and oini.kpzt = '2'
+            AND to_char( oini.kprq, 'yyyymm' ) in
+            <foreach collection="hzrqList" index="index" item="hzrq" open="(" separator="," close=")">
+                #{hzrq}
+            </foreach>
+            and oini.xhf_nsrsbh = #{nsrsbh}
+        </if>
+    </select>
+    <!--查询项目汇总信息 条件查询-->
+    <select id="selectItemItem" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        invoice_item_request t
+        where
+        xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+        and hzrq= #{hzrq,jdbcType=VARCHAR}
+        and spbm = #{spbm,jdbcType=VARCHAR}
+    </select>
+</mapper>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxhy.order.dao.SalerWarningMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.SalerWarning">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh"/>
+        <result column="waring_email" jdbcType="VARCHAR" property="waringEmail"/>
+        <result column="warning_flag" jdbcType="VARCHAR" property="warningFlag"/>
+        <result column="deptId" jdbcType="VARCHAR" property="deptId"/>
+        <result column="createId" jdbcType="VARCHAR" property="createId"/>
+        <result column="createUser" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, xhf_nsrsbh, waring_email, warning_flag,deptId, createId, createUser, create_time, update_time
+    </sql>
+
+    <sql id="Base_Column_List_Oracle">
+        "id", "xhf_nsrsbh", "waring_email", "warning_flag","deptId",  "createId", "createUser",  "create_time", "update_time"
+    </sql>
+
+    <insert id="insertSelective" parameterType="com.dxhy.order.model.SalerWarning">
+        <bind name="dataType" value="${dataType}"/>
+        insert into saler_warning
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh,
+            </if>
+            <if test="waringEmail != null">
+                waring_email,
+            </if>
+            <if test="warningFlag != null">
+                warning_flag,
+            </if>
+            <if test="deptId != null">
+                deptId,
+            </if>
+            <if test="createId != null">
+                createId,
+            </if>
+            <if test="createUser != null">
+                createUser,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="xhfNsrsbh != null">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="waringEmail != null">
+                #{waringEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="warningFlag != null">
+                #{warningFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null">
+                #{deptId,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType == 0">
+                <if test="createTime != null">
+                    NOW(),
+                </if>
+                <if test="updateTime != null">
+                    NOW(),
+                </if>
+            </if>
+            <if test="dataType == 1">
+                <if test="createTime != null">
+                    SYSDATE,
+                </if>
+                <if test="updateTime != null">
+                    SYSDATE,
+                </if>
+            </if>
+
+        </trim>
+    </insert>
+
+    <select id="selectSalerWaringByNsrsbh" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from saler_warning
+        where xhf_nsrsbh = #{xhfNsrsbh}
+        <if test="createId != null ">
+            and createId = #{createId}
+        </if>
+    </select>
+    <update id="updateByTaxCode" parameterType="com.dxhy.order.model.SalerWarning">
+        <bind name="dataType" value="${dataType}"/>
+        update saler_warning
+        <set>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="waringEmail != null">
+                waring_email = #{waringEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="warningFlag != null">
+                warning_flag = #{warningFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null">
+                deptId = #{deptId,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                createId = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="createUser != null">
+                createUser = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType == 0">
+                <if test="createTime != null">
+                    create_time = NOW(),
+                </if>
+                <if test="updateTime != null">
+                    update_time = NOW(),
+                </if>
+            </if>
+            <if test="dataType == 1">
+                <if test="createTime != null">
+                    create_time = SYSDATE,
+                </if>
+                <if test="updateTime != null">
+                    update_time = SYSDATE,
+                </if>
+            </if>
+
+        </set>
+        where xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.GroupTaxClassCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.GroupTaxClassCodeEntity" >
+
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sort_id" property="sortId" jdbcType="BIGINT" />
+    <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+    <result column="merchandise_name" property="merchandiseName" jdbcType="VARCHAR" />
+    <result column="encoding" property="encoding" jdbcType="VARCHAR" />
+    <result column="tax_items" property="taxItems" jdbcType="VARCHAR" />
+    <result column="brief_code" property="briefCode" jdbcType="VARCHAR" />
+    <result column="specification_model" property="specificationModel" jdbcType="VARCHAR" />
+    <result column="metering_unit" property="meteringUnit" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="VARCHAR" />
+    <result column="tax_class_code" property="taxClassCode" jdbcType="VARCHAR" />
+    <result column="tax_classification_name" property="taxClassificationName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="data_source" property="dataSource" jdbcType="VARCHAR" />
+    <result column="matching_state" property="matchingState" jdbcType="VARCHAR" />
+    <result column="data_state" property="dataState" jdbcType="VARCHAR" />
+    <result column="share_state" property="shareState" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+    <result column="tax_class_abbreviation" property="taxClassAbbreviation" jdbcType="VARCHAR"/>
+    <result column="difference_flag" property="differenceFlag" jdbcType="VARCHAR"/>
+    <result column="description" property="description" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sort_id, xhf_nsrsbh, merchandise_name, encoding, tax_items, brief_code, specification_model,
+    metering_unit, unit_price, tax_class_code, tax_classification_name, create_time,
+    dept_id, data_source, matching_state, data_state, share_state, group_id,tax_class_abbreviation,difference_flag,description
+  </sql>
+  <select id="selectGroupTaxClassCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from group_tax_class_code
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+<!--    delete from group_tax_class_code-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </delete>-->
+  <insert id="insert" parameterType="com.dxhy.order.model.entity.GroupTaxClassCodeEntity" >
+    insert into group_tax_class_code (id, sort_id, xhf_nsrsbh,
+    merchandise_name, encoding, tax_items,
+    brief_code, specification_model, metering_unit,
+    unit_price, tax_class_code, tax_classification_name,
+    create_time, dept_id, data_source,
+    matching_state, data_state, share_state,
+    group_id,tax_class_abbreviation,difference_flag,description)
+    values (#{id,jdbcType=VARCHAR}, #{sortId,jdbcType=BIGINT}, #{xhfNsrsbh,jdbcType=VARCHAR},
+    #{merchandiseName,jdbcType=VARCHAR}, #{encoding,jdbcType=VARCHAR}, #{taxItems,jdbcType=VARCHAR},
+    #{briefCode,jdbcType=VARCHAR}, #{specificationModel,jdbcType=VARCHAR}, #{meteringUnit,jdbcType=VARCHAR},
+    #{unitPrice,jdbcType=VARCHAR}, #{taxClassCode,jdbcType=VARCHAR}, #{taxClassificationName,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{deptId,jdbcType=VARCHAR}, #{dataSource,jdbcType=VARCHAR},
+    #{matchingState,jdbcType=VARCHAR}, #{dataState,jdbcType=VARCHAR}, #{shareState,jdbcType=VARCHAR},
+    #{groupId,jdbcType=VARCHAR},#{taxClassAbbreviation,jdbcType=VARCHAR},#{differenceFlag,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR})
+  </insert>
+<!--  <insert id="insertSelective" parameterType="com.dxhy.order.model.entity.GroupTaxClassCodeEntity" >-->
+<!--    insert into group_tax_class_code-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        id,-->
+<!--      </if>-->
+<!--      <if test="sortId != null">-->
+<!--        sort_id,-->
+<!--      </if>-->
+<!--      <if test="xhfNsrsbh != null">-->
+<!--        xhf_nsrsbh,-->
+<!--      </if>-->
+<!--      <if test="merchandiseName != null">-->
+<!--        merchandise_name,-->
+<!--      </if>-->
+<!--      <if test="encoding != null">-->
+<!--        encoding,-->
+<!--      </if>-->
+<!--      <if test="taxItems != null">-->
+<!--        tax_items,-->
+<!--      </if>-->
+<!--      <if test="briefCode != null" >-->
+<!--        brief_code,-->
+<!--      </if>-->
+<!--      <if test="specificationModel != null" >-->
+<!--        specification_model,-->
+<!--      </if>-->
+<!--      <if test="meteringUnit != null" >-->
+<!--        metering_unit,-->
+<!--      </if>-->
+<!--      <if test="unitPrice != null" >-->
+<!--        unit_price,-->
+<!--      </if>-->
+<!--      <if test="taxClassCode != null" >-->
+<!--        tax_class_code,-->
+<!--      </if>-->
+<!--      <if test="taxClassificationName != null" >-->
+<!--        tax_classification_name,-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        create_time,-->
+<!--      </if>-->
+<!--      <if test="deptId != null" >-->
+<!--        dept_id,-->
+<!--      </if>-->
+<!--      <if test="dataSource != null" >-->
+<!--        data_source,-->
+<!--      </if>-->
+<!--      <if test="matchingState != null" >-->
+<!--        matching_state,-->
+<!--      </if>-->
+<!--      <if test="dataState != null" >-->
+<!--        data_state,-->
+<!--      </if>-->
+<!--      <if test="shareState != null" >-->
+<!--        share_state,-->
+<!--      </if>-->
+<!--      <if test="groupId != null" >-->
+<!--        group_id,-->
+<!--      </if>-->
+<!--      <if test="taxClassAbbreviation != null" >-->
+<!--        tax_class_abbreviation,-->
+<!--      </if>-->
+<!--      <if test="differenceFlag != null" >-->
+<!--        difference_flag,-->
+<!--      </if>-->
+<!--      <if test="description != null" >-->
+<!--        description,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        #{id,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="sortId != null">-->
+<!--        #{sortId,jdbcType=BIGINT},-->
+<!--      </if>-->
+<!--      <if test="xhfNsrsbh != null">-->
+<!--        #{xhfNsrsbh,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="merchandiseName != null">-->
+<!--        #{merchandiseName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="encoding != null">-->
+<!--        #{encoding,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="taxItems != null">-->
+<!--        #{taxItems,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="briefCode != null" >-->
+<!--        #{briefCode,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="specificationModel != null" >-->
+<!--        #{specificationModel,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="meteringUnit != null" >-->
+<!--        #{meteringUnit,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="unitPrice != null" >-->
+<!--        #{unitPrice,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="taxClassCode != null" >-->
+<!--        #{taxClassCode,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="taxClassificationName != null" >-->
+<!--        #{taxClassificationName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="createTime != null" >-->
+<!--        #{createTime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="deptId != null" >-->
+<!--        #{deptId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="dataSource != null" >-->
+<!--        #{dataSource,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="matchingState != null" >-->
+<!--        #{matchingState,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="dataState != null" >-->
+<!--        #{dataState,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="shareState != null" >-->
+<!--        #{shareState,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="groupId != null" >-->
+<!--        #{groupId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="taxClassAbbreviation != null" >-->
+<!--        #{taxClassAbbreviation,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="differenceFlag != null" >-->
+<!--        #{differenceFlag,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="description != null" >-->
+<!--        #{description,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.entity.GroupTaxClassCodeEntity" >
+    update group_tax_class_code
+    <set>
+      <if test="sortId != null">
+        sort_id = #{sortId,jdbcType=BIGINT},
+      </if>
+      <if test="xhfNsrsbh != null">
+        xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="merchandiseName != null">
+        merchandise_name = #{merchandiseName,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null">
+        encoding = #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="taxItems != null">
+        tax_items = #{taxItems,jdbcType=VARCHAR},
+      </if>
+      <if test="briefCode != null" >
+        brief_code = #{briefCode,jdbcType=VARCHAR},
+      </if>
+      <if test="specificationModel != null" >
+        specification_model = #{specificationModel,jdbcType=VARCHAR},
+      </if>
+      <if test="meteringUnit != null" >
+        metering_unit = #{meteringUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClassCode != null" >
+        tax_class_code = #{taxClassCode,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClassificationName != null" >
+        tax_classification_name = #{taxClassificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=VARCHAR},
+      </if>
+      <if test="matchingState != null" >
+        matching_state = #{matchingState,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null" >
+        data_state = #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="shareState != null" >
+        share_state = #{shareState,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="taxClassAbbreviation != null" >
+        tax_class_abbreviation = #{taxClassAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="differenceFlag != null" >
+        difference_flag = #{differenceFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.entity.GroupTaxClassCodeEntity" >
+    update group_tax_class_code
+    set sort_id = #{sortId,jdbcType=BIGINT},
+    xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+    merchandise_name = #{merchandiseName,jdbcType=VARCHAR},
+    encoding = #{encoding,jdbcType=VARCHAR},
+    tax_items = #{taxItems,jdbcType=VARCHAR},
+    brief_code = #{briefCode,jdbcType=VARCHAR},
+    specification_model = #{specificationModel,jdbcType=VARCHAR},
+    metering_unit = #{meteringUnit,jdbcType=VARCHAR},
+    unit_price = #{unitPrice,jdbcType=VARCHAR},
+    tax_class_code = #{taxClassCode,jdbcType=VARCHAR},
+    tax_classification_name = #{taxClassificationName,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      data_source = #{dataSource,jdbcType=VARCHAR},
+      matching_state = #{matchingState,jdbcType=VARCHAR},
+      data_state = #{dataState,jdbcType=VARCHAR},
+      share_state = #{shareState,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      tax_class_abbreviation = #{taxClassAbbreviation,jdbcType=VARCHAR},
+      difference_flag = #{differenceFlag,jdbcType=VARCHAR},
+      description  = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryGroupTaxClassCode" resultType="java.util.HashMap"  parameterType="map" >
+      <bind name="dataType" value="${dataType}"/>
+      SELECT
+      gc.group_name,
+      gctc.*
+      FROM
+      group_tax_class_code gctc
+      LEFT JOIN group_commodity gc ON gctc.group_id = gc.id
+      <where>
+          <if test="groupId != null and groupId != '' ">
+              and gc.id = #{groupId,jdbcType=VARCHAR}
+          </if>
+          <if test="deptId != null and deptId != '' ">
+              and gctc.dept_id = #{deptId,jdbcType=VARCHAR}
+          </if>
+          <if test="ppzt != null and ppzt != '' ">
+              and gctc.matching_state = #{ppzt,jdbcType=VARCHAR}
+          </if>
+          <if test="gxbs != null and gxbs != '' ">
+              and gctc.share_state = #{gxbs,jdbcType=VARCHAR}
+          </if>
+          <if test="sjzt != null and sjzt != '' ">
+              and gctc.data_state = #{sjzt,jdbcType=VARCHAR}
+          </if>
+          <if test="cybs != null and cybs != '' ">
+              and (gctc.difference_flag = '0' or gctc.difference_flag = '1')
+              and gctc.data_state != 2
+          </if>
+          <if test="dataType == 0">
+              <if test="spmc != null and spmc != '' ">
+                  and gctc.merchandise_name like concat('%', #{spmc,jdbcType=VARCHAR},'%')
+              </if>
+              <if test="spbm != null and spbm != '' ">
+                  and gctc.encoding like concat('%', #{spbm,jdbcType=VARCHAR},'%')
+              </if>
+              <if test="ssmc != null and ssmc != '' ">
+                  and gctc.tax_classification_name like concat('%', #{ssmc,jdbcType=VARCHAR},'%')
+              </if>
+              <if test="ssjc != null and ssjc != '' ">
+                  and gctc.tax_class_abbreviation like concat('%', #{ssjc,jdbcType=VARCHAR},'%')
+              </if>
+              <if test="ssbm != null and ssbm != '' ">
+                  and gctc.tax_class_code like concat('%', #{ssbm,jdbcType=VARCHAR},'%')
+              </if>
+          </if>
+          <if test="dataType == 1">
+              <if test="spmc != null and spmc != '' ">
+                  and gctc.merchandise_name LIKE '%' || #{spmc,jdbcType=VARCHAR} || '%'
+              </if>
+              <if test="spbm != null and spbm != '' ">
+                  and gctc.encoding LIKE '%' || #{spbm,jdbcType=VARCHAR}|| '%'
+              </if>
+              <if test="ssmc != null and ssmc != '' ">
+                  and gctc.tax_classification_name LIKE '%' || #{ssmc,jdbcType=VARCHAR}|| '%'
+              </if>
+              <if test="ssjc != null and ssjc != '' ">
+                  and gctc.tax_class_abbreviation LIKE '%' || #{ssjc,jdbcType=VARCHAR}|| '%'
+              </if>
+              <if test="ssbm != null and ssbm != '' ">
+                  and gctc.tax_class_code LIKE '%' || #{ssbm,jdbcType=VARCHAR}|| '%'
+              </if>
+          </if>
+      </where>
+
+      order by gctc.create_time desc
+  </select>
+    <!--条件查询税编信息   data_state为2是已经删除的-->
+<!--    <select id="queryTaxClassCodeByMap" parameterType="map" resultMap="BaseResultMap">-->
+<!--      select-->
+<!--      <include refid="Base_Column_List" />-->
+<!--      from group_tax_class_code t-->
+<!--      where t.data_state != '2'-->
+<!--      <if test="spbm != null and spbm != '' ">-->
+<!--        and t.encoding = #{spbm,jdbcType=VARCHAR}-->
+<!--      </if>-->
+<!--      <if test="spmc != null and spmc != '' ">-->
+<!--        and  t.merchandise_name = #{spmc,jdbcType=VARCHAR}-->
+<!--      </if>-->
+<!--    </select>-->
+  <update id="updateTaxClassCodeShareStatus" parameterType="string">
+       update group_tax_class_code t set t.share_state = #{shareStatus,jdbcType=VARCHAR} where t.id in
+       <foreach collection="taxClassCodeIdArray" index="index" item="item"
+                    open="(" separator="," close=")" >
+           #{item,jdbcType=VARCHAR}
+       </foreach>
+  </update>
+  <update id="updateTaxClassCodeDataStatus" parameterType="string">
+      update group_tax_class_code t set t.data_state = #{dataStatus,jdbcType=VARCHAR} where  t.id in
+      <foreach collection="taxClassCodeIdArray" index="index" item="item"
+               open="(" separator="," close=")" >
+        #{item,jdbcType=VARCHAR}
+      </foreach>
+  </update>
+  <select id="selectGroupTaxClassCodeById" resultType="java.util.HashMap"  parameterType="map" >
+    SELECT
+    gc.group_name,
+    gctc.*
+    FROM
+    group_tax_class_code gctc
+    LEFT JOIN group_commodity gc ON gctc.group_id = gc.id
+    where  gctc.id =  #{groupTaxClassCodeId,jdbcType=VARCHAR}
+  </select>
+  <!--条件查询税编信息   data_state为2是已经删除的-->
+  <select id="queryTaxClassCodeBySpbmAndSpmc" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from group_tax_class_code t
+    where t.data_state != '2'
+    and t.dept_id = #{deptId,jdbcType=VARCHAR}
+    <if test="spbm != null and spbm != '' ">
+      and t.encoding = #{spbm,jdbcType=VARCHAR}
+    </if>
+    <if test="spmc != null and spmc != '' ">
+      and  t.merchandise_name = #{spmc,jdbcType=VARCHAR}
+    </if>
+    <if test="ssmc != null and ssmc != '' ">
+      and  t.tax_classification_name = #{ssmc,jdbcType=VARCHAR}
+    </if>
+    <if test="ssbm != null and ssbm != '' ">
+      and  t.tax_class_code = #{ssbm,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!--条件查询税编信息   data_state为2是已经删除的-->
+  <select id="queryTaxClassCodeBySpbmOrSpmc" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from group_tax_class_code t
+    where t.data_state != '2'
+    and t.dept_id = #{deptId,jdbcType=VARCHAR}
+      and (t.encoding = #{spbm,jdbcType=VARCHAR} or  t.merchandise_name = #{spmc,jdbcType=VARCHAR})
+  </select>
+  <!-- 集团商品名称查询  -->
+  <select id="selectByName" parameterType="map" resultType="int">
+    SELECT
+    count(*)
+    FROM
+    group_tax_class_code
+    WHERE merchandise_name = #{merchandiseName,jdbcType=VARCHAR}
+    AND dept_id = #{deptId,jdbcType=VARCHAR}
+    <if test="id != null and id != ''">
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <!-- 集团商品编码查询  -->
+  <select id="selectByCode" parameterType="map" resultType="int">
+    SELECT
+    count(*)
+    FROM
+    group_tax_class_code
+    WHERE encoding = #{encoding,jdbcType=VARCHAR}
+    AND dept_id = #{deptId,jdbcType=VARCHAR}
+    <if test="id != null and id != ''">
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <update id="updateTaxClassCodeDifferenceFlag" parameterType="string">
+    update group_tax_class_code t set t.difference_flag = '' where t.id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -10,7 +10,7 @@ import com.whmyit.api.common.GlobalResult;
  */
 public class GlobalResultUtil {
 
-    public static GlobalResult<Object> success(Object obj){
+    public static GlobalResult<Object> success(Object obj) {
         GlobalResult<Object> reuslt = new GlobalResult<Object>();
         reuslt.setCode(ResultEnum.SUCCESS.getCode());
         reuslt.setMsg(ResultEnum.SUCCESS.getMsg());
@@ -18,12 +18,12 @@ public class GlobalResultUtil {
         return reuslt;
     }
 
-    public static GlobalResult success(){
+    public static GlobalResult success() {
         return success(null);
     }
 
-    public static GlobalResult error(Integer code,String msg){
-        return   new GlobalResult(code,msg);
+    public static GlobalResult error(Integer code, String msg) {
+        return new GlobalResult(code, msg);
     }
 
 }

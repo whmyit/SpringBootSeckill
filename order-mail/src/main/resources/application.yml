@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: order-mail
+  servlet:
+    multipart:
+      enabled: true
+      resolve-lazily: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+#  freemarker:
+#    cache: false
+#    template-loader-path: ["classpath:/webapp/"]
+#    prefer-file-system-access: false  #不使用文件系统优先，而使用classpath下的资源文件优先，解决打jar包运行后，出现的异常问题
+server:
+  port: 8083
+  servlet:
+    context-path: /order-mail
+
+mail:
+  senderName: 厦门国贸集团股份有限公司

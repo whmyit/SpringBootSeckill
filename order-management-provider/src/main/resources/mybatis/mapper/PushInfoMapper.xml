@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.PushInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.PushInfo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="nsrsbh" property="nsrsbh" jdbcType="VARCHAR"/>
+        <result column="push_url" property="pushUrl" jdbcType="VARCHAR"/>
+        <result column="encrypt_code" property="encryptCode" jdbcType="VARCHAR"/>
+        <result column="zip_code" property="zipCode" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="protocol_type" property="protocolType" jdbcType="VARCHAR"/>
+        <result column="byzd1" property="byzd1" jdbcType="VARCHAR"/>
+        <result column="byzd2" property="byzd2" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="version_ident" property="versionIdent" jdbcType="VARCHAR"/>
+        <result column="interface_type" property="interfaceType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, nsrsbh, encrypt_code, zip_code, status,protocol_type, byzd1, byzd2, push_url, create_time, modify_time,version_ident,interface_type
+    </sql>
+
+    <select id="selectByPushInfo" resultMap="BaseResultMap" parameterType="com.dxhy.order.model.PushInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from push_info
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="nsrsbh != null and nsrsbh != ''">
+                and nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="byzd1 != null and byzd1 != ''">
+                and byzd1 = #{byzd1,jdbcType=VARCHAR}
+            </if>
+            <if test="byzd2 != null and byzd2 != ''">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="pushUrl != null and pushUrl != ''">
+                and push_url = #{pushUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="versionIdent != null and versionIdent != ''">
+                and version_ident = #{versionIdent,jdbcType=VARCHAR}
+            </if>
+            <if test="interfaceType != null and interfaceType != ''">
+                and interface_type = #{interfaceType,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--    根据税号获取推送信息列表-->
+    <select id="selectListByPushInfo" resultMap="BaseResultMap" parameterType="com.dxhy.order.model.PushInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from push_info
+        where
+        nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+        <if test="id != null and id != ''">
+            and id = #{id,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status,jdbcType=VARCHAR}
+        </if>
+        <if test="byzd1 != null and byzd1 != ''">
+            and byzd1 = #{byzd1,jdbcType=VARCHAR}
+        </if>
+        <if test="byzd2 != null and byzd2 != ''">
+            and byzd2 = #{byzd2,jdbcType=TIMESTAMP}
+        </if>
+        <if test="pushUrl != null and pushUrl != ''">
+            and push_url = #{pushUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="versionIdent != null and versionIdent != ''">
+            and version_ident = #{versionIdent,jdbcType=VARCHAR}
+        </if>
+        <if test="interfaceType != null and interfaceType != ''">
+            and interface_type = #{interfaceType,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+    <select id="queryPushInfoList" resultMap="BaseResultMap" parameterType="com.dxhy.order.model.PushInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from push_info
+        <where>
+            <if test="data.id != null and data.id != ''">
+                and id = #{data.id,jdbcType=VARCHAR}
+            </if>
+            <if test="data.status != null and data.status != ''">
+                and status = #{data.status,jdbcType=VARCHAR}
+            </if>
+            <if test="data.pushUrl != null and data.pushUrl != ''">
+                and push_url = #{data.pushUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="data.versionIdent != null and data.versionIdent != ''">
+                and version_ident = #{data.versionIdent,jdbcType=VARCHAR}
+            </if>
+            <if test="data.interfaceType != null and data.interfaceType != ''">
+                and interface_type = #{data.interfaceType,jdbcType=VARCHAR}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="queryPushInfoListByMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from push_info
+        <where>
+            <if test="data.id != null and data.id != ''">
+                and id = #{data.id,jdbcType=VARCHAR}
+            </if>
+            <if test="data.status != null and data.status != ''">
+                and status = #{data.status,jdbcType=VARCHAR}
+            </if>
+            <if test="data.pushUrl != null and data.pushUrl != ''">
+                and push_url = #{data.pushUrl,jdbcType=VARCHAR}
+            </if>
+            <if test="data.versionIdent != null and data.versionIdent != ''">
+                and version_ident = #{data.versionIdent,jdbcType=VARCHAR}
+            </if>
+            <if test="data.interfaceType != null and data.interfaceType.size() > 0">
+                and interface_type
+                in
+                <foreach collection="data.interfaceType" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.dxhy.order.model.PushInfo">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        insert into push_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="nsrsbh != null">
+                nsrsbh,
+            </if>
+            <if test="interfaceType != null">
+                interface_type,
+            </if>
+            <if test="versionIdent != null">
+                version_ident,
+            </if>
+            <if test="encryptCode != null">
+                encrypt_code,
+            </if>
+            <if test="zipCode != null">
+                zip_code,
+            </if>
+            <if test="pushUrl != null">
+                push_url,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="byzd1 != null">
+                byzd1,
+            </if>
+            <if test="byzd2 != null">
+                byzd2,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="nsrsbh != null">
+                #{nsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="interfaceType != null">
+                #{interfaceType,jdbcType=VARCHAR},
+            </if>
+            <if test="versionIdent != null">
+                #{versionIdent,jdbcType=VARCHAR},
+            </if>
+            <if test="encryptCode != null">
+                #{encryptCode,jdbcType=VARCHAR},
+            </if>
+            <if test="zipCode != null">
+                #{zipCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pushUrl != null">
+                #{pushUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd1 != null">
+                #{byzd1,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd2 != null">
+                #{byzd2,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.PushInfo">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update push_info
+        <set>
+            <if test="nsrsbh != null">
+                nsrsbh = #{nsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="interfaceType != null">
+                interface_type = #{interfaceType,jdbcType=VARCHAR},
+            </if>
+            <if test="versionIdent != null">
+                version_ident = #{versionIdent,jdbcType=VARCHAR},
+            </if>
+            <if test="encryptCode != null">
+                encrypt_code = #{encryptCode,jdbcType=VARCHAR},
+            </if>
+            <if test="zipCode != null">
+                zip_code = #{zipCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pushUrl != null">
+                push_url = #{pushUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd1 != null">
+                byzd1 = #{byzd1,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd2 != null">
+                byzd2 = #{byzd2,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAuthStatusByShAndInterfaceType" parameterType="com.dxhy.order.model.PushInfo">
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update push_info
+        <set>
+            <if test="versionIdent != null">
+                version_ident = #{versionIdent,jdbcType=VARCHAR},
+            </if>
+            <if test="encryptCode != null">
+                encrypt_code = #{encryptCode,jdbcType=VARCHAR},
+            </if>
+            <if test="zipCode != null">
+                zip_code = #{zipCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pushUrl != null">
+                push_url = #{pushUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd1 != null">
+                byzd1 = #{byzd1,jdbcType=VARCHAR},
+            </if>
+            <if test="byzd2 != null">
+                byzd2 = #{byzd2,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where>
+            <if test="interfaceType != null and interfaceType != ''">
+                and interface_type = #{interfaceType,jdbcType=VARCHAR}
+            </if>
+            <if test="nsrsbh != null and nsrsbh != ''">
+                and nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+</mapper>

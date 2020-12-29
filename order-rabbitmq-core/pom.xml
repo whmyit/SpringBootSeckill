@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.dxhy.order</groupId>
+        <artifactId>order-management</artifactId>
+        <version>3.5.10-RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>order-rabbitmq-core</artifactId>
+    <description>rabbitMq封装层</description>
+    <version>3.5.10-RELEASE</version>
+
+    <dependencies>
+
+        <!-- Spring Boot RabbitMq 配置引用-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Spring Boot RabbitMq 客户端引用,不需要时可以去除-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.rabbitmq</groupId>-->
+        <!--            <artifactId>http-client</artifactId>-->
+        <!--            <version>1.1.1.RELEASE</version>-->
+        <!--        </dependency>-->
+
+    </dependencies>
+</project>

@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.QuickResponseCodeInfoMapper">
+	<resultMap id="BaseResultMap" type="com.dxhy.order.model.QuickResponseCodeInfo">
+		<id column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="quick_response_code_type" property="quickResponseCodeType"
+				jdbcType="VARCHAR"/>
+		<result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR"/>
+		<result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+		<result column="xhf_dz" property="xhfDz" jdbcType="VARCHAR"/>
+		<result column="xhf_dh" property="xhfDh" jdbcType="VARCHAR" />
+		<result column="xhf_yh" property="xhfYh" jdbcType="VARCHAR" />
+		<result column="xhf_zh" property="xhfZh" jdbcType="VARCHAR" />
+		<result column="ywlx" property="ywlx" jdbcType="VARCHAR" />
+		<result column="ywlx_id" property="ywlxId" jdbcType="VARCHAR" />
+		<result column="sld_mc" property="sldMc" jdbcType="VARCHAR" />
+		<result column="sld" property="sld" jdbcType="VARCHAR" />
+		<result column="fjh" property="fjh" jdbcType="VARCHAR" />
+		<result column="kpr" property="kpr" jdbcType="VARCHAR" />
+		<result column="skr" property="skr" jdbcType="VARCHAR" />
+		<result column="fhr" property="fhr" jdbcType="VARCHAR" />
+		<result column="tqm" property="tqm" jdbcType="VARCHAR" />
+		<result column="ewmzt" property="ewmzt" jdbcType="VARCHAR" />
+
+		<result column="quick_response_code_url" property="quickResponseCodeUrl"
+			jdbcType="VARCHAR" />
+		<result column="quick_response_code_valid_time" property="quickResponseCodeValidTime"
+				jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,quick_response_code_type, xhf_mc,xhf_nsrsbh,
+		xhf_dz, xhf_dh, xhf_yh, xhf_zh, ywlx, ywlx_id,
+		sld_mc, sld,fjh, kpr, skr,fhr, tqm,ewmzt,quick_response_code_url,
+	    quick_response_code_valid_time, create_time, update_time
+	</sql>
+	<select id="selectQuickResponseCodeById" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"/>
+		from quick_response_code_info
+		where id = #{id,jdbcType=VARCHAR}
+
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+
+	</select>
+	<!--	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+	<!--		-->
+	<!--		delete from quick_response_code_info-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</delete>-->
+	<!--	<insert id="insert" parameterType="com.dxhy.order.model.QuickResponseCodeInfo">-->
+	<!--		insert into quick_response_code_info (id,-->
+	<!--		quick_response_code_type,xhf_mc, xhf_nsrsbh,-->
+	<!--		xhf_dz, xhf_dh,xhf_yh,-->
+	<!--		xhf_zh, ywlx, ywlx_id,-->
+	<!--		sld_mc, sld, fjh, kpr,-->
+	<!--		skr, fhr, tqm,ewmzt,-->
+	<!--		quick_response_code_url,-->
+	<!--		quick_response_code_valid_time, create_time,-->
+	<!--		update_time)-->
+	<!--		values (#{id,jdbcType=VARCHAR},-->
+	<!--		#{quickResponseCodeType,jdbcType=VARCHAR},-->
+	<!--	    #{xhfMc,jdbcType=VARCHAR},-->
+	<!--		#{xhfNsrsbh,jdbcType=VARCHAR},-->
+	<!--		#{xhfDz,jdbcType=VARCHAR},-->
+	<!--		#{xhfDh,jdbcType=VARCHAR}, #{xhfYh,jdbcType=VARCHAR},-->
+	<!--		#{xhfZh,jdbcType=VARCHAR}, #{ywlx,jdbcType=VARCHAR},-->
+	<!--		#{ywlxId,jdbcType=VARCHAR},-->
+	<!--		#{sldMc,jdbcType=VARCHAR},-->
+	<!--		#{sld,jdbcType=VARCHAR}, #{fjh,jdbcType=VARCHAR},-->
+	<!--		#{kpr,jdbcType=VARCHAR},-->
+	<!--		#{skr,jdbcType=VARCHAR},-->
+	<!--		#{fhr,jdbcType=VARCHAR}, #{tqm,jdbcType=VARCHAR},-->
+	<!--	    #{ewmzt,jdbcType=VARCHAR},-->
+	<!--		#{quickResponseCodeUrl,jdbcType=VARCHAR},-->
+	<!--		#{quickResponseCodeValidTime,jdbcType=TIMESTAMP},-->
+	<!--		#{createTime,jdbcType=TIMESTAMP},-->
+	<!--		#{updateTime,jdbcType=TIMESTAMP})-->
+	<!--	</insert>-->
+	<insert id="insertSelective" parameterType="com.dxhy.order.model.QuickResponseCodeInfo">
+
+		insert into quick_response_code_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+
+			<if test="quickResponseCodeType != null">
+				quick_response_code_type,
+			</if>
+			<if test="xhfMc != null">
+				xhf_mc,
+			</if>
+			<if test="xhfNsrsbh != null">
+				xhf_nsrsbh,
+			</if>
+			<if test="xhfDz != null">
+				xhf_dz,
+			</if>
+			<if test="xhfDh != null">
+				xhf_dh,
+			</if>
+			<if test="xhfYh != null">
+				xhf_yh,
+			</if>
+			<if test="xhfZh != null">
+				xhf_zh,
+			</if>
+			<if test="ywlx != null">
+				ywlx,
+			</if>
+			<if test="ywlxId != null">
+				ywlx_id,
+			</if>
+			<if test="sldMc != null">
+				sld_mc,
+			</if>
+			<if test="sld != null">
+				sld,
+			</if>
+			<if test="fjh != null">
+				fjh,
+			</if>
+			<if test="kpr != null">
+				kpr,
+			</if>
+			<if test="skr != null">
+				skr,
+			</if>
+			<if test="fhr != null">
+				fhr,
+			</if>
+			<if test="tqm != null">
+				tqm,
+			</if>
+            <if test="ewmzt != null">
+                ewmzt,
+            </if>
+			<if test="quickResponseCodeUrl != null">
+				quick_response_code_url,
+			</if>
+			<if test="quickResponseCodeValidTime != null">
+				quick_response_code_valid_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="quickResponseCodeType != null">
+				#{quickResponseCodeType,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfMc != null">
+				#{xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfNsrsbh != null">
+				#{xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfDz != null">
+				#{xhfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfDh != null">
+				#{xhfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfYh != null">
+				#{xhfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfZh != null">
+				#{xhfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="ywlx != null">
+				#{ywlx,jdbcType=VARCHAR},
+			</if>
+			<if test="ywlxId != null">
+				#{ywlxId,jdbcType=VARCHAR},
+			</if>
+			<if test="sldMc != null">
+				#{sldMc,jdbcType=VARCHAR},
+			</if>
+			<if test="sld != null">
+				#{sld,jdbcType=VARCHAR},
+			</if>
+			<if test="fjh != null">
+				#{fjh,jdbcType=VARCHAR},
+			</if>
+			<if test="kpr != null">
+				#{kpr,jdbcType=VARCHAR},
+			</if>
+			<if test="skr != null">
+				#{skr,jdbcType=VARCHAR},
+			</if>
+			<if test="fhr != null">
+				#{fhr,jdbcType=VARCHAR},
+			</if>
+			<if test="tqm != null">
+				#{tqm,jdbcType=VARCHAR},
+			</if>
+            <if test="ewmzt != null">
+                #{ewmzt,jdbcType=VARCHAR},
+            </if>
+			<if test="quickResponseCodeUrl != null">
+				#{quickResponseCodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="quickResponseCodeValidTime != null">
+				#{quickResponseCodeValidTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateQrCodeInfo" parameterType="com.dxhy.order.model.QuickResponseCodeInfo">
+
+		update quick_response_code_info
+		<set>
+
+			<if test="qrCode.quickResponseCodeType != null">
+				quick_response_code_type =
+				#{qrCode.quickResponseCodeType,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.xhfMc != null">
+				xhf_mc = #{qrCode.xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.xhfNsrsbh != null">
+				xhf_nsrsbh = #{qrCode.xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.xhfDz != null">
+				xhf_dz = #{qrCode.xhfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.xhfDh != null">
+				xhf_dh = #{qrCode.xhfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.xhfYh != null">
+				xhf_yh = #{qrCode.xhfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.xhfZh != null">
+				xhf_zh = #{qrCode.xhfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.ywlx != null">
+				ywlx = #{qrCode.ywlx,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.ywlxId != null">
+				ywlx_id = #{qrCode.ywlxId,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.sldMc != null">
+				sld_mc = #{qrCode.sldMc,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.sld != null">
+				sld = #{qrCode.sld,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.fjh != null">
+				fjh = #{qrCode.fjh,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.kpr != null">
+				kpr = #{qrCode.kpr,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.skr != null">
+				skr = #{qrCode.skr,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.fhr != null">
+				fhr = #{qrCode.fhr,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.tqm != null">
+				tqm = #{qrCode.tqm,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.ewmzt != null">
+				ewmzt = #{qrCode.ewmzt,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.quickResponseCodeUrl != null">
+				quick_response_code_url =
+				#{qrCode.quickResponseCodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="qrCode.quickResponseCodeValidTime != null">
+				quick_response_code_valid_time =
+				#{qrCode.quickResponseCodeValidTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCode.createTime != null">
+				create_time = #{qrCode.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="qrCode.updateTime != null">
+				update_time = #{qrCode.updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{qrCode.id,jdbcType=VARCHAR}
+		<if test="shList != null and shList.size() == 0">
+			and xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+	<!--	<update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.QuickResponseCodeInfo">-->
+	<!--		-->
+	<!--		update quick_response_code_info-->
+	<!--		set-->
+	<!--		quick_response_code_type =-->
+	<!--		#{quickResponseCodeType,jdbcType=VARCHAR},-->
+	<!--		xhf_mc = #{xhfMc,jdbcType=VARCHAR},-->
+	<!--		xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+	<!--		xhf_dz =-->
+	<!--		#{xhfDz,jdbcType=VARCHAR},-->
+	<!--		xhf_dh = #{xhfDh,jdbcType=VARCHAR},-->
+	<!--		xhf_yh =-->
+	<!--		#{xhfYh,jdbcType=VARCHAR},-->
+	<!--		xhf_zh = #{xhfZh,jdbcType=VARCHAR},-->
+	<!--		ywlx =-->
+	<!--		#{ywlx,jdbcType=VARCHAR},-->
+	<!--		ywlx_id = #{ywlxId,jdbcType=VARCHAR},-->
+	<!--		sld_mc =-->
+	<!--		#{sldMc,jdbcType=VARCHAR},-->
+	<!--		sld = #{sld,jdbcType=VARCHAR},-->
+	<!--		fjh =-->
+	<!--		#{fjh,jdbcType=VARCHAR},-->
+	<!--		kpr = #{kpr,jdbcType=VARCHAR},-->
+	<!--		skr =-->
+	<!--		#{skr,jdbcType=VARCHAR},-->
+	<!--		fhr = #{fhr,jdbcType=VARCHAR},-->
+	<!--		tqm =-->
+	<!--		#{tqm,jdbcType=VARCHAR},-->
+	<!--        ewmzt =-->
+	<!--        #{ewmzt,jdbcType=VARCHAR},-->
+	<!--		quick_response_code_url =-->
+	<!--		#{quickResponseCodeUrl,jdbcType=VARCHAR},-->
+	<!--		quick_response_code_valid_time =-->
+	<!--		#{quickResponseCodeValidTime,jdbcType=TIMESTAMP},-->
+	<!--		create_time =-->
+	<!--		#{createTime,jdbcType=TIMESTAMP},-->
+	<!--		update_time =-->
+	<!--		#{updateTime,jdbcType=TIMESTAMP}-->
+	<!--		where id = #{id,jdbcType=VARCHAR}-->
+	<!--	</update>-->
+
+	<!--	<select id="selectBySelective" resultMap="BaseResultMap"-->
+	<!--			parameterType="com.dxhy.order.model.QuickResponseCodeInfo">-->
+	<!--		select-->
+	<!--		<include refid="Base_Column_List"/>-->
+	<!--		from quick_response_code_info-->
+	<!--		<where>-->
+	<!--			<if test="tqm != null">-->
+	<!--				and tqm = #{tqm,jdbcType=VARCHAR}-->
+	<!--			</if>-->
+	<!--			<if test="xhfNsrsbh != null">-->
+	<!--				and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}-->
+	<!--			</if>-->
+	<!--			<if test="quickResponseCodeType != null">-->
+	<!--				and quick_response_code_type =-->
+	<!--				#{quickResponseCodeType,jdbcType=VARCHAR}-->
+	<!--			</if>-->
+	<!--		</where>-->
+	<!--	</select>-->
+
+	<select id="selectQrCodeList" resultType="java.util.HashMap"
+			parameterType="map">
+		<bind name="dataType" value="${dataType}"/>
+		select * from (
+		SELECT
+		qrci.*,
+		group_concat(distinct qrcii.xmmc ORDER BY
+		CAST(qrcii.sphxh AS signed) ) xmmcs,
+		group_concat(distinct
+		itce.fpzl_dm_mc) fpzlmcs,
+		GROUP_CONCAT(distinct itce.fpzl_dm) fpzldms
+		from quick_response_code_info qrci
+		LEFT JOIN
+		quick_response_code_item_info qrcii on qrci.id =
+		qrcii.quick_response_code_info_id
+		LEFT JOIN invoice_type_code_ext itce
+		on qrci.id =
+		itce.invoice_type_code_id
+		where
+		qrci.quick_response_code_type = '0'
+		and qrci.ewmzt = '0'
+		<if test="shList != null and shList.size() == 0">
+			and qrci.xhf_nsrsbh = ''
+		</if>
+		<if test="shList != null and shList.size() == 1">
+			and qrci.xhf_nsrsbh =
+			<foreach collection="shList" index="index" item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="shList != null and shList.size() > 1">
+			and qrci.xhf_nsrsbh in
+			<foreach collection="shList" index="index" item="item"
+					 open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+
+		<if test=" map.ywlxId != null and map.ywlxId != '' ">
+			and qrci.ywlx_id = #{map.ywlxId,jdbcType=VARCHAR}
+		</if>
+		GROUP BY qrci.id order by qrci.create_time desc) t
+		<where>
+            <if test=" map.xmmc != null and map.xmmc != '' ">
+                <if test="dataType == 0">
+                    and t.xmmcs LIKE CONCAT('%',
+                    #{map.xmmc,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="dataType == 1">
+                    and t.xmmcs LIKE '%' || #{map.spmc,jdbcType=VARCHAR} || '%'
+                </if>
+            </if>
+        </where>
+
+	</select>
+
+	<select id="queryQrCodeDetailByTqm" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from quick_response_code_info
+		<where>
+			tqm = #{tqm,jdbcType=VARCHAR}
+
+			<if test="shList != null and shList.size() == 0">
+				and xhf_nsrsbh = ''
+			</if>
+			<if test="shList != null and shList.size() == 1">
+				and xhf_nsrsbh =
+				<foreach collection="shList" index="index" item="item">
+					#{item}
+				</foreach>
+			</if>
+			<if test="shList != null and shList.size() > 1">
+				and xhf_nsrsbh in
+				<foreach collection="shList" index="index" item="item"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="type != null">
+				and quick_response_code_type =
+				#{type,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!--<select id="queryEwmDetailByFpqqlsh" resultType="java.util.HashMap"
+			parameterType="java.lang.String">
+		<bind name="dataType" value="${dataType}"/>
+		select
+		oi.*,
+		opi.*
+		from quick_response_code_info qrci
+		left join order_info oi on qrci.fpqqlsh = oi.fpqqlsh
+		left join order_process_info opi on oi.fpqqlsh = opi.fpqqlsh
+		where qrci.fpqqlsh = #{fpqqlsh ,jdbcType=VARCHAR}
+	</select>-->
+
+
+	<!--<select id="queryQrCodeDetailByDdqqlshAndNsrsbh" parameterType="java.lang.String"
+			resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from quick_response_code_info
+		where
+		fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+		and
+		xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+	</select>-->
+
+	<!--<select id="selectQuickResponseCodeListByFpqqlshDdhNsrsbh" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"/>
+		from quick_response_code_info
+		where xhf_nsrsbh = #{xhf_nsrsbh,jdbcType=VARCHAR}
+		<if test="ddh !=null and ddh  !='' ">
+			and ddh = #{ddh,jdbcType=VARCHAR}
+		</if>
+		<if test="tqm !=null and tqm  !='' ">
+			and tqm = #{tqm,jdbcType=VARCHAR}
+		</if>
+		<if test="fpqqlsh !=null and fpqqlsh  !='' ">
+			and fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+		</if>
+	</select>-->
+
+	<!--<update id="updateByFpqqlsh" parameterType="com.dxhy.order.model.QuickResponseCodeInfo">
+        update quick_response_code_info
+        <set>
+            <if test="orderInfoId != null">
+                order_info_id =
+                #{orderInfoId,jdbcType=VARCHAR},
+            </if>
+            <if test="authOrderId != null">
+                auth_order_id =
+                #{authOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                open_id =
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="unionId != null">
+                union_id =
+                #{unionId,jdbcType=VARCHAR},
+            </if>
+            <if test="quickResponseCodeType != null">
+                quick_response_code_type =
+                #{quickResponseCodeType,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfMc != null">
+                xhf_mc = #{xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfDz != null">
+                xhf_dz = #{xhfDz,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfDh != null">
+                xhf_dh = #{xhfDh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfYh != null">
+                xhf_yh = #{xhfYh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfZh != null">
+                xhf_zh = #{xhfZh,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlx != null">
+                ywlx = #{ywlx,jdbcType=VARCHAR},
+            </if>
+            <if test="ywlxId != null">
+                ywlx_id = #{ywlxId,jdbcType=VARCHAR},
+            </if>
+            <if test="sldMc != null">
+                sld_mc = #{sldMc,jdbcType=VARCHAR},
+            </if>
+            <if test="sld != null">
+                sld = #{sld,jdbcType=VARCHAR},
+            </if>
+            <if test="fjh != null">
+                fjh = #{fjh,jdbcType=VARCHAR},
+            </if>
+            <if test="kpr != null">
+                kpr = #{kpr,jdbcType=VARCHAR},
+            </if>
+            <if test="skr != null">
+                skr = #{skr,jdbcType=VARCHAR},
+            </if>
+            <if test="fhr != null">
+                fhr = #{fhr,jdbcType=VARCHAR},
+            </if>
+            <if test="tqm != null">
+                tqm = #{tqm,jdbcType=VARCHAR},
+            </if>
+            <if test="kphjje != null">
+                kphjje = #{kphjje,jdbcType=VARCHAR},
+            </if>
+            <if test="ddh != null">
+                ddh = #{ddh,jdbcType=VARCHAR},
+            </if>
+            <if test="zfzt != null">
+                zfzt = #{zfzt,jdbcType=VARCHAR},
+            </if>
+            <if test="ewmzt != null">
+                ewmzt = #{ewmzt,jdbcType=VARCHAR},
+            </if>
+            <if test="fpzlDm != null">
+                fpzl_dm = #{fpzlDm,jdbcType=VARCHAR},
+            </if>
+            <if test="quickResponseCodeUrl != null">
+                quick_response_code_url =
+                #{quickResponseCodeUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="quickResponseCodeValidTime != null">
+                quick_response_code_valid_time =
+                #{quickResponseCodeValidTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+    </update>-->
+
+
+
+	<!--<select id="queryQrCodeDetailByQrcodeInfo" parameterType="com.dxhy.order.model.QuickResponseCodeInfo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from quick_response_code_info
+		<where>
+			<if test="ddh !=null and ddh  !='' ">
+				and ddh = #{ddh,jdbcType=VARCHAR}
+			</if>
+			<if test="tqm !=null and tqm  !='' ">
+				and tqm = #{tqm,jdbcType=VARCHAR}
+			</if>
+			<if test="fpqqlsh !=null and fpqqlsh  !='' ">
+				and fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+			</if>
+			 <if test="authOrderId !=null and authOrderId  !='' ">
+                and auth_order_id = #{authOrderId,jdbcType=VARCHAR}
+            </if>
+             <if test="orderInfoId !=null and orderInfoId  !='' ">
+                and order_info_id = #{orderInfoId,jdbcType=VARCHAR}
+            </if>
+		</where>
+	</select>-->
+
+
+</mapper>

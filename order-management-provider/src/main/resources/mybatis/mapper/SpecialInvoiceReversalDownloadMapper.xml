@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.SpecialInvoiceReversalDownloadDao">
+
+	<resultMap id="specialInvoiceReversalResultDownloadMap" type="com.dxhy.order.model.entity.SpecialInvoiceReversalDownloadEntity">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="sqbxzqqpch" property="sqbxzqqpch" jdbcType="VARCHAR" />
+		<result column="nsrsbh" property="nsrsbh" jdbcType="VARCHAR" />
+		<result column="sldid" property="sldid" jdbcType="VARCHAR" />
+		<result column="kpjh" property="kpjh" jdbcType="VARCHAR" />
+		<result column="fpzldm" property="fpzldm" jdbcType="VARCHAR" />
+		<result column="tkrq_q" property="tkrqQ" jdbcType="VARCHAR" />
+		<result column="tkrq_z" property="tkrqZ" jdbcType="VARCHAR" />
+		<result column="gmf_nsrsbh" property="gmfNsrsbh" jdbcType="VARCHAR" />
+		<result column="xsf_nsrsbh" property="xsfNsrsbh" jdbcType="VARCHAR" />
+		<result column="xxbbh" property="xxbbh" jdbcType="VARCHAR" />
+		<result column="xxbfw" property="xxbfw" jdbcType="VARCHAR" />
+		<result column="pageno" property="pageno" jdbcType="VARCHAR" />
+		<result column="pagesize" property="pagesize" jdbcType="VARCHAR" />
+		<result column="down_status" property="downStatus" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id,
+		sqbxzqqpch,
+		nsrsbh,
+		kpjh,
+		sldid,
+		fpzldm,
+		tkrq_q,
+		tkrq_z,
+		gmf_nsrsbh,
+		xsf_nsrsbh,
+		xxbbh,
+		xxbfw,
+		pageno,
+		pagesize,
+		down_status,
+		create_time
+	</sql>
+
+
+	<!--插入 -->
+	<insert id="insertSpecialInvoiceReversalDownload" parameterType="com.dxhy.order.model.entity.SpecialInvoiceReversalDownloadEntity">
+		<bind name="dataType" value="${dataType}"/>
+		INSERT INTO special_invoice_reversal_download (
+		id,
+		sqbxzqqpch,
+		nsrsbh,
+		kpjh,
+		sldid,
+		fpzldm,
+		tkrq_q,
+		tkrq_z,
+		gmf_nsrsbh,
+		xsf_nsrsbh,
+		xxbbh,
+		xxbfw,
+		pageno,
+		pagesize,
+		down_status,
+		create_time
+		)
+		VALUES
+		(
+		#{id,jdbcType=VARCHAR},
+		#{sqbxzqqpch,jdbcType=VARCHAR},
+		#{nsrsbh,jdbcType=VARCHAR},
+		#{kpjh,jdbcType=VARCHAR},
+		#{sldid,jdbcType=VARCHAR},
+		#{fpzldm,jdbcType=VARCHAR},
+		#{tkrqQ,jdbcType=VARCHAR},
+		#{tkrqZ,jdbcType=VARCHAR},
+		#{gmfNsrsbh,jdbcType=VARCHAR},
+		#{xsfNsrsbh,jdbcType=VARCHAR},
+		#{xxbbh,jdbcType=VARCHAR},
+		#{xxbfw,jdbcType=VARCHAR},
+		#{pageno,jdbcType=VARCHAR},
+		#{pagesize,jdbcType=VARCHAR},
+		#{downStatus,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+
+	<select id="getCountSpecialInvoiceReversalDownload" parameterType="string" resultType="int">
+		select count(*) from special_invoice_reversal_download
+		where sqbxzqqpch=#{sqbxzqqpch}
+	</select>
+
+	<select id="getSpecialInvoiceReversalDownload" parameterType="string" resultType="com.dxhy.order.model.entity.SpecialInvoiceReversalDownloadEntity">
+		select
+		<include refid="Base_Column_List"/>
+		from special_invoice_reversal_download
+		where sqbxzqqpch=#{sqbxzqqpch}
+	</select>
+
+	<!--红票申请单下载   修改数据状态 -->
+	<update id="updateDownloadRedInvoiceStatus" parameterType="string">
+		UPDATE special_invoice_reversal_download
+		<set>
+			down_status = #{sjzt,jdbcType=VARCHAR}
+		</set>
+		where sqbxzqqpch = #{sqbxzqqpch,jdbcType=VARCHAR}
+	</update>
+
+
+</mapper>

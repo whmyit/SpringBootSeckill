@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvoiceTaxRateRequestInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.InvoiceTaxRateRequestInfo">
+
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="company_id" property="companyId" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="kplx" property="kplx" jdbcType="VARCHAR"/>
+        <result column="report_period" property="reportPeriod" jdbcType="VARCHAR"/>
+        <result column="hzrq" property="hzrq" jdbcType="VARCHAR"/>
+        <result column="sl" property="sl" jdbcType="VARCHAR"/>
+        <result column="invoice_amount_pt" property="invoiceAmountPt" jdbcType="VARCHAR"/>
+        <result column="tax_amount_pt" property="taxAmountPt" jdbcType="VARCHAR"/>
+        <result column="total_amount_pt" property="totalAmountPt" jdbcType="VARCHAR"/>
+        <result column="invoice_amount_nt" property="invoiceAmountNt" jdbcType="VARCHAR"/>
+        <result column="tax_amount_nt" property="taxAmountNt" jdbcType="VARCHAR"/>
+        <result column="total_amount_nt" property="totalAmountNt" jdbcType="VARCHAR"/>
+        <result column="invoice_amount_pt_void" property="invoiceAmountPtVoid" jdbcType="VARCHAR"/>
+        <result column="tax_amount_pt_void" property="taxAmountPtVoid" jdbcType="VARCHAR"/>
+        <result column="total_amount_pt_void" property="totalAmountPtVoid" jdbcType="VARCHAR"/>
+        <result column="invoice_amount_nt_void" property="invoiceAmountNtVoid" jdbcType="VARCHAR"/>
+        <result column="tax_amount_nt_void" property="taxAmountNtVoid" jdbcType="VARCHAR"/>
+        <result column="total_amount_nt_void" property="totalAmountNtVoid" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="complete_flag" property="completeFlag" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="taxRateMap" type="com.dxhy.order.model.InvoiceTaxRatePO">
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="sl" property="sl" jdbcType="VARCHAR"/>
+        <result column="kplx" property="kplx" jdbcType="VARCHAR"/>
+        <result column="zf_bz" property="zfBz" jdbcType="VARCHAR"/>
+        <result column="xmje" property="xmje" jdbcType="VARCHAR"/>
+        <result column="se" property="se" jdbcType="VARCHAR"/>
+        <result column="kphjje" property="kphjje" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--条件查询-->
+    <select id="selectTaxRateInfo" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice_taxrate_request
+        where xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+        and hzrq= #{hzrq,jdbcType=VARCHAR}
+        and sl= #{sl,jdbcType=VARCHAR}
+        and kplx= #{kplx,jdbcType=VARCHAR}
+        and fpzl_dm= #{fpzldm,jdbcType=VARCHAR}
+    </select>
+    <sql id="Base_Column_List">
+
+        id, company_id, xhf_nsrsbh, fpzl_dm, kplx, report_period, hzrq, sl, invoice_amount_pt,
+        tax_amount_pt, total_amount_pt, invoice_amount_nt, tax_amount_nt, total_amount_nt,
+        invoice_amount_pt_void, tax_amount_pt_void, total_amount_pt_void, invoice_amount_nt_void,
+        tax_amount_nt_void, total_amount_nt_void, create_time, complete_flag
+    </sql>
+    <!--    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from invoice_taxrate_request-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+    <!--    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+
+    <!--        delete from invoice_taxrate_request-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </delete>-->
+    <insert id="insertTaxRateRequestInfo" parameterType="com.dxhy.order.model.InvoiceTaxRateRequestInfo">
+
+        insert into invoice_taxrate_request (id, company_id, xhf_nsrsbh,
+                                             fpzl_dm, kplx, report_period,
+                                             hzrq, sl, invoice_amount_pt,
+                                             tax_amount_pt, total_amount_pt, invoice_amount_nt,
+                                             tax_amount_nt, total_amount_nt, invoice_amount_pt_void,
+                                             tax_amount_pt_void, total_amount_pt_void, invoice_amount_nt_void,
+                                             tax_amount_nt_void, total_amount_nt_void, create_time,
+                                             complete_flag)
+        values (#{id,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{xhfNsrsbh,jdbcType=VARCHAR},
+                #{fpzlDm,jdbcType=VARCHAR}, #{kplx,jdbcType=VARCHAR}, #{reportPeriod,jdbcType=VARCHAR},
+                #{hzrq,jdbcType=VARCHAR}, #{sl,jdbcType=VARCHAR}, #{invoiceAmountPt,jdbcType=VARCHAR},
+                #{taxAmountPt,jdbcType=VARCHAR}, #{totalAmountPt,jdbcType=VARCHAR}, #{invoiceAmountNt,jdbcType=VARCHAR},
+                #{taxAmountNt,jdbcType=VARCHAR}, #{totalAmountNt,jdbcType=VARCHAR},
+                #{invoiceAmountPtVoid,jdbcType=VARCHAR},
+                #{taxAmountPtVoid,jdbcType=VARCHAR}, #{totalAmountPtVoid,jdbcType=VARCHAR},
+                #{invoiceAmountNtVoid,jdbcType=VARCHAR},
+                #{taxAmountNtVoid,jdbcType=VARCHAR}, #{totalAmountNtVoid,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{completeFlag,jdbcType=VARCHAR})
+    </insert>
+    <!--    <insert id="insertSelective" parameterType="com.dxhy.order.model.InvoiceTaxRateRequestInfo">-->
+
+    <!--        insert into invoice_taxrate_request-->
+    <!--        <trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                id,-->
+    <!--            </if>-->
+    <!--            <if test="companyId != null">-->
+    <!--                company_id,-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                xhf_nsrsbh,-->
+    <!--            </if>-->
+    <!--            <if test="fpzlDm != null">-->
+    <!--                fpzl_dm,-->
+    <!--            </if>-->
+    <!--            <if test="kplx != null">-->
+    <!--                kplx,-->
+    <!--            </if>-->
+    <!--            <if test="reportPeriod != null">-->
+    <!--                report_period,-->
+    <!--            </if>-->
+    <!--            <if test="hzrq != null">-->
+    <!--                hzrq,-->
+    <!--            </if>-->
+    <!--            <if test="sl != null">-->
+    <!--                sl,-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountPt != null">-->
+    <!--                invoice_amount_pt,-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountPt != null">-->
+    <!--                tax_amount_pt,-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountPt != null">-->
+    <!--                total_amount_pt,-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountNt != null">-->
+    <!--                invoice_amount_nt,-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountNt != null">-->
+    <!--                tax_amount_nt,-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountNt != null">-->
+    <!--                total_amount_nt,-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountPtVoid != null">-->
+    <!--                invoice_amount_pt_void,-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountPtVoid != null">-->
+    <!--                tax_amount_pt_void,-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountPtVoid != null">-->
+    <!--                total_amount_pt_void,-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountNtVoid != null">-->
+    <!--                invoice_amount_nt_void,-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountNtVoid != null">-->
+    <!--                tax_amount_nt_void,-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountNtVoid != null">-->
+    <!--                total_amount_nt_void,-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time,-->
+    <!--            </if>-->
+    <!--            <if test="completeFlag != null">-->
+    <!--                complete_flag,-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--        <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--            <if test="id != null">-->
+    <!--                #{id,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="companyId != null">-->
+    <!--                #{companyId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpzlDm != null">-->
+    <!--                #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kplx != null">-->
+    <!--                #{kplx,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="reportPeriod != null">-->
+    <!--                #{reportPeriod,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="hzrq != null">-->
+    <!--                #{hzrq,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="sl != null">-->
+    <!--                #{sl,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountPt != null">-->
+    <!--                #{invoiceAmountPt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountPt != null">-->
+    <!--                #{taxAmountPt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountPt != null">-->
+    <!--                #{totalAmountPt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountNt != null">-->
+    <!--                #{invoiceAmountNt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountNt != null">-->
+    <!--                #{taxAmountNt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountNt != null">-->
+    <!--                #{totalAmountNt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountPtVoid != null">-->
+    <!--                #{invoiceAmountPtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountPtVoid != null">-->
+    <!--                #{taxAmountPtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountPtVoid != null">-->
+    <!--                #{totalAmountPtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountNtVoid != null">-->
+    <!--                #{invoiceAmountNtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountNtVoid != null">-->
+    <!--                #{taxAmountNtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountNtVoid != null">-->
+    <!--                #{totalAmountNtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="completeFlag != null">-->
+    <!--                #{complete_flag,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </trim>-->
+    <!--    </insert>-->
+    <!--    <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.InvoiceTaxRateRequestInfo">-->
+
+    <!--        update invoice_taxrate_request-->
+    <!--        <set>-->
+    <!--            <if test="companyId != null">-->
+    <!--                company_id = #{companyId,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="xhfNsrsbh != null">-->
+    <!--                xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="fpzlDm != null">-->
+    <!--                fpzl_dm = #{fpzlDm,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="kplx != null">-->
+    <!--                kplx = #{kplx,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="reportPeriod != null">-->
+    <!--                report_period = #{reportPeriod,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="hzrq != null">-->
+    <!--                hzrq = #{hzrq,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="sl != null">-->
+    <!--                sl = #{sl,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountPt != null">-->
+    <!--                invoice_amount_pt = #{invoiceAmountPt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountPt != null">-->
+    <!--                tax_amount_pt = #{taxAmountPt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountPt != null">-->
+    <!--                total_amount_pt = #{totalAmountPt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountNt != null">-->
+    <!--                invoice_amount_nt = #{invoiceAmountNt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountNt != null">-->
+    <!--                tax_amount_nt = #{taxAmountNt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountNt != null">-->
+    <!--                total_amount_nt = #{totalAmountNt,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountPtVoid != null">-->
+    <!--                invoice_amount_pt_void = #{invoiceAmountPtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountPtVoid != null">-->
+    <!--                tax_amount_pt_void = #{taxAmountPtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountPtVoid != null">-->
+    <!--                total_amount_pt_void = #{totalAmountPtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="invoiceAmountNtVoid != null">-->
+    <!--                invoice_amount_nt_void = #{invoiceAmountNtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="taxAmountNtVoid != null">-->
+    <!--                tax_amount_nt_void = #{taxAmountNtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="totalAmountNtVoid != null">-->
+    <!--                total_amount_nt_void = #{totalAmountNtVoid,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--            <if test="createTime != null">-->
+    <!--                create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--            </if>-->
+    <!--            <if test="completeFlag != null">-->
+    <!--                complete_flag = #{completeFlag,jdbcType=VARCHAR},-->
+    <!--            </if>-->
+    <!--        </set>-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </update>-->
+    <update id="updateInvoiceTaxRateById" parameterType="com.dxhy.order.model.InvoiceTaxRateRequestInfo">
+
+        update invoice_taxrate_request
+        set company_id             = #{companyId,jdbcType=VARCHAR},
+            xhf_nsrsbh             = #{xhfNsrsbh,jdbcType=VARCHAR},
+            fpzl_dm                = #{fpzlDm,jdbcType=VARCHAR},
+            kplx                   = #{kplx,jdbcType=VARCHAR},
+            report_period          = #{reportPeriod,jdbcType=VARCHAR},
+            hzrq                   = #{hzrq,jdbcType=VARCHAR},
+            sl                     = #{sl,jdbcType=VARCHAR},
+            invoice_amount_pt      = #{invoiceAmountPt,jdbcType=VARCHAR},
+            tax_amount_pt          = #{taxAmountPt,jdbcType=VARCHAR},
+            total_amount_pt        = #{totalAmountPt,jdbcType=VARCHAR},
+            invoice_amount_nt      = #{invoiceAmountNt,jdbcType=VARCHAR},
+            tax_amount_nt          = #{taxAmountNt,jdbcType=VARCHAR},
+            total_amount_nt        = #{totalAmountNt,jdbcType=VARCHAR},
+            invoice_amount_pt_void = #{invoiceAmountPtVoid,jdbcType=VARCHAR},
+            tax_amount_pt_void     = #{taxAmountPtVoid,jdbcType=VARCHAR},
+            total_amount_pt_void   = #{totalAmountPtVoid,jdbcType=VARCHAR},
+            invoice_amount_nt_void = #{invoiceAmountNtVoid,jdbcType=VARCHAR},
+            tax_amount_nt_void     = #{taxAmountNtVoid,jdbcType=VARCHAR},
+            total_amount_nt_void   = #{totalAmountNtVoid,jdbcType=VARCHAR},
+            create_time            = #{createTime,jdbcType=TIMESTAMP},
+            complete_flag          = #{completeFlag,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+          and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+    </update>
+    <!--税率统计-->
+    <select id="selectTaxRateStatistics" resultMap="taxRateMap">
+        <bind name="dataType" value="${dataType}"/>
+        <!-- oracle -->
+        <if test="dataType == 0">
+            SELECT
+            oii.xhf_nsrsbh,
+            oii.fpzl_dm,
+            case when oitemi.sl='0.00' then oitemi.zzstsgl else oitemi.sl end sl,
+            oii.kplx,
+            oii.zf_bz,
+            SUM( CAST(oitemi.xmje as DECIMAL(20,2))) xmje,
+            SUM( CAST(oitemi.se as DECIMAL(20,2))) se,
+            SUM(CAST(oii.kphjje as DECIMAL(20,2))) kphjje
+            FROM
+            order_invoice_info oii
+            LEFT JOIN order_item_info oitemi ON oitemi.order_info_id = oii.order_info_id
+            WHERE
+            oii.kpzt = '2'
+            AND oii.xhf_nsrsbh = #{nsrsbh}
+            AND DATE_FORMAT( oii.kprq, '%Y%m' ) in
+            <foreach collection="hzrqList" index="index" item="hzrq" open="(" separator="," close=")">
+                #{hzrq}
+            </foreach>
+            GROUP BY
+            oii.xhf_nsrsbh,
+            oii.fpzl_dm,
+            oitemi.sl,
+            oii.kplx,
+            oii.zf_bz
+            ORDER BY
+            oii.fpzl_dm,
+            oitemi.sl
+            DESC
+        </if>
+
+
+        <!-- oracle -->
+        <if test="dataType == 1">
+            SELECT
+            oii.xhf_nsrsbh,
+            oii.fpzl_dm,
+            case when oitemi.sl='0.00' then oitemi.zzstsgl else oitemi.sl end sl,
+            oii.kplx,
+            oii.zf_bz,
+            SUM( CAST(oitemi.xmje as DECIMAL(20,2))) xmje,
+            SUM( CAST(oitemi.se as DECIMAL(20,2))) se,
+            SUM(CAST(oii.kphjje as DECIMAL(20,2))) kphjje
+            FROM order_invoice_info oii
+            LEFT JOIN order_item_info oitemi ON oitemi.order_info_id = oii.order_info_id
+            WHERE
+            oii.kpzt = '2'
+            AND oii.xhf_nsrsbh = #{nsrsbh}
+            AND to_char( oii.kprq, 'yyyymm' ) in
+            <foreach collection="hzrqList" index="index" item="hzrq" open="(" separator="," close=")">
+                #{hzrq}
+            </foreach>
+            GROUP BY
+            oii.xhf_nsrsbh,
+            oii.fpzl_dm,
+            oitemi.sl,
+            oii.kplx,
+            oii.zf_bz,
+            oitemi.zzstsgl
+            ORDER BY
+            oii.fpzl_dm,
+            oitemi.sl
+            DESC
+        </if>
+    </select>
+    <!--获取税率汇总数据状态-->
+    <select id="getSummaryTaxRateState" resultType="hashMap">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT t.xhf_nsrsbh tax_number,
+        t.hzrq billing_date,
+        <if test="dataType == 0">
+            CASE
+            WHEN max(t.complete_flag) = 3 THEN
+            '3'
+            WHEN max(t.complete_flag) = 1 THEN
+            '1'
+            WHEN min(t.complete_flag) = 2 THEN
+            '2'
+            else '1'
+
+            END complete_flag
+        </if>
+        <if test="dataType == 1">
+            (CASE
+            WHEN to_char(max(t.complete_flag)) = '3' THEN
+            '3'
+            WHEN to_char(max(t.complete_flag)) = '1' THEN
+            '1'
+            WHEN to_char(min(t.complete_flag)) = '2' THEN
+            '2'
+            else '1'
+
+            END ) complete_flag
+        </if>
+
+        FROM invoice_taxrate_request t
+        WHERE t.xhf_nsrsbh = #{nsrsbh}
+        AND t.hzrq = #{hzrq}
+        GROUP BY t.xhf_nsrsbh,
+        t.hzrq
+    </select>
+
+    <!--查询税率汇总数据-->
+    <select id="selectSummaryTaxRateData" resultType="hashMap"
+            parameterType="java.lang.String">
+        SELECT fpzl_dm                invoice_kind_code,
+               kplx                   invoice_type,
+               sl                     tax_rate,
+               invoice_amount_pt      invoice_amount_pt,
+               tax_amount_pt          tax_amount_pt,
+               total_amount_pt        total_amount_pt,
+               invoice_amount_nt      invoice_amount_nt,
+               tax_amount_nt          tax_amount_nt,
+               total_amount_nt        total_amount_nt,
+               invoice_amount_pt_void invoice_amount_pt_void,
+               tax_amount_pt_void     tax_amount_pt_void,
+               total_amount_pt_void   total_amount_pt_void,
+               invoice_amount_nt_void invoice_amount_nt_void,
+               tax_amount_nt_void     tax_amount_nt_void,
+               total_amount_nt_void   total_amount_nt_void
+        FROM invoice_taxrate_request t
+        where xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+          and hzrq = #{hzrq,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

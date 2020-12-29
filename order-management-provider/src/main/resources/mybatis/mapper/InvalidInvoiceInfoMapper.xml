@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvalidInvoiceInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.InvalidInvoiceInfo">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="zfpch" property="zfpch" jdbcType="VARCHAR"/>
+        <result column="fpdm" property="fpdm" jdbcType="VARCHAR"/>
+        <result column="fphm" property="fphm" jdbcType="VARCHAR"/>
+        <result column="sld" property="sld" jdbcType="VARCHAR"/>
+        <result column="fplx" property="fplx" jdbcType="VARCHAR"/>
+        <result column="zfyy" property="zfyy" jdbcType="VARCHAR"/>
+        <result column="zf_bz" property="zfBz" jdbcType="VARCHAR"/>
+        <result column="zfsj" property="zfsj" jdbcType="TIMESTAMP"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="xhf_mc" property="xhfmc" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="zflx" property="zflx" jdbcType="VARCHAR"/>
+        <result column="zfr" property="zfr" jdbcType="VARCHAR"/>
+        <result column="fg_status" property="fgStatus" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, zfpch, fpdm, fphm, sld, fplx, zfyy, zf_bz, zfsj, xhf_nsrsbh, xhf_mc, update_time, create_time, zflx,zfr,fg_status
+    </sql>
+
+    <insert id="insertValidInvoice" parameterType="com.dxhy.order.model.InvalidInvoiceInfo">
+        insert into paper_invalid_invoice_info (id, zfpch, fpdm, fphm,
+                                                sld, fplx, zfyy, zf_bz, zfsj, xhf_nsrsbh, xhf_mc,
+                                                update_time, create_time, zflx, zfr, fg_status)
+        values (#{id,jdbcType=VARCHAR}, #{zfpch,jdbcType=VARCHAR}, #{fpdm,jdbcType=VARCHAR}, #{fphm,jdbcType=VARCHAR},
+                #{sld,jdbcType=VARCHAR}, #{fplx,jdbcType=VARCHAR}, #{zfyy,jdbcType=VARCHAR}, #{zfBz,jdbcType=VARCHAR},
+                #{zfsj,jdbcType=TIMESTAMP},
+                #{xhfNsrsbh,jdbcType=VARCHAR}, #{xhfmc,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+                #{createTime,jdbcType=TIMESTAMP}, #{zflx,jdbcType=VARCHAR}, #{zfr,jdbcType=VARCHAR},
+                #{fgStatus,jdbcType=VARCHAR})
+    </insert>
+    <!--<insert id="insertSelective" parameterType="com.dxhy.order.model.InvalidInvoiceInfo">
+
+        insert into paper_invalid_invoice_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="zfpch != null">
+                zfpch,
+            </if>
+            <if test="fpdm != null">
+                fpdm,
+            </if>
+            <if test="fphm != null">
+                fphm,
+            </if>
+            <if test="sld != null">
+                sld,
+            </if>
+            <if test="fplx != null">
+                fplx,
+            </if>
+            <if test="zfyy != null">
+                zfyy,
+            </if>
+            <if test="zfBz != null">
+                zf_bz,
+            </if>
+            <if test="zfsj != null">
+                zfsj,
+            </if>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh,
+            </if>
+            <if test="xhfmc != null">
+                xhf_mc,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="zflx != null">
+                zflx,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="zfpch != null">
+                #{zfpch,jdbcType=VARCHAR},
+            </if>
+            <if test="fpdm != null">
+                #{fpdm,jdbcType=VARCHAR},
+            </if>
+            <if test="fphm != null">
+                #{fphm,jdbcType=VARCHAR},
+            </if>
+            <if test="sld != null">
+                #{sld,jdbcType=VARCHAR},
+            </if>
+            <if test="fplx != null">
+                #{fplx,jdbcType=VARCHAR},
+            </if>
+            <if test="zfyy != null">
+                #{zfyy,jdbcType=VARCHAR},
+            </if>
+            <if test="zfBz != null">
+                #{zfBz,jdbcType=VARCHAR},
+            </if>
+            <if test="zfsj != null">
+                #{zfsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="xhfNsrsbh != null">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfmc != null">
+                #{xhfmc,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zflx != null">
+                #{zflx,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>-->
+
+    <select id="selectByInvalidInvoiceInfo" resultMap="BaseResultMap"
+            parameterType="com.dxhy.order.model.InvalidInvoiceInfo">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM paper_invalid_invoice_info
+        <where>
+            <if test="invalid.zfpch != null and invalid.zfpch != ''">
+                AND zfpch = #{invalid.zfpch,jdbcType=VARCHAR}
+            </if>
+            <if test="invalid.fpdm != null and invalid.fpdm != ''">
+                AND fpdm = #{invalid.fpdm,jdbcType=VARCHAR}
+            </if>
+            <if test="invalid.fphm != null and invalid.fphm !=''">
+                AND fphm = #{invalid.fphm,jdbcType=VARCHAR}
+            </if>
+            <if test="invalid.sld != null and invalid.sld !=''">
+                AND sld = #{invalid.sld,jdbcType=VARCHAR}
+            </if>
+            <if test="invalid.fplx != null and invalid.fplx !=''">
+                AND fplx = #{invalid.fplx,jdbcType=VARCHAR}
+            </if>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByMap" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        o1.ddh,
+        o1.fpdm,
+        o1.fphm,
+        o1.ghf_mc,
+        o1.ghf_sj,
+        o1.kprq,
+        o1.hjbhsje,
+        o1.kplx,
+        o1.kphjje,
+        o1.kpse,
+        o1.kpr,
+        o1.fpqqlsh,
+        o1.fpzl_dm,
+        o1.order_info_id,
+        o1.pdf_url,
+        o1.id,
+        o1.sld,
+        o1.sld_mc,
+        o1.order_process_info_id,
+        o1.jqbh,
+        o1.zf_bz,
+        o2.xhf_mc,
+        o2.xhf_nsrsbh
+        FROM order_invoice_info o1 left join order_info o2
+        on o1.order_info_id = o2.id
+        WHERE
+        o1.kpzt = '2'
+        <!--        and o1.qd_bz != '4'-->
+        <if test="map.zfbz != null">
+            and o1.zf_bz = #{map.zfbz,jdbcType=VARCHAR}
+        </if>
+        <choose>
+            <when test="map.fplx != null and map.fplx != ''">
+                AND o1.fpzl_dm = #{map.fplx,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                AND (o1.fpzl_dm = 2 or o1.fpzl_dm = 0)
+            </otherwise>
+        </choose>
+        <if test="map.fpdm != null and map.fpdm != ''">
+            AND o1.fpdm = #{map.fpdm,jdbcType=VARCHAR}
+        </if>
+        <if test="map.fphm != null and map.fphm !=''">
+            AND o1.fphm = #{map.fphm,jdbcType=VARCHAR}
+        </if>
+        <if test="map.sld != null and map.sld !=''">
+            AND o1.sld = #{map.sld,jdbcType=VARCHAR}
+        </if>
+        <if test="map.kplx != null and map.kplx!=''">
+            AND o1.kplx = #{map.kplx,jdbcType=VARCHAR}
+        </if>
+        <if test="map.ddh != null and map.ddh!=''">
+            AND o1.ddh = #{map.ddh,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 0">
+            and o1.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and o1.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and o1.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="dataType == 0">
+            <if test="map.gmfMc != null and map.gmfMc != ''">
+                AND o1.ghf_mc like concat('%',#{map.gmfMc,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="map.endTime != null">
+                AND
+                #{map.endTime,jdbcType=VARCHAR} >= o1.kprq
+            </if>
+            <if test="map.startTime != null">
+                AND
+                o1.kprq >= #{map.startTime,jdbcType=VARCHAR}
+            </if>
+        </if>
+        <if test="dataType == 1">
+            <if test="map.gmfMc != null and map.gmfMc != ''">
+                AND o1.ghf_mc like concat(concat('%',#{map.gmfMc,jdbcType=VARCHAR}),'%')
+            </if>
+            <if test="map.endTime != null">
+                AND
+                to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss') >= trunc(o1.kprq)
+            </if>
+            <if test="map.startTime != null">
+                AND
+                trunc(o1.kprq) >= to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+            </if>
+        </if>
+
+        ORDER BY o1.kprq DESC
+    </select>
+
+    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="string">
+        SELECT *
+        FROM paper_invalid_invoice_info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>-->
+
+    <select id="queryKbInvoiceList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        *
+        FROM paper_invalid_invoice_info p
+        WHERE
+        zflx = '0'
+        and zf_bz in('0','1')
+        <choose>
+            <when test="map.fplx != null and map.fplx != ''">
+                AND p.fplx = #{map.fplx,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                AND (p.fplx = 2 or p.fplx = 0)
+            </otherwise>
+        </choose>
+        <if test="map.fpdm != null and map.fpdm != ''">
+            AND p.fpdm = #{map.fpdm,jdbcType=VARCHAR}
+        </if>
+        <if test="map.fphm != null and map.fphm !=''">
+            AND p.fphm = #{map.fphm,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 0">
+            and p.xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and p.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and p.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="dataType == 0">
+            <if test="map.endTime != null">
+                AND
+                #{map.endTime,jdbcType=VARCHAR} >= DATE_FORMAT(p.zfsj,'%Y-%m-%d')
+            </if>
+            <if test="map.startTime != null">
+                AND
+                DATE_FORMAT(p.zfsj,'%Y-%m-%d') >= #{map.startTime,jdbcType=VARCHAR}
+            </if>
+        </if>
+        <if test="dataType == 1">
+            <if test="map.endTime != null">
+                AND
+                to_date(#{map.endTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss') >= trunc(p.zfsj)
+            </if>
+            <if test="map.startTime != null">
+                AND
+                trunc(p.zfsj) >= to_date(#{map.startTime,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+            </if>
+        </if>
+
+        ORDER BY p.zfsj DESC
+    </select>
+
+    <!--获取待作废的发票数据  zf_bz=2为待作废-->
+    <select id="selectInvalidInvoiceInfo" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        paper_invalid_invoice_info t
+        WHERE
+        t.zf_bz = '2'
+        <if test="zfpch != null and zfpch != ''">
+            AND t.zfpch = #{zfpch,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and t.xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and t.xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <update id="updateFgInvalidInvoice" parameterType="com.dxhy.order.model.InvalidInvoiceInfo">
+        update paper_invalid_invoice_info
+        <set>
+        <if test="invalid.fgStatus != null">
+            fg_status = #{invalid.fgStatus,jdbcType=VARCHAR},
+        </if>
+        <if test="invalid.zfBz != null">
+            zf_bz = #{invalid.zfBz,jdbcType=VARCHAR}
+        </if>
+        </set>
+        where
+        zfpch = #{invalid.zfpch,jdbcType=VARCHAR}
+        <if test="invalid.fpdm != null">
+            and fpdm = #{invalid.fpdm,jdbcType=VARCHAR}
+        </if>
+        <if test="invalid.fphm != null">
+            and fphm = #{invalid.fphm,jdbcType=VARCHAR}
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+</mapper>

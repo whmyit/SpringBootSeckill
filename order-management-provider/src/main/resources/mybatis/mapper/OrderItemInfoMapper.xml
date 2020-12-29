@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.OrderItemInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.OrderItemInfo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="order_info_id" property="orderInfoId" jdbcType="VARCHAR"/>
+        <result column="sphxh" property="sphxh" jdbcType="VARCHAR"/>
+        <result column="xmmc" property="xmmc" jdbcType="VARCHAR"/>
+        <result column="xmdw" property="xmdw" jdbcType="VARCHAR"/>
+        <result column="ggxh" property="ggxh" jdbcType="VARCHAR"/>
+        <result column="xmsl" property="xmsl" jdbcType="VARCHAR"/>
+        <result column="hsbz" property="hsbz" jdbcType="VARCHAR"/>
+        <result column="fphxz" property="fphxz" jdbcType="VARCHAR"/>
+        <result column="xmdj" property="xmdj" jdbcType="VARCHAR"/>
+        <result column="spbm" property="spbm" jdbcType="VARCHAR"/>
+        <result column="zxbm" property="zxbm" jdbcType="VARCHAR"/>
+        <result column="yhzcbs" property="yhzcbs" jdbcType="VARCHAR"/>
+        <result column="lslbs" property="lslbs" jdbcType="VARCHAR"/>
+        <result column="zzstsgl" property="zzstsgl" jdbcType="VARCHAR"/>
+        <result column="kce" property="kce" jdbcType="VARCHAR"/>
+        <result column="xmje" property="xmje" jdbcType="VARCHAR"/>
+        <result column="sl" property="sl" jdbcType="VARCHAR"/>
+        <result column="se" property="se" jdbcType="VARCHAR"/>
+        <result column="wcje" property="wcje" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="byzd1" property="byzd1" jdbcType="VARCHAR"/>
+        <result column="byzd2" property="byzd2" jdbcType="VARCHAR"/>
+        <result column="byzd3" property="byzd3" jdbcType="VARCHAR"/>
+        <result column="byzd4" property="byzd4" jdbcType="VARCHAR"/>
+        <result column="byzd5" property="byzd5" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, order_info_id, sphxh, xmmc, xmdw, ggxh, xmsl, hsbz, fphxz, xmdj, spbm, zxbm,
+        yhzcbs, lslbs, zzstsgl, kce, xmje, sl, se, wcje,xhf_nsrsbh, byzd1, byzd2, byzd3, byzd4, byzd5, create_time
+    </sql>
+    <!--    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from order_item_info-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </select>-->
+    <!--    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+    <!--        delete-->
+    <!--        from order_item_info-->
+    <!--        where id = #{id,jdbcType=VARCHAR}-->
+    <!--    </delete>-->
+
+    <!-- deleteOrderItemInfoByOrderId-->
+    <!--根据orderId删除明细数据表-->
+    <delete id="deleteOrderItemInfoByOrderId" parameterType="java.lang.String">
+        delete
+        from order_item_info
+        where order_info_id = #{orderId,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </delete>
+    <insert id="insertOrderItemInfo" parameterType="com.dxhy.order.model.OrderItemInfo">
+        insert into order_item_info (id,
+                                     order_info_id,
+                                     sphxh,
+                                     xmmc,
+                                     xmdw,
+                                     ggxh,
+                                     xmsl,
+                                     hsbz,
+                                     fphxz,
+                                     xmdj,
+                                     spbm,
+                                     zxbm,
+                                     yhzcbs,
+                                     lslbs,
+                                     zzstsgl,
+                                     kce,
+                                     xmje,
+                                     sl,
+                                     se,
+                                     wcje,
+                                     xhf_nsrsbh,
+                                     byzd1,
+                                     byzd2,
+                                     byzd3,
+                                     byzd4,
+                                     byzd5,
+                                     create_time)
+        values (#{id,jdbcType=VARCHAR},
+                #{orderInfoId,jdbcType=VARCHAR},
+                #{sphxh,jdbcType=VARCHAR},
+                #{xmmc,jdbcType=VARCHAR},
+                #{xmdw,jdbcType=VARCHAR},
+                #{ggxh,jdbcType=VARCHAR},
+                #{xmsl,jdbcType=VARCHAR},
+                #{hsbz,jdbcType=VARCHAR},
+                #{fphxz,jdbcType=VARCHAR},
+                #{xmdj,jdbcType=VARCHAR},
+                #{spbm,jdbcType=VARCHAR},
+                #{zxbm,jdbcType=VARCHAR},
+                #{yhzcbs,jdbcType=VARCHAR},
+                #{lslbs,jdbcType=VARCHAR},
+                #{zzstsgl,jdbcType=VARCHAR},
+                #{kce,jdbcType=VARCHAR},
+                #{xmje,jdbcType=VARCHAR},
+                #{sl,jdbcType=VARCHAR},
+                #{se,jdbcType=VARCHAR},
+                #{wcje,jdbcType=VARCHAR},
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+                #{byzd1,jdbcType=VARCHAR},
+                #{byzd2,jdbcType=VARCHAR},
+                #{byzd3,jdbcType=VARCHAR},
+                #{byzd4,jdbcType=VARCHAR},
+                #{byzd5,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <select id="selectOrderItemInfoByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        <bind name="dataType" value="${dataType}"/>
+        select
+        <include refid="Base_Column_List"/>
+        <if test="dataType == 0">
+            ,CAST(sphxh AS signed) sphxh1
+        </if>
+        <if test="dataType == 1">
+            ,to_number(sphxh) sphxh1
+        </if>
+        from order_item_info
+        where order_info_id = #{orderId,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        ORDER BY sphxh1
+    </select>
+
+    <select id="selectAllByOrderId" resultMap="BaseResultMap" parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from order_item_info
+        where order_info_id in
+        <foreach collection="orderInfoIdList" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
+    <insert id="insertOrderItemByList" parameterType="java.util.List" useGeneratedKeys="false">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType ==0 ">
+            insert into order_item_info (id, order_info_id, sphxh,
+            xmmc, xmdw, ggxh, xmsl,
+            hsbz, fphxz, xmdj,
+            spbm, zxbm, yhzcbs,
+            lslbs, zzstsgl, kce,
+            xmje, sl, se,wcje,xhf_nsrsbh, byzd1,
+            byzd2, byzd3,byzd4,byzd5,create_time
+            )
+            values
+            <foreach collection="list" item="item" index="index"
+                     separator=",">
+                (#{item.id,jdbcType=VARCHAR}, #{item.orderInfoId,jdbcType=VARCHAR},
+                #{item.sphxh,jdbcType=VARCHAR},
+                #{item.xmmc,jdbcType=VARCHAR}, #{item.xmdw,jdbcType=VARCHAR}, #{item.ggxh,jdbcType=VARCHAR},
+                #{item.xmsl,jdbcType=VARCHAR},
+                #{item.hsbz,jdbcType=VARCHAR}, #{item.fphxz,jdbcType=VARCHAR}, #{item.xmdj,jdbcType=VARCHAR},
+                #{item.spbm,jdbcType=VARCHAR}, #{item.zxbm,jdbcType=VARCHAR},
+                #{item.yhzcbs,jdbcType=VARCHAR},
+                #{item.lslbs,jdbcType=VARCHAR}, #{item.zzstsgl,jdbcType=VARCHAR}, #{item.kce,jdbcType=VARCHAR},
+                #{item.xmje,jdbcType=VARCHAR}, #{item.sl,jdbcType=VARCHAR},
+                #{item.se,jdbcType=VARCHAR},#{item.wcje,jdbcType=VARCHAR},#{item.xhfNsrsbh,jdbcType=VARCHAR},
+                #{item.byzd1,jdbcType=VARCHAR},
+                #{item.byzd2,jdbcType=VARCHAR}, #{item.byzd3,jdbcType=VARCHAR},#{item.byzd4,jdbcType=VARCHAR},
+                #{item.byzd5,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP}
+                )
+            </foreach>
+        </if>
+        <if test="dataType == 1">
+            insert into order_item_info (id, order_info_id, sphxh,
+            xmmc, xmdw, ggxh, xmsl,
+            hsbz, fphxz, xmdj,
+            spbm, zxbm, yhzcbs,
+            lslbs, zzstsgl, kce,
+            xmje, sl, se,wcje,xhf_nsrsbh, byzd1,
+            byzd2, byzd3,byzd4,byzd5,create_time
+            )
+            <foreach collection="list" item="item" index="index"
+                     separator="union all">
+                (
+                SELECT
+                #{item.id,jdbcType=VARCHAR}, #{item.orderInfoId,jdbcType=VARCHAR},
+                #{item.sphxh,jdbcType=VARCHAR},
+                #{item.xmmc,jdbcType=VARCHAR}, #{item.xmdw,jdbcType=VARCHAR}, #{item.ggxh,jdbcType=VARCHAR},
+                #{item.xmsl,jdbcType=VARCHAR},
+                #{item.hsbz,jdbcType=VARCHAR}, #{item.fphxz,jdbcType=VARCHAR}, #{item.xmdj,jdbcType=VARCHAR},
+                #{item.spbm,jdbcType=VARCHAR}, #{item.zxbm,jdbcType=VARCHAR},
+                #{item.yhzcbs,jdbcType=VARCHAR},
+                #{item.lslbs,jdbcType=VARCHAR}, #{item.zzstsgl,jdbcType=VARCHAR}, #{item.kce,jdbcType=VARCHAR},
+                #{item.xmje,jdbcType=VARCHAR}, #{item.sl,jdbcType=VARCHAR},
+                #{item.se,jdbcType=VARCHAR},#{item.wcje,jdbcType=VARCHAR},#{item.xhfNsrsbh,jdbcType=VARCHAR},
+                #{item.byzd1,jdbcType=VARCHAR},
+                #{item.byzd2,jdbcType=VARCHAR}, #{item.byzd3,jdbcType=VARCHAR},#{item.byzd4,jdbcType=VARCHAR},
+                #{item.byzd5,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP}
+                FROM DUAL
+                )
+            </foreach>
+        </if>
+    </insert>
+
+</mapper>

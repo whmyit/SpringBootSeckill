@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvoiceWarningInfoMapper">
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.InvoiceWarningInfo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR"/>
+        <result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR"/>
+        <result column="sbbh" property="sbbh" jdbcType="VARCHAR"/>
+        <result column="sb_mc" property="sbMc" jdbcType="VARCHAR"/>
+        <result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR"/>
+        <result column="yjfs" property="yjfs" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="e_mail" property="eMail" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="yjcs" property="yjcs" jdbcType="VARCHAR"/>
+        <result column="sfyj" property="sfyj" jdbcType="VARCHAR"/>
+        <result column="dept_id" property="deptId" jdbcType="VARCHAR"/>
+        <result column="delete_status" property="deleteStatus" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, xhf_nsrsbh, xhf_mc, sbbh, sb_mc, fpzl_dm, yjfs, phone, e_mail, user_id, yjcs,
+    sfyj, dept_id,delete_status, create_time, update_time
+    </sql>
+
+    <!-- 查询预警信息列表 -->
+    <select id="selectYpWarning" parameterType="String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from invoice_warning_info
+        <where>
+            and delete_status = '0'
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="invoiceWarning.sbbh != null and invoiceWarning.sbbh != ''">
+                and sbbh=#{invoiceWarning.sbbh,jdbcType=VARCHAR}
+            </if>
+            <if test="invoiceWarning.fpzlDm != null and invoiceWarning.fpzlDm != ''">
+                and fpzl_dm=#{invoiceWarning.fpzlDm,jdbcType=VARCHAR}
+            </if>
+            <if test="invoiceWarning.userId != null and invoiceWarning.userId != ''">
+                and user_id=#{invoiceWarning.userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+
+        order by update_time desc
+    </select>
+
+    <insert id="insertInvoiceWarning" parameterType="com.dxhy.order.model.entity.InvoiceWarningInfo">
+        insert into invoice_warning_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="xhfNsrsbh != null">
+                xhf_nsrsbh,
+            </if>
+            <if test="xhfMc != null">
+                xhf_mc,
+            </if>
+            <if test="sbbh != null">
+                sbbh,
+            </if>
+            <if test="sbMc != null">
+                sb_mc,
+            </if>
+            <if test="fpzlDm != null">
+                fpzl_dm,
+            </if>
+            <if test="yjfs != null">
+                yjfs,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="eMail != null">
+                e_mail,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="yjcs != null">
+                yjcs,
+            </if>
+            <if test="sfyj != null">
+                sfyj,
+            </if>
+            <if test="deptId != null">
+                dept_id,
+            </if>
+            <if test="deleteStatus != null">
+                delete_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfNsrsbh != null">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfMc != null">
+                #{xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="sbbh != null">
+                #{sbbh,jdbcType=VARCHAR},
+            </if>
+            <if test="sbMc != null">
+                #{sbMc,jdbcType=VARCHAR},
+            </if>
+            <if test="fpzlDm != null">
+                #{fpzlDm,jdbcType=VARCHAR},
+            </if>
+            <if test="yjfs != null">
+                #{yjfs,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="eMail != null">
+                #{eMail,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="yjcs != null">
+                #{yjcs,jdbcType=VARCHAR},
+            </if>
+            <if test="sfyj != null">
+                #{sfyj,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null">
+                #{deptId,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteStatus != null">
+                #{deleteStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateYpWarnInfo" parameterType="com.dxhy.order.model.entity.InvoiceWarningInfo">
+        update invoice_warning_info
+        <set>
+            <if test="invoiceWarning.xhfNsrsbh != null">
+                xhf_nsrsbh = #{invoiceWarning.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.xhfMc != null">
+                xhf_mc = #{invoiceWarning.xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.sbbh != null">
+                sbbh = #{invoiceWarning.sbbh,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.sbMc != null">
+                sb_mc = #{invoiceWarning.sbMc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.fpzlDm != null">
+                fpzl_dm = #{invoiceWarning.fpzlDm,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.yjfs != null">
+                yjfs = #{invoiceWarning.yjfs,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.phone != null">
+                phone = #{invoiceWarning.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.eMail != null">
+                e_mail = #{invoiceWarning.eMail,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.userId != null">
+                user_id = #{invoiceWarning.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.yjcs != null">
+                yjcs = #{invoiceWarning.yjcs,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.sfyj != null">
+                sfyj = #{invoiceWarning.sfyj,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.deptId != null">
+                dept_id = #{invoiceWarning.deptId,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.deleteStatus != null">
+                delete_status = #{invoiceWarning.deleteStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceWarning.createTime != null">
+                create_time = #{invoiceWarning.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceWarning.updateTime != null">
+                update_time = #{invoiceWarning.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{invoiceWarning.id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </update>
+</mapper>

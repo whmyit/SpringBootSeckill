@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Description: 暴露秒杀地址（接口）DTO
  * @Date: Created in 16:21  2018/11/8
  */
-public class Exposer implements Serializable{
+public class Exposer implements Serializable {
 
     //是否开启秒杀
     private boolean exposed;
@@ -27,7 +27,8 @@ public class Exposer implements Serializable{
     //秒杀结束时间
     private long end;
 
-    Exposer(){}
+    Exposer() {
+    }
 
     public Exposer(boolean exposed, String md5, long seckillId) {
         this.exposed = exposed;

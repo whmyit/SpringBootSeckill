@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dxhy.order.dao.SenderDao">
+
+    <resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.SenderEntity">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="type" jdbcType="CHAR" property="type" />
+        <result column="sender_id" jdbcType="VARCHAR" property="senderId" />
+        <result column="recipients_id" jdbcType="VARCHAR" property="recipientsId" />
+        <result column="recipients_company_name" jdbcType="VARCHAR" property="recipientsCompanyName" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="mail" jdbcType="VARCHAR" property="mail" />
+        <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, type, sender_id, recipients_id, recipients_company_name, name, address,
+        phone, mail, post_code, create_time
+    </sql>
+
+    <!-- 查询寄件人姓名列表 -->
+    <select id="nameSenderList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from
+		fp_sender a
+		where
+        user_id=#{userId,jdbcType=VARCHAR}
+		and
+		a.type=0
+	</select>
+    <!-- 查询收件人姓名列表 -->
+    <select id="nameReceiveList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from
+		fp_sender a
+		where
+        user_id=#{userId,jdbcType=VARCHAR}
+		and
+		a.type=1
+	</select>
+    <!-- 查询寄件人列表 -->
+    <select id="senderList" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType == 0">
+            select
+            <include refid="Base_Column_List"/>
+            from
+            fp_sender a
+            where
+            user_id=#{userId,jdbcType=VARCHAR}
+            and
+            a.type=0
+            <if test="name != null and name.trim() != ''">
+                and a.name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="phone != null and phone.trim() != ''">
+                and a.phone like concat(concat('%',#{phone}),'%')
+            </if>
+            ORDER BY
+            create_time DESC
+
+            <if test="offset != null and limit != null">
+                limit #{offset}, #{limit}
+            </if>
+        </if>
+        <if test="dataType == 1">
+            select temp.* from(
+            select
+            <include refid="Base_Column_List"/>
+            from
+            fp_sender a
+            where
+            user_id=#{userId,jdbcType=VARCHAR}
+            and
+            a.type=0
+            <if test="name != null and name.trim() != ''">
+                and a.name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="phone != null and phone.trim() != ''">
+                and a.phone like concat(concat('%',#{phone}),'%')
+            </if>
+            ORDER BY
+            create_time DESC
+            ) temp
+            <where>
+                <if test="offset != null and limit != null">
+                    AND ROWNUM &gt;= #{offset} AND ROWNUM &lt;=( #{offset}+#{limit})
+                </if>
+            </where>
+        </if>
+
+    </select>
+    <!-- 查询寄件人总数 -->
+    <select id="sendersTotal" resultType="int">
+        select count(*) from fp_sender a
+        where
+        a.user_id=#{userId,jdbcType=VARCHAR}
+        and
+        a.type=0
+        <if test="name != null and name.trim() != ''">
+            and a.name like concat(concat('%',#{name}),'%')
+        </if>
+    </select>
+    <!-- 通过id查询寄件人(邮寄选择用) -->
+    <select id="querySenderById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from
+		fp_sender a
+		where
+        sender_id = #{senderId,jdbcType=VARCHAR}
+		and
+		a.type=0
+	</select>
+    <!-- 新增寄件人 -->
+    <insert id="insertSender" parameterType="com.dxhy.order.model.entity.SenderEntity">
+        <bind name="dataType" value="${dataType}"/>
+
+        insert into fp_sender
+		(
+	        id,
+		    user_id,
+		    type,
+			sender_id,
+			name,
+			address,
+			phone,
+			mail,
+			post_code,
+			create_time
+		)
+		values
+		(
+        #{id,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR},
+		    0,
+        #{senderId,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},
+        #{mail,jdbcType=VARCHAR},
+        #{postCode,jdbcType=VARCHAR},
+        <if test="dataType == 0">
+            NOW()
+        </if>
+        <if test="dataType == 1">
+            SYSDATE
+        </if>
+		)
+	</insert>
+    <!-- 更新寄件人信息 -->
+    <update id="updateSender" parameterType="com.dxhy.order.model.entity.SenderEntity">
+            <bind name="dataType" value="${dataType}"/>
+
+        update fp_sender
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="address != null">address = #{address,jdbcType=VARCHAR},</if>
+            <if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
+            <if test="mail != null">mail = #{mail,jdbcType=VARCHAR},</if>
+            <if test="postCode != null">post_code = #{postCode,jdbcType=VARCHAR},</if>
+            <if test="type != null">type = #{type,jdbcType=VARCHAR},</if>
+            <if test="dataType == 0">
+                create_time = NOW()
+            </if>
+            <if test="dataType == 1">
+                create_time = SYSDATE
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <!-- 删除寄件人信息 -->
+    <delete id="delete">
+		delete from
+		fp_sender
+		where id = #{id,jdbcType=VARCHAR}
+		and user_id = #{userId,jdbcType=VARCHAR}
+	</delete>
+
+    <!-- 查询收件人列表 -->
+    <select id="recipientsList" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType == 0">
+            select
+            <include refid="Base_Column_List"/>
+            from
+            fp_sender a
+            where
+            a.user_id=#{userId,jdbcType=VARCHAR}
+            and
+            a.type=1
+            <if test="name != null and name.trim() != ''">
+                and a.name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="phone != null and phone.trim() != ''">
+                and a.phone like concat(concat('%',#{phone}),'%')
+            </if>
+            ORDER BY
+            create_time DESC
+
+            <if test="offset != null and limit != null">
+                limit #{offset}, #{limit}
+            </if>
+        </if>
+        <if test="dataType == 1">
+            select temp.* from (
+            select
+            a.id,
+            a.recipients_id,
+            a.recipients_company_name,
+            a.name,
+            a.address,
+            a.phone,
+            a.mail,
+            a.post_code,
+            a.type
+            from
+            fp_sender a
+            where
+            a.user_id=#{userId,jdbcType=VARCHAR}
+            and
+            a.type=1
+            <if test="name != null and name.trim() != ''">
+                and a.name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="phone != null and phone.trim() != ''">
+                and a.phone like concat(concat('%',#{phone}),'%')
+            </if>
+            ORDER BY
+            create_time DESC
+            ) temp
+            <where>
+                <if test="offset != null and limit != null">
+                    ROWNUM &gt;= #{offset} AND ROWNUM &lt;=( #{offset}+#{limit})
+                </if>
+            </where>
+
+        </if>
+    </select>
+    <!-- 查询收件人总数 -->
+    <select id="recipientsTotal" resultType="int">
+        select
+        count(*)
+        from fp_sender
+        where
+        user_id=#{userId,jdbcType=VARCHAR}
+        and
+        type=1
+        <if test="name != null and name.trim() != ''">
+            and name like concat(concat('%',#{name}),'%')
+        </if>
+    </select>
+    <!-- 通过id查询收件人 (邮寄选择用)-->
+    <select id="queryRecipientsById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from
+		fp_sender a
+		where
+        a.recipients_id = #{recipientsId,jdbcType=VARCHAR}
+		and
+        a.user_id=#{userId,jdbcType=VARCHAR}
+		and
+		a.type=1
+	</select>
+    <select id="queryBySenderEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        fp_sender
+        where
+        1 = 1
+        <if test="name != null and name != ''">
+            and name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone = #{phone,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null and type != ''">
+            and type = #{type,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!-- 新增收件人 -->
+    <insert id="insertRecipients" parameterType="com.dxhy.order.model.entity.SenderEntity">
+        <bind name="dataType" value="${dataType}"/>
+		insert into fp_sender
+		(
+		    id,
+		    user_id,
+		    type,
+			recipients_id,
+			name,
+			recipients_company_name,
+			address,
+			phone,
+			mail,
+			post_code,
+			create_time
+		)
+		values
+		(
+        #{id,jdbcType=VARCHAR},
+        #{userId,jdbcType=VARCHAR},
+		    1,
+        #{recipientsId,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},
+        #{recipientsCompanyName,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},
+        #{mail,jdbcType=VARCHAR},
+        #{postCode,jdbcType=VARCHAR},
+        <if test="dataType == 0">
+            NOW()
+        </if>
+        <if test="dataType == 1">
+            SYSDATE
+        </if>
+        )
+	</insert>
+    <!-- 更新收件人信息 -->
+    <update id="updateRecipients" parameterType="com.dxhy.order.model.entity.SenderEntity">
+        <bind name="dataType" value="${dataType}"/>
+        update fp_sender
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="address != null">address = #{address,jdbcType=VARCHAR},</if>
+            <if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
+            <if test="mail != null">mail = #{mail,jdbcType=VARCHAR},</if>
+            <if test="postCode != null">post_code = #{postCode,jdbcType=VARCHAR},</if>
+            <if test="recipientsCompanyName != null">recipients_company_name =
+                #{recipientsCompanyName,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">type = #{type,jdbcType=VARCHAR},</if>
+            <if test="dataType == 0">
+                create_time = NOW()
+            </if>
+            <if test="dataType == 1">
+                create_time = SYSDATE
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

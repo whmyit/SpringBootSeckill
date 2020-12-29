@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.RegistrationCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.RegistrationCode" >
+
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR" />
+    <result column="zcm" property="zcm" jdbcType="VARCHAR" />
+    <result column="jqbh" property="jqbh" jdbcType="VARCHAR" />
+    <result column="splx" property="splx" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+
+    id, xhf_nsrsbh,zcm,jqbh,splx, create_time, update_time
+  </sql>
+
+  <insert id="insertRegistrationCode" parameterType="com.dxhy.order.model.RegistrationCode" >
+
+    insert into registration_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="xhfNsrsbh != null" >
+        xhf_nsrsbh,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="zcm != null" >
+        zcm,
+      </if>
+      <if test="jqbh != null" >
+        jqbh,
+      </if>
+      <if test="splx != null" >
+        splx,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfNsrsbh != null" >
+        #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zcm != null" >
+        #{zcm,jdbcType=VARCHAR},
+      </if>
+      <if test="jqbh != null" >
+        #{jqbh,jdbcType=VARCHAR},
+      </if>
+      <if test="splx != null" >
+        #{splx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateRegistrationCodeById" parameterType="com.dxhy.order.model.RegistrationCode" >
+
+    update registration_code
+    <set >
+      <if test="xhfNsrsbh != null" >
+        xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zcm != null" >
+        zcm = #{zcm,jdbcType=VARCHAR},
+      </if>
+      <if test="jqbh != null" >
+        jqbh = #{jqbh,jdbcType=VARCHAR},
+      </if>
+      <if test="splx != null" >
+        splx = #{splx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--
+      根据纳税人识别号查询注册码
+  -->
+  <select id="getRegistrationCodeByNsrsbh" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from registration_code
+    where xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+  </select>
+  <!--
+      根据纳税人识别号和机器编号查询
+  -->
+  <select id="getRegistrationCodeByNsrsbhAndJqbh" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from registration_code
+    where
+    <if test="xhfNsrsbh != null" >
+      xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+    </if>
+    <if test="jqbh != null" >
+     and jqbh = #{jqbh,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.SpecialInvoiceReversalItemMapper" >
+
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.SpecialInvoiceReversalItem" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="special_invoice_reversal_id" property="specialInvoiceReversalId" jdbcType="VARCHAR" />
+    <result column="spbm" property="spbm" jdbcType="VARCHAR" />
+    <result column="zxbm" property="zxbm" jdbcType="VARCHAR" />
+    <result column="xmmc" property="xmmc" jdbcType="VARCHAR" />
+    <result column="ggxh" property="ggxh" jdbcType="VARCHAR" />
+    <result column="xmdw" property="xmdw" jdbcType="VARCHAR" />
+    <result column="xmsl" property="xmsl" jdbcType="VARCHAR" />
+    <result column="xmdj" property="xmdj" jdbcType="VARCHAR" />
+    <result column="kce" property="kce" jdbcType="VARCHAR" />
+    <result column="xmje" property="xmje" jdbcType="VARCHAR" />
+    <result column="sl" property="sl" jdbcType="VARCHAR" />
+    <result column="se" property="se" jdbcType="VARCHAR" />
+    <result column="hsbz" property="hsbz" jdbcType="VARCHAR" />
+    <result column="fphxz" property="fphxz" jdbcType="VARCHAR" />
+    <result column="sphxh" property="sphxh" jdbcType="VARCHAR" />
+    <result column="lslbs" property="lslbs" jdbcType="VARCHAR" />
+    <result column="yhzcbs" property="yhzcbs" jdbcType="VARCHAR" />
+    <result column="zzstsgl" property="zzstsgl" jdbcType="VARCHAR" />
+    <result column="wcje" property="wcje" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, special_invoice_reversal_id, spbm, zxbm, xmmc, ggxh, xmdw, xmsl, xmdj, kce, xmje, 
+    sl, se, hsbz, fphxz, sphxh, lslbs, yhzcbs, zzstsgl, wcje, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from special_invoice_reversal_item
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from special_invoice_reversal_item
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+  <delete id="deleteSpecialInvoiceReversalItems">
+    delete from special_invoice_reversal_item
+    where special_invoice_reversal_id = #{specialInvoiceReversalId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.dxhy.order.model.SpecialInvoiceReversalItem" >
+    insert into special_invoice_reversal_item (id, special_invoice_reversal_id, spbm, 
+      zxbm, xmmc, ggxh, xmdw, 
+      xmsl, xmdj, kce, xmje, 
+      sl, se, hsbz, fphxz, 
+      sphxh, lslbs, yhzcbs, 
+      zzstsgl, wcje, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{specialInvoiceReversalId,jdbcType=VARCHAR}, #{spbm,jdbcType=VARCHAR}, 
+      #{zxbm,jdbcType=VARCHAR}, #{xmmc,jdbcType=VARCHAR}, #{ggxh,jdbcType=VARCHAR}, #{xmdw,jdbcType=VARCHAR}, 
+      #{xmsl,jdbcType=VARCHAR}, #{xmdj,jdbcType=VARCHAR}, #{kce,jdbcType=VARCHAR}, #{xmje,jdbcType=VARCHAR}, 
+      #{sl,jdbcType=VARCHAR}, #{se,jdbcType=VARCHAR}, #{hsbz,jdbcType=VARCHAR}, #{fphxz,jdbcType=VARCHAR}, 
+      #{sphxh,jdbcType=VARCHAR}, #{lslbs,jdbcType=VARCHAR}, #{yhzcbs,jdbcType=VARCHAR}, 
+      #{zzstsgl,jdbcType=VARCHAR}, #{wcje,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dxhy.order.model.SpecialInvoiceReversalItem" >
+    insert into special_invoice_reversal_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="specialInvoiceReversalId != null" >
+        special_invoice_reversal_id,
+      </if>
+      <if test="spbm != null" >
+        spbm,
+      </if>
+      <if test="zxbm != null" >
+        zxbm,
+      </if>
+      <if test="xmmc != null" >
+        xmmc,
+      </if>
+      <if test="ggxh != null" >
+        ggxh,
+      </if>
+      <if test="xmdw != null" >
+        xmdw,
+      </if>
+      <if test="xmsl != null" >
+        xmsl,
+      </if>
+      <if test="xmdj != null" >
+        xmdj,
+      </if>
+      <if test="kce != null" >
+        kce,
+      </if>
+      <if test="xmje != null" >
+        xmje,
+      </if>
+      <if test="sl != null" >
+        sl,
+      </if>
+      <if test="se != null" >
+        se,
+      </if>
+      <if test="hsbz != null" >
+        hsbz,
+      </if>
+      <if test="fphxz != null" >
+        fphxz,
+      </if>
+      <if test="sphxh != null" >
+        sphxh,
+      </if>
+      <if test="lslbs != null" >
+        lslbs,
+      </if>
+      <if test="yhzcbs != null" >
+        yhzcbs,
+      </if>
+      <if test="zzstsgl != null" >
+        zzstsgl,
+      </if>
+      <if test="wcje != null" >
+        wcje,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="specialInvoiceReversalId != null" >
+        #{specialInvoiceReversalId,jdbcType=VARCHAR},
+      </if>
+      <if test="spbm != null" >
+        #{spbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zxbm != null" >
+        #{zxbm,jdbcType=VARCHAR},
+      </if>
+      <if test="xmmc != null" >
+        #{xmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ggxh != null" >
+        #{ggxh,jdbcType=VARCHAR},
+      </if>
+      <if test="xmdw != null" >
+        #{xmdw,jdbcType=VARCHAR},
+      </if>
+      <if test="xmsl != null" >
+        #{xmsl,jdbcType=VARCHAR},
+      </if>
+      <if test="xmdj != null" >
+        #{xmdj,jdbcType=VARCHAR},
+      </if>
+      <if test="kce != null" >
+        #{kce,jdbcType=VARCHAR},
+      </if>
+      <if test="xmje != null" >
+        #{xmje,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="se != null" >
+        #{se,jdbcType=VARCHAR},
+      </if>
+      <if test="hsbz != null" >
+        #{hsbz,jdbcType=VARCHAR},
+      </if>
+      <if test="fphxz != null" >
+        #{fphxz,jdbcType=VARCHAR},
+      </if>
+      <if test="sphxh != null" >
+        #{sphxh,jdbcType=VARCHAR},
+      </if>
+      <if test="lslbs != null" >
+        #{lslbs,jdbcType=VARCHAR},
+      </if>
+      <if test="yhzcbs != null" >
+        #{yhzcbs,jdbcType=VARCHAR},
+      </if>
+      <if test="zzstsgl != null" >
+        #{zzstsgl,jdbcType=VARCHAR},
+      </if>
+      <if test="wcje != null" >
+        #{wcje,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.SpecialInvoiceReversalItem" >
+    update special_invoice_reversal_item
+    <set >
+      <if test="specialInvoiceReversalId != null" >
+        special_invoice_reversal_id = #{specialInvoiceReversalId,jdbcType=VARCHAR},
+      </if>
+      <if test="spbm != null" >
+        spbm = #{spbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zxbm != null" >
+        zxbm = #{zxbm,jdbcType=VARCHAR},
+      </if>
+      <if test="xmmc != null" >
+        xmmc = #{xmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="ggxh != null" >
+        ggxh = #{ggxh,jdbcType=VARCHAR},
+      </if>
+      <if test="xmdw != null" >
+        xmdw = #{xmdw,jdbcType=VARCHAR},
+      </if>
+      <if test="xmsl != null" >
+        xmsl = #{xmsl,jdbcType=VARCHAR},
+      </if>
+      <if test="xmdj != null" >
+        xmdj = #{xmdj,jdbcType=VARCHAR},
+      </if>
+      <if test="kce != null" >
+        kce = #{kce,jdbcType=VARCHAR},
+      </if>
+      <if test="xmje != null" >
+        xmje = #{xmje,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        sl = #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="se != null" >
+        se = #{se,jdbcType=VARCHAR},
+      </if>
+      <if test="hsbz != null" >
+        hsbz = #{hsbz,jdbcType=VARCHAR},
+      </if>
+      <if test="fphxz != null" >
+        fphxz = #{fphxz,jdbcType=VARCHAR},
+      </if>
+      <if test="sphxh != null" >
+        sphxh = #{sphxh,jdbcType=VARCHAR},
+      </if>
+      <if test="lslbs != null" >
+        lslbs = #{lslbs,jdbcType=VARCHAR},
+      </if>
+      <if test="yhzcbs != null" >
+        yhzcbs = #{yhzcbs,jdbcType=VARCHAR},
+      </if>
+      <if test="zzstsgl != null" >
+        zzstsgl = #{zzstsgl,jdbcType=VARCHAR},
+      </if>
+      <if test="wcje != null" >
+        wcje = #{wcje,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.SpecialInvoiceReversalItem" >
+    update special_invoice_reversal_item
+    set special_invoice_reversal_id = #{specialInvoiceReversalId,jdbcType=VARCHAR},
+      spbm = #{spbm,jdbcType=VARCHAR},
+      zxbm = #{zxbm,jdbcType=VARCHAR},
+      xmmc = #{xmmc,jdbcType=VARCHAR},
+      ggxh = #{ggxh,jdbcType=VARCHAR},
+      xmdw = #{xmdw,jdbcType=VARCHAR},
+      xmsl = #{xmsl,jdbcType=VARCHAR},
+      xmdj = #{xmdj,jdbcType=VARCHAR},
+      kce = #{kce,jdbcType=VARCHAR},
+      xmje = #{xmje,jdbcType=VARCHAR},
+      sl = #{sl,jdbcType=VARCHAR},
+      se = #{se,jdbcType=VARCHAR},
+      hsbz = #{hsbz,jdbcType=VARCHAR},
+      fphxz = #{fphxz,jdbcType=VARCHAR},
+      sphxh = #{sphxh,jdbcType=VARCHAR},
+      lslbs = #{lslbs,jdbcType=VARCHAR},
+      yhzcbs = #{yhzcbs,jdbcType=VARCHAR},
+      zzstsgl = #{zzstsgl,jdbcType=VARCHAR},
+      wcje = #{wcje,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+ <!-- &lt;!&ndash; 根据id查询明细信息&ndash;&gt;
+  <select id="selectItemListByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+
+  </select>-->
+  <select id="selectItemListBySpecialInvoiceReversalId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from special_invoice_reversal_item
+    where special_invoice_reversal_id = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

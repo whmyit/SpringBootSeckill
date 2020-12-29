@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxhy.order.dao.BuyerDao">
+    <resultMap id="BaseResultMap"
+               type="com.dxhy.order.model.entity.BuyerEntity">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="taxpayer_code" jdbcType="VARCHAR" property="taxpayerCode"/>
+        <result column="purchase_name" jdbcType="VARCHAR" property="purchaseName"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="bank_of_deposit" jdbcType="VARCHAR" property="bankOfDeposit"/>
+        <result column="bank_number" jdbcType="VARCHAR" property="bankNumber"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="modify_user_id" jdbcType="VARCHAR" property="modifyUserId"/>
+        <result column="ghf_qylx" jdbcType="VARCHAR" property="ghfQylx"/>
+        <result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh"/>
+        <result column="xhf_mc" jdbcType="VARCHAR" property="xhfMc"/>
+        <result column="buyer_code" jdbcType="VARCHAR" property="buyerCode"/>
+    </resultMap>
+
+    <sql id="Buyer_Base_Column_List">
+        id,taxpayer_code,purchase_name,address,phone,bank_of_deposit,bank_number,email,remarks,create_time,create_user_id,modify_time,modify_user_id,ghf_qylx,xhf_nsrsbh,xhf_mc,buyer_code
+    </sql>
+    <!-- 查询 -->
+    <select parameterType="map" id="selectBuyerList" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        <if test="dataType ==0 ">
+            SELECT
+            id,
+            taxpayer_code,
+            purchase_name,
+            address,
+            phone,
+            bank_of_deposit,
+            bank_number,
+            email,
+            remarks,
+            create_user_id,
+            DATE_FORMAT(create_time, '%Y-%m-%d') createTime,
+            DATE_FORMAT(modify_time, '%Y-%m-%d') modifyTime,
+            modify_user_id,
+            ghf_qylx,
+            xhf_nsrsbh,
+            xhf_mc,
+            buyer_code
+            FROM
+            buyer_manage_info
+            <where>
+                <if test="shList != null and shList.size() == 0">
+                    and xhf_nsrsbh = ''
+                </if>
+                <if test="shList != null and shList.size() == 1">
+                    and xhf_nsrsbh =
+                    <foreach collection="shList" index="index" item="item">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="shList != null and shList.size() > 1">
+                    and xhf_nsrsbh in
+                    <foreach collection="shList" index="index" item="item"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <!--购买方编码-->
+                <if test="map.buyerCode != null and map.buyerCode !='' ">
+                    and buyer_code = #{map.buyerCode,jdbcType=VARCHAR}
+                </if>
+                <!-- 销货方纳税人名称-->
+                <if test="map.xhfMc != null and map.xhfMc !='' ">
+                    and xhf_mc = #{map.xhfMc,jdbcType=VARCHAR}
+                </if>
+                <!--购买方纳税人识别号-->
+                <if test="map.taxpayerCode !=null and map.taxpayerCode !=''">
+                    and taxpayer_code = #{map.taxpayerCode,jdbcType=VARCHAR}
+                </if>
+                <if test="map.purchaseName != null and map.purchaseName !='' ">
+                    <choose>
+                        <!--模糊查询的标识(0表示不进行模糊查询，1表示模糊查询)-->
+                        <when test="map.fuzzyQuery != null and map.fuzzyQuery !='' and map.fuzzyQuery =='0'.toString() ">
+                            AND purchase_name = #{map.purchaseName,jdbcType=VARCHAR}
+                        </when>
+                        <otherwise>
+                            AND purchase_name LIKE CONCAT(CONCAT('%',#{map.purchaseName}),'%')
+                        </otherwise>
+                    </choose>
+                </if>
+            </where>
+
+            order by create_time desc
+        </if>
+        <if test="dataType ==1 ">
+            select temp.*
+            from (
+            SELECT
+            id,
+            taxpayer_code,
+            purchase_name,
+            address,
+            phone,
+            bank_of_deposit,
+            bank_number,
+            email,
+            remarks,
+            create_user_id,
+            to_char(create_time,'yyyy-MM-dd') as createTime,
+            to_char(modify_time,'yyyy-MM-dd') as modifyTime,
+            modify_user_id,
+            ghf_qylx,
+            xhf_nsrsbh,
+            xhf_mc,
+            buyer_code,
+            rownum as rowno
+            FROM
+            buyer_manage_info
+            <where>
+                <!--购买方编码-->
+                <if test="map.buyerCode != null and map.buyerCode !='' ">
+                    and buyer_code = #{map.buyerCode,jdbcType=VARCHAR}
+                </if>
+                <!-- 销货方纳税人名称-->
+                <if test="map.xhfMc != null and map.xhfMc !='' ">
+                    and xhf_mc = #{map.xhfMc,jdbcType=VARCHAR}
+                </if>
+                <if test="shList != null and shList.size() == 0">
+                    and xhf_nsrsbh = ''
+                </if>
+                <if test="shList != null and shList.size() == 1">
+                    and xhf_nsrsbh =
+                    <foreach collection="shList" index="index" item="item">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="shList != null and shList.size() > 1">
+                    and xhf_nsrsbh in
+                    <foreach collection="shList" index="index" item="item"
+                             open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <!--购买方纳税人识别号-->
+                <if test="map.taxpayerCode !=null and map.taxpayerCode !=''">
+                    and taxpayer_code = #{map.taxpayerCode,jdbcType=VARCHAR}
+                </if>
+                <if test="map.purchaseName != null and map.purchaseName !='' ">
+                    <choose>
+                        <!--模糊查询的标识(0表示不进行模糊查询，1表示模糊查询)-->
+                        <when test="map.fuzzyQuery != null and map.fuzzyQuery !='' and map.fuzzyQuery =='0'.toString() ">
+                            AND purchase_name = #{map.purchaseName,jdbcType=VARCHAR}
+                        </when>
+                        <otherwise>
+                            AND purchase_name LIKE '%' || #{map.purchaseName} || '%'
+                        </otherwise>
+                    </choose>
+                </if>
+            </where>
+
+            order by create_time desc
+            ) temp
+            <!--            <if test="offset != null and limit != null">-->
+            <!--                where temp.rowno &gt; #{offset} and temp.rowno &lt;= ( #{offset} + #{limit} )-->
+            <!--            </if>-->
+        </if>
+    </select>
+
+    <!-- 修改-->
+    <update id="updateBuyer" parameterType="com.dxhy.order.model.entity.BuyerEntity">
+        <bind name="dataType" value="${dataType}"/>
+        UPDATE buyer_manage_info
+        <set>
+            <if test="buyer.taxpayerCode != null">
+                taxpayer_code = #{buyer.taxpayerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.purchaseName != null ">
+                purchase_name = #{buyer.purchaseName,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.address != null">
+                address = #{buyer.address,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.phone != null">
+                phone = #{buyer.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.bankOfDeposit != null">
+                bank_of_deposit = #{buyer.bankOfDeposit,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.bankNumber != null">
+                bank_number = #{buyer.bankNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.bankNumber != null">
+                bank_number = #{buyer.bankNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.email != null">
+                email = #{buyer.email,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.remarks != null">
+                remarks = #{buyer.remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType ==0">
+                modify_time = now(),
+            </if>
+            <if test="dataType ==1">
+                modify_time = SYSDATE,
+            </if>
+            <if test="buyer.modifyUserId != null">
+                modify_user_id = #{buyer.modifyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.ghfQylx != null">
+                ghf_qylx = #{buyer.ghfQylx,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.xhfNsrsbh != null">
+                xhf_nsrsbh = #{buyer.xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.xhfMc != null">
+                xhf_mc = #{buyer.xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="buyer.buyerCode != null ">
+                buyer_code = #{buyer.buyerCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            id = #{buyer.id,jdbcType=VARCHAR}
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </update>
+    <!-- 插入数据-->
+    <insert id="insertBuyer" parameterType="com.dxhy.order.model.entity.BuyerEntity">
+        <bind name="dataType" value="${dataType}"/>
+        INSERT INTO buyer_manage_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                id,
+            </if>
+            <if test="taxpayerCode != null and taxpayerCode != ''">
+                taxpayer_code,
+            </if>
+            <if test="purchaseName != null and purchaseName != ''">
+                purchase_name,
+            </if>
+            <if test="address != null and address != ''">
+                address,
+            </if>
+            <if test="phone != null and phone != ''">
+                phone,
+            </if>
+            <if test="bankOfDeposit != null and bankOfDeposit != ''">
+                bank_of_deposit,
+            </if>
+            <if test="bankNumber != null and bankNumber != ''">
+                bank_number,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks,
+            </if>
+            create_time,
+            modify_time,
+            <if test="createUserId != null and createUserId != ''">
+                create_user_id,
+            </if>
+            <if test="modifyUserId != null and modifyUserId != ''">
+                modify_user_id,
+            </if>
+            <if test="ghfQylx != null and ghfQylx != ''">
+                ghf_qylx,
+            </if>
+            <if test="xhfNsrsbh != null and xhfNsrsbh != ''">
+                xhf_nsrsbh,
+            </if>
+            <if test="xhfMc != null and xhfMc != ''">
+                xhf_mc,
+            </if>
+            <if test="buyerCode != null and buyerCode != ''">
+                buyer_code,
+            </if>
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="taxpayerCode != null and taxpayerCode != ''">
+                #{taxpayerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseName != null and purchaseName != ''">
+                #{purchaseName,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null and address != ''">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null and phone != ''">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="bankOfDeposit != null and bankOfDeposit != ''">
+                #{bankOfDeposit,jdbcType=VARCHAR},
+            </if>
+            <if test="bankNumber != null and bankNumber != ''">
+                #{bankNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email != ''">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="dataType == 1">
+                SYSDATE,
+                SYSDATE,
+            </if>
+            <if test="dataType == 0">
+                now(),
+                now(),
+            </if>
+
+            <if test="createUserId != null and createUserId != ''">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUserId != null and modifyUserId != ''">
+                #{modifyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="ghfQylx != null and ghfQylx != ''">
+                #{ghfQylx,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfNsrsbh != null and xhfNsrsbh != ''">
+                #{xhfNsrsbh,jdbcType=VARCHAR},
+            </if>
+            <if test="xhfMc != null and xhfMc != ''">
+                #{xhfMc,jdbcType=VARCHAR},
+            </if>
+            <if test="buyerCode != null and buyerCode != ''">
+                #{buyerCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectBuyerByName" parameterType="map" resultType="int">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        count(*)
+        FROM
+        buyer_manage_info
+        <where>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="map.purchaseName != null and map.purchaseName != ''">
+                AND purchase_name = #{map.purchaseName,jdbcType=VARCHAR}
+            </if>
+            <if test="map.taxpayerCode != null">
+                AND taxpayer_code = #{map.taxpayerCode,jdbcType=VARCHAR}
+            </if>
+
+            <if test="map.id!=null and map.id!=''">
+                AND id !=#{map.id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--根据名称模糊查询 -->
+    <select id="selectBuyer" parameterType="String" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        id,
+        taxpayer_code,
+        purchase_name,
+        address,
+        phone,
+        bank_of_deposit,
+        bank_number,
+        email,
+        remarks,
+        create_user_id,
+        <if test="dataType == 0">
+            DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,
+            DATE_FORMAT(modify_time,'%Y-%m-%d') as modifyTime,
+        </if>
+        <if test="dataType == 1">
+            to_char(create_time,'yyyy-MM-dd') as createTime,
+            to_char(modify_time,'yyyy-MM-dd') as modifyTime,
+        </if>
+        modify_user_id,
+        ghf_qylx
+        FROM
+        buyer_manage_info
+        <where>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="dataType == 0">
+                AND purchase_name LIKE CONCAT(CONCAT('%',#{purchaseName,jdbcType=VARCHAR}),'%')
+                limit 4
+            </if>
+            <if test="dataType == 1">
+                AND purchase_name LIKE '%' || #{purchaseName,jdbcType=VARCHAR} || '%'
+                and rownum &lt;=4
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteBuyerById" parameterType="String">
+        DELETE
+        FROM buyer_manage_info
+        WHERE id = #{id,jdbcType=VARCHAR}
+        <if test="shList != null and shList.size() == 0">
+            and xhf_nsrsbh = ''
+        </if>
+        <if test="shList != null and shList.size() == 1">
+            and xhf_nsrsbh =
+            <foreach collection="shList" index="index" item="item">
+                #{item}
+            </foreach>
+        </if>
+        <if test="shList != null and shList.size() > 1">
+            and xhf_nsrsbh in
+            <foreach collection="shList" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </delete>
+
+    <!-- add by ysy -->
+    <select id="selectBuyerByBuyerEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <bind name="dataType" value="${dataType}"/>
+        SELECT
+        id,
+        taxpayer_code,
+        purchase_name,
+        address,
+        phone,
+        bank_of_deposit,
+        bank_number,
+        email,
+        remarks,
+        create_user_id,
+        <if test="dataType == 0">
+            DATE_FORMAT(create_time,'%Y-%m-%d') as createTime,
+            DATE_FORMAT(modify_time,'%Y-%m-%d') as modifyTime,
+        </if>
+        <if test="dataType == 1">
+            to_char(create_time,'yyyy-MM-dd') as createTime,
+            to_char(modify_time,'yyyy-MM-dd') as modifyTime,
+        </if>
+        modify_user_id,
+        ghf_qylx,
+        xhf_nsrsbh,
+        xhf_mc,
+        buyer_code
+        FROM
+        buyer_manage_info
+        <where>
+            <if test="shList != null and shList.size() == 0">
+                and xhf_nsrsbh = ''
+            </if>
+            <if test="shList != null and shList.size() == 1">
+                and xhf_nsrsbh =
+                <foreach collection="shList" index="index" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shList != null and shList.size() > 1">
+                and xhf_nsrsbh in
+                <foreach collection="shList" index="index" item="item"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="buyer.purchaseName != null and buyer.purchaseName != ''">
+                and purchase_name = #{buyer.purchaseName,jdbcType=VARCHAR}
+            </if>
+            <if test="buyer.buyerCode != null and buyer.buyerCode != ''">
+                and buyer_code = #{buyer.buyerCode,jdbcType=VARCHAR}
+            </if>
+            <if test="buyer.taxpayerCode != null and buyer.taxpayerCode != ''">
+                and taxpayer_code = #{buyer.taxpayerCode,jdbcType=VARCHAR}
+            </if>
+            <if test="buyer.id != null and buyer.id != ''">
+                and id = #{buyer.id,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>

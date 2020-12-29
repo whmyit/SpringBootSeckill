@@ -1,0 +1,209 @@
+spring:
+  application:
+    name: order-management-provider
+  #jdbc config
+  datasource:
+    #MySQL数据库支持配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.1.2.155:3306/sales_order_xmgm?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: dxhy
+    password: Dxhy@123
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 100
+      idle-timeout: 600000
+      pool-name: OrderHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 60000
+      connection-test-query: SELECT 1
+
+    #Oracle数据库支持配置
+    #    driver-class-name: oracle.jdbc.driver.OracleDriver
+    #    url: jdbc:oracle:thin:@10.1.2.54:1521:ORCL
+    #    username: dxhy
+    #    password: 123456
+    #    type: com.zaxxer.hikari.HikariDataSource
+    #    hikari:
+    #      minimum-idle: 5
+    #      maximum-pool-size: 100
+    #      idle-timeout: 600000
+    #      pool-name: OrderHikariCP
+    #      max-lifetime: 1800000
+    #      connection-timeout: 60000
+    #      connection-test-query: SELECT * FROM DUAL
+
+    #支持JNDI配置,直接注释Oracle配置和MySQL配置,打开这个配置即可,
+  #    jndi-name: oracle/order
+
+  #redis config
+  redis:
+    host: 10.1.5.28
+    port: 6379
+    password: redis-dev
+    database: 14
+  rabbitmq:
+    host: 10.1.5.30
+    port: 5672
+    username: admin
+    password: admin
+    template:
+      exchange: sims.exchange
+  ### mongodb的配置信息 pdf文件存储
+  data:
+    mongodb:
+      uri: mongodb://10.1.1.109:28018/zdytPdf
+  boot:
+    admin:
+      client:
+        instance:
+          service-base-url: http://localhost:8088
+        url: http://10.1.1.222:8999
+        username: dxhy
+        password: dxhy123
+
+### 历史数据导入发票pdf文件存储的集合名称
+mongodb:
+  collection:
+    name: pdfOut
+redis:
+  dbcache:
+    database: 15
+    host: 10.1.5.28
+    port: 6379
+    password: redis-dev
+    pool:
+      max-total: 8
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+    testonborrow: true
+    expire: 86400
+mybatis:
+  mapper-locations: classpath:mybatis/*/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.dxhy.order.dao
+server:
+  port: 9090
+
+pagehelper:
+  #  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+  # 默认false,当为true时，自动检验适合的数据库
+  auto-dialect: true
+  # 这个一定要加上，不然mysql和oracle分页两个只能用一个，另一个会报错，加上后，两中数据库分页都可以用了
+  auto-runtime-dialect: true
+  row-bounds-with-count: true
+
+dubbo:
+  # Base packages to scan Dubbo Component: @org.apache.dubbo.config.annotation.Service
+  scan:
+    base-packages: com.dxhy.order.service/**/impl
+  ## ApplicationConfig Bean
+  application:
+    id: order-management-provider
+    name: order-management-provider
+    qos-port: 22212
+    qos-enable: true
+  ## ProtocolConfig Bean
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 12345
+    status: server
+    payload: 83886080
+  ## RegistryConfig Bean
+  registry:
+    id: order
+    address: 10.1.5.29:21810
+    #    address: 127.0.0.1:2181
+    protocol: zookeeper
+  provider:
+    timeout: 300000
+    payload: 83886080
+  consumer:
+    timeout: 300000
+    check: false
+
+management:
+  health:
+    redis:
+      enabled: false
+    rabbit:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+openapi:
+  OPENAPI_EMAIL_NOTE: http://api.5ifapiao.com/api4.0/v4/
+  OPENAPI_TOKEN: http://api.5ifapiao.com/authz/oauth/
+  TOKEN_CLIENT_ID: 8Ed2GeZiY1rn3KGOmABx
+  TOKEN_CLIENT_SECRET: xL1TfYvEm5F6Zg5oxxRg
+  TOKEN_GRANT_TYPE: client_credentials
+  TOKEN_SCOPE: read
+  SECRET_ID: 289efb7512e54146273b982456b03f420001
+  SECRET_KEY: 27a06832a2214a4fa3b7105e4a720001
+  REQUEST_PATH: /ep/v1
+  REQUEST_DOMAIN: 10.1.1.56:8081
+#email-template:
+#  Invoice_Yichang: 55 #异常订单通知
+#  Invoice_Pdf_push: 53
+#  #余票预警邮件模版id
+#  invoiceWarning: 65
+email-template:
+  Invoice_Yichang: 55 #异常订单通知
+  Invoice_Pdf_push: 53
+  #余票预警邮件模版id
+  invoiceWarning: 65
+mail:
+  emailSendUrl: http://127.0.0.1:8083/order-mail/emailSend?access_token=
+notes:
+  templateid: 1202
+
+orderProvider:
+  url:
+    #ofd转png地址
+    OfdToPngUrl: http://10.1.2.51:8091
+interfacePath:
+  A9:
+    domain: http://10.1.5.28:58089
+  FG:
+    domain: http://10.1.2.51:58089
+express:
+  kdniao:
+    eBusinessID: 1383747
+    appKey: 48c8181b-cf71-4492-b6fb-43ae0c850677
+    reqURL: http://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx
+
+push:
+  myinvoice:
+    secretId: 289efb7512e54146273b982456b03f42ea93
+    secretKey: 27a06832a2214a4fa3b7105e4a72d370
+  supplychain:
+    virtual_taxpayer: f0231482b21d411
+  ws:
+    username: rfcuser
+    password: 654321a
+my:
+  domain: http://10.1.5.28:8087/order-api-xmgm
+myinvoice:
+  appid: wx58e5110a3caa92f0
+
+
+#mqtt配置
+com:
+  mqtt:
+    host: tcp://10.1.2.113:1883
+    #clientid: mqttjs_6150da3020  //客户端id为系统随机生成，因为客户端id不能重复
+    username: dxhy
+    password: dxhy123
+    timeout: 10
+    keepalive: 20
+    subscriptions: http://10.1.2.113:18083/api/v3/subscriptions

@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitigore
+.idea/
+.project
+.settings/
+*.iml
+order-rabbitmq-core/target/classes/
+order-rabbitmq-core/target/generated-sources/
+order-rabbitmq-core/target/order-rabbitmq-core-1.0.1.jar
+/order-rabbitmq-core.iml

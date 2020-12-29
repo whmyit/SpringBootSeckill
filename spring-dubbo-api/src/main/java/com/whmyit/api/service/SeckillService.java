@@ -17,6 +17,7 @@ public interface SeckillService {
 
     /**
      * 秒杀商品列表
+     *
      * @return
      */
     List<Seckill> getSeckillList();
@@ -24,6 +25,7 @@ public interface SeckillService {
 
     /**
      * 秒杀商品详情
+     *
      * @param seckillId 根据商品id
      * @return 秒杀商品详情
      */
@@ -32,6 +34,7 @@ public interface SeckillService {
 
     /**
      * 秒杀开启时输出秒杀接口地址，否则输出系统时间和秒杀时间
+     *
      * @param seckillId
      * @return
      */

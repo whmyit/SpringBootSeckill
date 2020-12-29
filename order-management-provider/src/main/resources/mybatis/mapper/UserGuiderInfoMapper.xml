@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxhy.order.dao.UserGuiderInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.UserGuiderInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="operate" jdbcType="VARCHAR" property="operate" />
+    <result column="operate_group" jdbcType="VARCHAR" property="operateGroup" />
+    <result column="operate_description" jdbcType="VARCHAR" property="operateDescription" />
+    <result column="step" jdbcType="VARCHAR" property="step" />
+    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="xhf_nsrsbh" jdbcType="VARCHAR" property="xhfNsrsbh" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, operate, operate_group, operate_description, step, video_url, status, uid, xhf_nsrsbh,
+    create_time, update_time
+  </sql>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from user_guider-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">-->
+<!--    delete from user_guider-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.dxhy.order.model.UserGuiderInfo">-->
+<!--    insert into user_guider (id, operate, operate_group,-->
+<!--      operate_description, step, video_url,-->
+<!--      status, uid, xhf_nsrsbh,-->
+<!--      create_time, update_time)-->
+<!--    values (#{id,jdbcType=VARCHAR}, #{operate,jdbcType=VARCHAR}, #{operateGroup,jdbcType=VARCHAR},-->
+<!--      #{operateDescription,jdbcType=VARCHAR}, #{step,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR},-->
+<!--      #{status,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{xhfNsrsbh,jdbcType=VARCHAR},-->
+<!--      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})-->
+<!--  </insert>-->
+  <insert id="insertSelective" parameterType="com.dxhy.order.model.UserGuiderInfo">
+    insert into user_guider
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="operate != null">
+        operate,
+      </if>
+      <if test="operateGroup != null">
+        operate_group,
+      </if>
+      <if test="operateDescription != null">
+        operate_description,
+      </if>
+      <if test="step != null">
+        step,
+      </if>
+      <if test="videoUrl != null">
+        video_url,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="xhfNsrsbh != null">
+        xhf_nsrsbh,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="operate != null">
+        #{operate,jdbcType=VARCHAR},
+      </if>
+      <if test="operateGroup != null">
+        #{operateGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDescription != null">
+        #{operateDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null">
+        #{step,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfNsrsbh != null">
+        #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.UserGuiderInfo">
+    update user_guider
+    <set>
+      <if test="operate != null">
+        operate = #{operate,jdbcType=VARCHAR},
+      </if>
+      <if test="operateGroup != null">
+        operate_group = #{operateGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDescription != null">
+        operate_description = #{operateDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null">
+        step = #{step,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfNsrsbh != null">
+        xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+<!--  <update id="updateByPrimaryKey" parameterType="com.dxhy.order.model.UserGuiderInfo">-->
+<!--    update user_guider-->
+<!--    set operate = #{operate,jdbcType=VARCHAR},-->
+<!--      operate_group = #{operateGroup,jdbcType=VARCHAR},-->
+<!--      operate_description = #{operateDescription,jdbcType=VARCHAR},-->
+<!--      step = #{step,jdbcType=VARCHAR},-->
+<!--      video_url = #{videoUrl,jdbcType=VARCHAR},-->
+<!--      status = #{status,jdbcType=VARCHAR},-->
+<!--      uid = #{uid,jdbcType=VARCHAR},-->
+<!--      xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},-->
+<!--      create_time = #{createTime,jdbcType=TIMESTAMP},-->
+<!--      update_time = #{updateTime,jdbcType=TIMESTAMP}-->
+<!--    where id = #{id,jdbcType=VARCHAR}-->
+<!--  </update>-->
+
+  <select id="queryUserGuiderList" parameterType="com.dxhy.order.model.UserGuiderInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_guider
+    <where>
+      <if test="operate != null">
+        and operate = #{operate,jdbcType=VARCHAR}
+      </if>
+      <if test="operateGroup != null">
+        and operate_group = #{operateGroup,jdbcType=VARCHAR}
+      </if>
+      <if test="operateDescription != null">
+        and operate_description = #{operateDescription,jdbcType=VARCHAR}
+      </if>
+      <if test="step != null">
+        and step = #{step,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">operate
+        and status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="uid != null">
+        and uid = #{uid,jdbcType=VARCHAR}
+      </if>
+      <if test="xhfNsrsbh != null">
+        and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+      </if>
+      order by CAST(step AS SIGNED)
+    </where>
+
+  </select>
+</mapper>

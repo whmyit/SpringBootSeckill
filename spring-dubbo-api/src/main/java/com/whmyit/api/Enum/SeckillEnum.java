@@ -6,18 +6,17 @@ package com.whmyit.api.Enum;
  * @Date: Created in 10:49  2018/11/12
  */
 public enum SeckillEnum {
-    SUCCESS(1,"秒杀成功"),
-    END(0,"秒杀结束"),
-    REPEAT_KILL(-1,"重复秒杀"),
-    INNER_ERROR(-2,"系统异常"),
-    DATE_REWRITE(-3,"数据篡改"),
-    SECKILL_NULL(-1,"")
-    ;
+    SUCCESS(1, "秒杀成功"),
+    END(0, "秒杀结束"),
+    REPEAT_KILL(-1, "重复秒杀"),
+    INNER_ERROR(-2, "系统异常"),
+    DATE_REWRITE(-3, "数据篡改"),
+    SECKILL_NULL(-1, "");
     private Integer code;
-    private String  msg;
+    private String msg;
 
-    SeckillEnum(Integer code,String msg){
-        this.code=code;
+    SeckillEnum(Integer code, String msg) {
+        this.code = code;
         this.msg = msg;
     }
 

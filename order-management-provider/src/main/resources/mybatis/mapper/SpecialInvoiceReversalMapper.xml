@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.SpecialInvoiceReversalDao">
+
+	<resultMap id="BaseResultMap" type="com.dxhy.order.model.entity.SpecialInvoiceReversalEntity" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="sqdscqqpch" property="sqdscqqpch" jdbcType="VARCHAR" />
+		<result column="sqdscqqlsh" property="sqdscqqlsh" jdbcType="VARCHAR" />
+		<result column="sqdh" property="sqdh" jdbcType="VARCHAR" />
+		<result column="sqsm" property="sqsm" jdbcType="VARCHAR" />
+		<result column="yysbz" property="yysbz" jdbcType="VARCHAR" />
+		<result column="xxblx" property="xxblx" jdbcType="VARCHAR" />
+		<result column="yfp_dm" property="yfpDm" jdbcType="VARCHAR" />
+		<result column="yfp_hm" property="yfpHm" jdbcType="VARCHAR" />
+		<result column="yfp_kprq" property="yfpKprq" jdbcType="TIMESTAMP" />
+		<result column="invoice_type" property="invoiceType" jdbcType="VARCHAR" />
+		<result column="fpzl_dm" property="fpzlDm" jdbcType="VARCHAR" />
+		<result column="tksj" property="tksj" jdbcType="TIMESTAMP" />
+		<result column="nsrsbh" property="nsrsbh" jdbcType="VARCHAR" />
+		<result column="xhf_mc" property="xhfMc" jdbcType="VARCHAR" />
+		<result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR" />
+		<result column="xhf_dz" property="xhfDz" jdbcType="VARCHAR" />
+		<result column="xhf_dh" property="xhfDh" jdbcType="VARCHAR" />
+		<result column="xhf_yh" property="xhfYh" jdbcType="VARCHAR" />
+		<result column="xhf_zh" property="xhfZh" jdbcType="VARCHAR" />
+		<result column="ghf_mc" property="ghfMc" jdbcType="VARCHAR" />
+		<result column="ghf_nsrsbh" property="ghfNsrsbh" jdbcType="VARCHAR" />
+		<result column="ghf_dz" property="ghfDz" jdbcType="VARCHAR" />
+		<result column="ghf_dh" property="ghfDh" jdbcType="VARCHAR" />
+		<result column="ghf_yh" property="ghfYh" jdbcType="VARCHAR" />
+		<result column="ghf_zh" property="ghfZh" jdbcType="VARCHAR" />
+		<result column="ghfqylx" property="ghfqylx" jdbcType="VARCHAR" />
+		<result column="hjbhsje" property="hjbhsje" jdbcType="VARCHAR" />
+		<result column="hjse" property="hjse" jdbcType="VARCHAR" />
+		<result column="kphjje" property="kphjje" jdbcType="VARCHAR" />
+		<result column="dslbz" property="dslbz" jdbcType="VARCHAR" />
+		<result column="xxbbh" property="xxbbh" jdbcType="VARCHAR" />
+		<result column="bmbbbh" property="bmbbbh" jdbcType="VARCHAR" />
+		<result column="kpzt" property="kpzt" jdbcType="VARCHAR" />
+		<result column="fpdm" property="fpdm" jdbcType="VARCHAR" />
+		<result column="fphm" property="fphm" jdbcType="VARCHAR" />
+		<result column="sld" property="sld" jdbcType="VARCHAR" />
+		<result column="sld_mc" property="sldMc" jdbcType="VARCHAR" />
+		<result column="fjh" property="fjh" jdbcType="VARCHAR" />
+		<result column="chyy" property="chyy" jdbcType="VARCHAR" />
+		<result column="kpr" property="kpr" jdbcType="VARCHAR" />
+		<result column="fhr" property="fhr" jdbcType="VARCHAR" />
+		<result column="skr" property="skr" jdbcType="VARCHAR" />
+		<result column="agent_name" property="agentName" jdbcType="VARCHAR" />
+		<result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+		<result column="status_message" property="statusMessage" jdbcType="VARCHAR" />
+		<result column="creator_id" property="creatorId" jdbcType="VARCHAR" />
+		<result column="creator_name" property="creatorName" jdbcType="VARCHAR" />
+		<result column="editor_id" property="editorId" jdbcType="VARCHAR" />
+		<result column="editor_name" property="editorName" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="data_status" property="dataStatus" jdbcType="VARCHAR" />
+		<result column="scfg_status" property="scfgStatus" jdbcType="VARCHAR" />
+		<result column="xzfg_status" property="xzfgStatus" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List" >
+		id, type, sqdscqqpch, sqdscqqlsh, sqdh, sqsm, yysbz, xxblx, yfp_dm, yfp_hm, yfp_kprq,
+		invoice_type, fpzl_dm, tksj, nsrsbh, xhf_mc, xhf_nsrsbh, xhf_dz, xhf_dh, xhf_yh,
+		xhf_zh, ghf_mc, ghf_nsrsbh, ghf_dz, ghf_dh, ghf_yh, ghf_zh, ghfqylx, hjbhsje, hjse,
+		kphjje, dslbz, xxbbh, bmbbbh, kpzt, fpdm, fphm, sld, sld_mc, fjh, chyy, kpr, fhr,
+		skr, agent_name, status_code, status_message, creator_id, creator_name, editor_id,
+		editor_name, create_time, update_time, data_status,scfg_status,xzfg_status
+	</sql>
+
+
+	<!-- 统一查询条件-->
+	<sql id="baseQueryParam">
+		<where>
+			<if test="type != null and type != '' "  >
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="sqdscqqpch != null and sqdscqqpch != '' " >
+				and sqdscqqpch = #{sqdscqqpch,jdbcType=VARCHAR}
+			</if>
+			<if test="sqdscqqlsh != null and sqdscqqlsh  != '' " >
+				and sqdscqqlsh = #{sqdscqqlsh,jdbcType=VARCHAR}
+			</if>
+			<if test="sqdh != null and sqdh != ''" >
+				and sqdh = #{sqdh,jdbcType=VARCHAR}
+			</if>
+			<if test="sqsm != null and sqsm  != ''" >
+				and sqsm = #{sqsm,jdbcType=VARCHAR}
+			</if>
+			<if test="yysbz != null and yysbz != ''" >
+				and yysbz = #{yysbz,jdbcType=VARCHAR}
+			</if>
+			<if test="xxblx != null and xxblx != ''" >
+				and xxblx = #{xxblx,jdbcType=VARCHAR}
+			</if>
+			<if test="yfpDm != null and yfpDm != ''" >
+				and yfp_dm = #{yfpDm,jdbcType=VARCHAR}
+			</if>
+			<if test="yfpHm != null and yfpHm != ''" >
+				and yfp_hm = #{yfpHm,jdbcType=VARCHAR}
+			</if>
+			<if test="yfpKprq != null" >
+				and yfp_kprq = #{yfpKprq,jdbcType=TIMESTAMP}
+			</if>
+			<if test="invoiceType != null and invoiceType != ''" >
+				and invoice_type = #{invoiceType,jdbcType=VARCHAR}
+			</if>
+			<if test="fpzlDm != null and fpzlDm != ''" >
+				and fpzl_dm = #{fpzlDm,jdbcType=VARCHAR}
+			</if>
+			<if test="tksj != null" >
+				and tksj = #{tksj,jdbcType=TIMESTAMP}
+			</if>
+			<if test="nsrsbh != null and nsrsbh != ''" >
+				and nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+			</if>
+			<if test="xhfMc != null and xhfMc != ''" >
+				and xhf_mc = #{xhfMc,jdbcType=VARCHAR}
+			</if>
+			<if test="xhfNsrsbh != null and xhfNsrsbh != ''" >
+				and xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+			</if>
+			<if test="xhfDz != null and xhfDz != ''" >
+				and xhf_dz = #{xhfDz,jdbcType=VARCHAR}
+			</if>
+			<if test="xhfDh != null and xhfDh != ''" >
+				and xhf_dh = #{xhfDh,jdbcType=VARCHAR}
+			</if>
+			<if test="xhfYh != null and xhfYh != ''" >
+				and xhf_yh = #{xhfYh,jdbcType=VARCHAR}
+			</if>
+			<if test="xhfZh != null and xhfZh != ''" >
+				and xhf_zh = #{xhfZh,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfMc != null and ghfMc != ''" >
+				and ghf_mc = #{ghfMc,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfNsrsbh != null and ghfNsrsbh != ''" >
+				and ghf_nsrsbh = #{ghfNsrsbh,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfDz != null and ghfDz != ''" >
+				and ghf_dz = #{ghfDz,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfDh != null and ghfDh != ''" >
+				and ghf_dh = #{ghfDh,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfYh != null and ghfYh != ''" >
+				and ghf_yh = #{ghfYh,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfZh != null and ghfZh != ''" >
+				and ghf_zh = #{ghfZh,jdbcType=VARCHAR}
+			</if>
+			<if test="ghfqylx != null and ghfqylx != ''" >
+				and ghfqylx = #{ghfqylx,jdbcType=VARCHAR}
+			</if>
+			<if test="hjbhsje != null and hjbhsje != ''" >
+				and hjbhsje = #{hjbhsje,jdbcType=VARCHAR}
+			</if>
+			<if test="hjse != null and hjse != ''" >
+				and hjse = #{hjse,jdbcType=VARCHAR}
+			</if>
+			<if test="kphjje != null and kphjje != ''" >
+				and kphjje = #{kphjje,jdbcType=VARCHAR}
+			</if>
+			<if test="dslbz != null and dslbz != ''" >
+				and dslbz = #{dslbz,jdbcType=VARCHAR}
+			</if>
+			<if test="xxbbh != null and xxbbh != ''" >
+				and xxbbh = #{xxbbh,jdbcType=VARCHAR}
+			</if>
+			<if test="bmbbbh != null and bmbbbh != ''" >
+				and bmbbbh = #{bmbbbh,jdbcType=VARCHAR}
+			</if>
+			<if test="kpzt != null and kpzt != ''" >
+				and kpzt = #{kpzt,jdbcType=VARCHAR}
+			</if>
+			<if test="fpdm != null and fpdm != '' " >
+				and fpdm = #{fpdm,jdbcType=VARCHAR}
+			</if>
+			<if test="fphm != null and fphm != '' " >
+				and fphm = #{fphm,jdbcType=VARCHAR}
+			</if>
+			<if test="sld != null and sld != '' " >
+				and sld = #{sld,jdbcType=VARCHAR}
+			</if>
+			<if test="sldMc != null and sldMc != '' " >
+				and sld_mc = #{sldMc,jdbcType=VARCHAR}
+			</if>
+			<if test="fjh != null and fjh != '' " >
+				and fjh = #{fjh,jdbcType=VARCHAR}
+			</if>
+			<if test="chyy != null and chyy != '' " >
+				and chyy = #{chyy,jdbcType=VARCHAR}
+			</if>
+			<if test="kpr != null and kpr != '' " >
+				and kpr = #{kpr,jdbcType=VARCHAR}
+			</if>
+			<if test="fhr != null and fhr != '' " >
+				and fhr = #{fhr,jdbcType=VARCHAR}
+			</if>
+			<if test="skr != null and skr != '' " >
+				and skr = #{skr,jdbcType=VARCHAR}
+			</if>
+			<if test="agentName != null and agentName != '' " >
+				and agent_name = #{agentName,jdbcType=VARCHAR}
+			</if>
+			<if test="statusCode != null and statusCode != '' " >
+				and status_code = #{statusCode,jdbcType=VARCHAR}
+			</if>
+			<if test="excluteStatus != null and excluteStatus != '' " >
+				and status_code != #{excluteStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="statusMessage != null  and statusMessage != '' " >
+				and status_message = #{statusMessage,jdbcType=VARCHAR}
+			</if>
+			<if test="creatorId != null and creatorId != '' " >
+				and creator_id = #{creatorId,jdbcType=VARCHAR}
+			</if>
+			<if test="creatorName != null and creatorName != '' " >
+				and creator_name = #{creatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="editorId != null and editorId != '' " >
+				and editor_id = #{editorId,jdbcType=VARCHAR}
+			</if>
+			<if test="editorName != null and editorName != '' " >
+				and editor_name = #{editorName,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null" >
+				and create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updateTime != null" >
+				and update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="dataStatus != null and dataStatus != '' " >
+				and data_status = #{dataStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="id != null and id != '' " >
+				and id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+
+    <!-- 红字申请单列表查询 -->
+	<select id="selectSpecialInvoiceReversals" resultMap="BaseResultMap"
+		parameterType="map">
+		<bind name="dataType" value="${dataType}" />
+		<if test="dataType == 0">
+			select
+			<include refid="Base_Column_List" />
+			from special_invoice_reversal
+			<where>
+				data_status = '0'
+				<include refid="specialInvoiceQueryParamMysql"/>
+			</where>
+			order by update_time desc
+		</if>
+		<if test="dataType == 1">
+			select
+			<include refid="Base_Column_List" />
+			from special_invoice_reversal
+			<where>
+				data_status = '0'
+				<include refid="specialInvoiceQueryParamOracle"/>
+			</where>
+			order by update_time desc
+		</if>
+	</select>
+
+	<!-- 列表金额统计 -->
+	<select id="selectSpecialInvoiceReversalsCount" resultType="hashMap" parameterType="map">
+		<bind name="dataType" value="${dataType}" />
+		<if test="dataType == 0">
+			select
+		    SUM(CAST(hjbhsje AS DECIMAL(18,2))) hjje,
+		    SUM(CAST(hjse AS DECIMAL(18,2))) hjse
+			from special_invoice_reversal
+			<where>
+				data_status = '0'
+				<include refid="specialInvoiceQueryParamMysql"/>
+			</where>
+		</if>
+		<if test="dataType == 1">
+			select
+			SUM(CAST(hjbhsje AS DECIMAL(18,2))) hjje,
+		    SUM(CAST(hjse AS DECIMAL(18,2))) hjse
+			<include refid="Base_Column_List" />
+			from special_invoice_reversal
+			<where>
+				data_status = '0'
+				<include refid="specialInvoiceQueryParamOracle"/>
+			</where>
+		</if>
+	</select>
+
+	<!-- msyql 红字申请单列表查询条件 -->
+	<sql id="specialInvoiceQueryParamMysql">
+
+		<if test="xhfNsrsbh != null and xhfNsrsbh != ''">
+			and ( xhf_nsrsbh in
+			<foreach collection="xhfNsrsbh" index="index" item="tc" open="("
+				separator="," close=")">
+				#{tc,jdbcType=VARCHAR}
+			</foreach>
+			or ghf_nsrsbh in
+			<foreach collection="xhfNsrsbh" index="index" item="tc" open="("
+				separator="," close=")">
+				#{tc,jdbcType=VARCHAR}
+			</foreach>
+			)
+		</if>
+		<if test="xfsh != null and xfsh != ''">
+			and ( xhf_nsrsbh =#{xfsh,jdbcType=VARCHAR}
+			or
+			ghf_nsrsbh = #{xfsh,jdbcType=VARCHAR} )
+		</if>
+		<if test="buyerName != null">
+			and ghf_mc like concat(concat('%', #{buyerName}), '%')
+		</if>
+		<if test="sellerName != null">
+			and xhf_mc like concat(concat('%', #{sellerName}),
+			'%')
+		</if>
+		<if test="submitStatus != null">
+			<choose>
+				<when test="submitStatus == 'TZD0500' or submitStatus == 'TZD0000'">
+					and status_code = #{submitStatus,jdbcType=VARCHAR}
+				</when>
+				<otherwise>
+					and status_code not in('TZD0500', 'TZD0000')
+				</otherwise>
+			</choose>
+		</if>
+		<if test="excludeSubmitStatuses != null">
+			and status_code not in
+			<foreach collection="excludeSubmitStatuses" item="excludeSubmitStatus"
+				open="(" separator="," close=")">
+				#{excludeSubmitStatus,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		<if test="invoiceCode != null">
+			and yfp_dm = #{invoiceCode,jdbcType=VARCHAR}
+		</if>
+		<if test="invoiceNo != null">
+			and yfp_hm = #{invoiceNo,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null">
+			and create_time >= #{startTime,jdbcType=VARCHAR}
+		</if>
+		<if test="endTime != null">
+			and #{endTime,jdbcType=VARCHAR} >= create_time
+		</if>
+		<if test="status != null">
+			and kpzt = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="sqbscqqpch != null">
+			and sqdscqqpch =  #{sqbscqqpch,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+
+	<!-- oracle红字申请单列表查询条件 -->
+	<sql id="specialInvoiceQueryParamOracle">
+		<if test="xhfNsrsbh != null and xhfNsrsbh != ''">
+			and (xhf_nsrsbh in
+			<foreach collection="xhfNsrsbh" index="index" item="tc" open="("
+				separator="," close=")">
+				#{tc,jdbcType=VARCHAR}
+			</foreach>
+			or ghf_nsrsbh in
+			<foreach collection="xhfNsrsbh" index="index" item="tc" open="("
+				separator="," close=")">
+				#{tc,jdbcType=VARCHAR}
+			</foreach>
+			)
+		</if>
+		<if test="xfsh != null and xfsh != ''">
+			and (xhf_nsrsbh =#{xfsh,jdbcType=VARCHAR}
+			or
+			ghf_nsrsbh = #{xfsh,jdbcType=VARCHAR})
+		</if>
+		<if test="buyerName != null">
+			and xhf_mc like concat(concat('%', #{buyerName}),
+			'%')
+		</if>
+		<if test="sellerName != null">
+			and ghf_mc like concat(concat('%', #{sellerName}),
+			'%')
+		</if>
+		<if test="submitStatus != null">
+			<choose>
+				<when test="submitStatus == 'TZD0500' or submitStatus == 'TZD0000'">
+					and status_code =
+					#{submitStatus,jdbcType=VARCHAR}
+				</when>
+				<otherwise>
+					and status_code not in('TZD0500', 'TZD0000')
+				</otherwise>
+			</choose>
+		</if>
+		<if test="excludeSubmitStatuses != null">
+			and status_code not in
+			<foreach collection="excludeSubmitStatuses" item="excludeSubmitStatus"
+				open="(" separator="," close=")">
+				#{excludeSubmitStatus,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		<if test="invoiceCode != null">
+			and yfp_dm = #{invoiceCode,jdbcType=VARCHAR}
+		</if>
+		<if test="invoiceNo != null">
+			and yfp_hm = #{invoiceNo,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null">
+			and create_time &gt;= #{startTime,jdbcType=VARCHAR}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt; #{endTime,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null">
+			and kpzt = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="sqbscqqpch != null">
+			and sqbscqqpch =  #{sqbscqqpch,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	<!-- 数据插入 -->
+	<insert id="insertSelective" parameterType="com.dxhy.order.model.entity.SpecialInvoiceReversalEntity" >
+		insert into special_invoice_reversal
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				id,
+			</if>
+			<if test="type != null" >
+				type,
+			</if>
+			<if test="sqdscqqpch != null" >
+				sqdscqqpch,
+			</if>
+			<if test="sqdscqqlsh != null" >
+				sqdscqqlsh,
+			</if>
+			<if test="sqdh != null" >
+				sqdh,
+			</if>
+			<if test="sqsm != null" >
+				sqsm,
+			</if>
+			<if test="yysbz != null" >
+				yysbz,
+			</if>
+			<if test="xxblx != null" >
+				xxblx,
+			</if>
+			<if test="yfpDm != null" >
+				yfp_dm,
+			</if>
+			<if test="yfpHm != null" >
+				yfp_hm,
+			</if>
+			<if test="yfpKprq != null" >
+				yfp_kprq,
+			</if>
+			<if test="invoiceType != null" >
+				invoice_type,
+			</if>
+			<if test="fpzlDm != null" >
+				fpzl_dm,
+			</if>
+			<if test="tksj != null" >
+				tksj,
+			</if>
+			<if test="nsrsbh != null" >
+				nsrsbh,
+			</if>
+			<if test="xhfMc != null" >
+				xhf_mc,
+			</if>
+			<if test="xhfNsrsbh != null" >
+				xhf_nsrsbh,
+			</if>
+			<if test="xhfDz != null" >
+				xhf_dz,
+			</if>
+			<if test="xhfDh != null" >
+				xhf_dh,
+			</if>
+			<if test="xhfYh != null" >
+				xhf_yh,
+			</if>
+			<if test="xhfZh != null" >
+				xhf_zh,
+			</if>
+			<if test="ghfMc != null" >
+				ghf_mc,
+			</if>
+			<if test="ghfNsrsbh != null" >
+				ghf_nsrsbh,
+			</if>
+			<if test="ghfDz != null" >
+				ghf_dz,
+			</if>
+			<if test="ghfDh != null" >
+				ghf_dh,
+			</if>
+			<if test="ghfYh != null" >
+				ghf_yh,
+			</if>
+			<if test="ghfZh != null" >
+				ghf_zh,
+			</if>
+			<if test="ghfqylx != null" >
+				ghfqylx,
+			</if>
+			<if test="hjbhsje != null" >
+				hjbhsje,
+			</if>
+			<if test="hjse != null" >
+				hjse,
+			</if>
+			<if test="kphjje != null" >
+				kphjje,
+			</if>
+			<if test="dslbz != null" >
+				dslbz,
+			</if>
+			<if test="xxbbh != null" >
+				xxbbh,
+			</if>
+			<if test="bmbbbh != null" >
+				bmbbbh,
+			</if>
+			<if test="kpzt != null" >
+				kpzt,
+			</if>
+			<if test="fpdm != null" >
+				fpdm,
+			</if>
+			<if test="fphm != null" >
+				fphm,
+			</if>
+			<if test="sld != null" >
+				sld,
+			</if>
+			<if test="sldMc != null" >
+				sld_mc,
+			</if>
+			<if test="fjh != null" >
+				fjh,
+			</if>
+			<if test="chyy != null" >
+				chyy,
+			</if>
+			<if test="kpr != null" >
+				kpr,
+			</if>
+			<if test="fhr != null" >
+				fhr,
+			</if>
+			<if test="skr != null" >
+				skr,
+			</if>
+			<if test="agentName != null" >
+				agent_name,
+			</if>
+			<if test="statusCode != null" >
+				status_code,
+			</if>
+			<if test="statusMessage != null" >
+				status_message,
+			</if>
+			<if test="creatorId != null" >
+				creator_id,
+			</if>
+			<if test="creatorName != null" >
+				creator_name,
+			</if>
+			<if test="editorId != null" >
+				editor_id,
+			</if>
+			<if test="editorName != null" >
+				editor_name,
+			</if>
+			<if test="createTime != null" >
+				create_time,
+			</if>
+			<if test="updateTime != null" >
+				update_time,
+			</if>
+			<if test="dataStatus != null" >
+				data_status,
+			</if>
+			<if test="scfgStatus != null" >
+				scfg_status,
+			</if>
+			<if test="xzfgStatus != null" >
+				xzfg_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null" >
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="sqdscqqpch != null" >
+				#{sqdscqqpch,jdbcType=VARCHAR},
+			</if>
+			<if test="sqdscqqlsh != null" >
+				#{sqdscqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="sqdh != null" >
+				#{sqdh,jdbcType=VARCHAR},
+			</if>
+			<if test="sqsm != null" >
+				#{sqsm,jdbcType=VARCHAR},
+			</if>
+			<if test="yysbz != null" >
+				#{yysbz,jdbcType=VARCHAR},
+			</if>
+			<if test="xxblx != null" >
+				#{xxblx,jdbcType=VARCHAR},
+			</if>
+			<if test="yfpDm != null" >
+				#{yfpDm,jdbcType=VARCHAR},
+			</if>
+			<if test="yfpHm != null" >
+				#{yfpHm,jdbcType=VARCHAR},
+			</if>
+			<if test="yfpKprq != null" >
+				#{yfpKprq,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invoiceType != null" >
+				#{invoiceType,jdbcType=VARCHAR},
+			</if>
+			<if test="fpzlDm != null" >
+				#{fpzlDm,jdbcType=VARCHAR},
+			</if>
+			<if test="tksj != null" >
+				#{tksj,jdbcType=VARCHAR},
+			</if>
+			<if test="nsrsbh != null" >
+				#{nsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfMc != null" >
+				#{xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfNsrsbh != null" >
+				#{xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfDz != null" >
+				#{xhfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfDh != null" >
+				#{xhfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfYh != null" >
+				#{xhfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfZh != null" >
+				#{xhfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfMc != null" >
+				#{ghfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfNsrsbh != null" >
+				#{ghfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfDz != null" >
+				#{ghfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfDh != null" >
+				#{ghfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfYh != null" >
+				#{ghfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfZh != null" >
+				#{ghfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfqylx != null" >
+				#{ghfqylx,jdbcType=VARCHAR},
+			</if>
+			<if test="hjbhsje != null" >
+				#{hjbhsje,jdbcType=VARCHAR},
+			</if>
+			<if test="hjse != null" >
+				#{hjse,jdbcType=VARCHAR},
+			</if>
+			<if test="kphjje != null" >
+				#{kphjje,jdbcType=VARCHAR},
+			</if>
+			<if test="dslbz != null" >
+				#{dslbz,jdbcType=VARCHAR},
+			</if>
+			<if test="xxbbh != null" >
+				#{xxbbh,jdbcType=VARCHAR},
+			</if>
+			<if test="bmbbbh != null" >
+				#{bmbbbh,jdbcType=VARCHAR},
+			</if>
+			<if test="kpzt != null" >
+				#{kpzt,jdbcType=VARCHAR},
+			</if>
+			<if test="fpdm != null" >
+				#{fpdm,jdbcType=VARCHAR},
+			</if>
+			<if test="fphm != null" >
+				#{fphm,jdbcType=VARCHAR},
+			</if>
+			<if test="sld != null" >
+				#{sld,jdbcType=VARCHAR},
+			</if>
+			<if test="sldMc != null" >
+				#{sldMc,jdbcType=VARCHAR},
+			</if>
+			<if test="fjh != null" >
+				#{fjh,jdbcType=VARCHAR},
+			</if>
+			<if test="chyy != null" >
+				#{chyy,jdbcType=VARCHAR},
+			</if>
+			<if test="kpr != null" >
+				#{kpr,jdbcType=VARCHAR},
+			</if>
+			<if test="fhr != null" >
+				#{fhr,jdbcType=VARCHAR},
+			</if>
+			<if test="skr != null" >
+				#{skr,jdbcType=VARCHAR},
+			</if>
+			<if test="agentName != null" >
+				#{agentName,jdbcType=VARCHAR},
+			</if>
+			<if test="statusCode != null" >
+				#{statusCode,jdbcType=VARCHAR},
+			</if>
+			<if test="statusMessage != null" >
+				#{statusMessage,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorId != null" >
+				#{creatorId,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorName != null" >
+				#{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="editorId != null" >
+				#{editorId,jdbcType=VARCHAR},
+			</if>
+			<if test="editorName != null" >
+				#{editorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null" >
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null" >
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dataStatus != null" >
+				#{dataStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="scfgStatus != null" >
+				#{scfgStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="xzfgStatus != null" >
+				#{xzfgStatus,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+    <!-- 统一单条数据全部字段返回 - 查询条件-->
+	<select id="selectSpecialInvoiceReversal" resultMap="BaseResultMap"
+			parameterType="com.dxhy.order.model.entity.SpecialInvoiceReversalEntity">
+		select
+		<include refid="Base_Column_List"/>
+		from
+		special_invoice_reversal
+		<include refid="baseQueryParam"/>
+	</select>
+
+
+	<!-- 数据更新 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.dxhy.order.model.entity.SpecialInvoiceReversalEntity" >
+		update special_invoice_reversal
+		<set >
+			<if test="type != null" >
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="sqdscqqpch != null" >
+				sqdscqqpch = #{sqdscqqpch,jdbcType=VARCHAR},
+			</if>
+			<if test="sqdscqqlsh != null" >
+				sqdscqqlsh = #{sqdscqqlsh,jdbcType=VARCHAR},
+			</if>
+			<if test="sqdh != null" >
+				sqdh = #{sqdh,jdbcType=VARCHAR},
+			</if>
+			<if test="sqsm != null" >
+				sqsm = #{sqsm,jdbcType=VARCHAR},
+			</if>
+			<if test="yysbz != null" >
+				yysbz = #{yysbz,jdbcType=VARCHAR},
+			</if>
+			<if test="xxblx != null" >
+				xxblx = #{xxblx,jdbcType=VARCHAR},
+			</if>
+			<if test="yfpDm != null" >
+				yfp_dm = #{yfpDm,jdbcType=VARCHAR},
+			</if>
+			<if test="yfpHm != null" >
+				yfp_hm = #{yfpHm,jdbcType=VARCHAR},
+			</if>
+			<if test="yfpKprq != null" >
+				yfp_kprq = #{yfpKprq,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invoiceType != null" >
+				invoice_type = #{invoiceType,jdbcType=VARCHAR},
+			</if>
+			<if test="fpzlDm != null" >
+				fpzl_dm = #{fpzlDm,jdbcType=VARCHAR},
+			</if>
+			<if test="tksj != null" >
+				tksj = #{tksj,jdbcType=VARCHAR},
+			</if>
+			<if test="nsrsbh != null" >
+				nsrsbh = #{nsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfMc != null" >
+				xhf_mc = #{xhfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfNsrsbh != null" >
+				xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfDz != null" >
+				xhf_dz = #{xhfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfDh != null" >
+				xhf_dh = #{xhfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfYh != null" >
+				xhf_yh = #{xhfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="xhfZh != null" >
+				xhf_zh = #{xhfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfMc != null" >
+				ghf_mc = #{ghfMc,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfNsrsbh != null" >
+				ghf_nsrsbh = #{ghfNsrsbh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfDz != null" >
+				ghf_dz = #{ghfDz,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfDh != null" >
+				ghf_dh = #{ghfDh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfYh != null" >
+				ghf_yh = #{ghfYh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfZh != null" >
+				ghf_zh = #{ghfZh,jdbcType=VARCHAR},
+			</if>
+			<if test="ghfqylx != null" >
+				ghfqylx = #{ghfqylx,jdbcType=VARCHAR},
+			</if>
+			<if test="hjbhsje != null" >
+				hjbhsje = #{hjbhsje,jdbcType=VARCHAR},
+			</if>
+			<if test="hjse != null" >
+				hjse = #{hjse,jdbcType=VARCHAR},
+			</if>
+			<if test="kphjje != null" >
+				kphjje = #{kphjje,jdbcType=VARCHAR},
+			</if>
+			<if test="dslbz != null" >
+				dslbz = #{dslbz,jdbcType=VARCHAR},
+			</if>
+			<if test="xxbbh != null" >
+				xxbbh = #{xxbbh,jdbcType=VARCHAR},
+			</if>
+			<if test="bmbbbh != null" >
+				bmbbbh = #{bmbbbh,jdbcType=VARCHAR},
+			</if>
+			<if test="kpzt != null" >
+				kpzt = #{kpzt,jdbcType=VARCHAR},
+			</if>
+			<if test="fpdm != null" >
+				fpdm = #{fpdm,jdbcType=VARCHAR},
+			</if>
+			<if test="fphm != null" >
+				fphm = #{fphm,jdbcType=VARCHAR},
+			</if>
+			<if test="sld != null" >
+				sld = #{sld,jdbcType=VARCHAR},
+			</if>
+			<if test="sldMc != null" >
+				sld_mc = #{sldMc,jdbcType=VARCHAR},
+			</if>
+			<if test="fjh != null" >
+				fjh = #{fjh,jdbcType=VARCHAR},
+			</if>
+			<if test="chyy != null" >
+				chyy = #{chyy,jdbcType=VARCHAR},
+			</if>
+			<if test="kpr != null" >
+				kpr = #{kpr,jdbcType=VARCHAR},
+			</if>
+			<if test="fhr != null" >
+				fhr = #{fhr,jdbcType=VARCHAR},
+			</if>
+			<if test="skr != null" >
+				skr = #{skr,jdbcType=VARCHAR},
+			</if>
+			<if test="agentName != null" >
+				agent_name = #{agentName,jdbcType=VARCHAR},
+			</if>
+			<if test="statusCode != null" >
+				status_code = #{statusCode,jdbcType=VARCHAR},
+			</if>
+			<if test="statusMessage != null" >
+				status_message = #{statusMessage,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorId != null" >
+				creator_id = #{creatorId,jdbcType=VARCHAR},
+			</if>
+			<if test="creatorName != null" >
+				creator_name = #{creatorName,jdbcType=VARCHAR},
+			</if>
+			<if test="editorId != null" >
+				editor_id = #{editorId,jdbcType=VARCHAR},
+			</if>
+			<if test="editorName != null" >
+				editor_name = #{editorName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null" >
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null" >
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dataStatus != null" >
+				data_status = #{dataStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="scfgStatus != null" >
+				scfg_status = #{scfgStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="xzfgStatus != null" >
+				xzfg_status = #{xzfgStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+	    <where>
+			<if test= "id != null and id != '' ">
+				and id = #{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</update>
+
+
+    <!--红字信息表,根据信息表编号修改状态.-->
+    <update id="updateInvoiceStatusByXxbbh" parameterType="string">
+        UPDATE special_invoice_reversal
+        <set>
+           <if test="kpzt != null" >
+				kpzt = #{kpzt,jdbcType=VARCHAR},
+		   </if>
+        </set>
+        where xxbbh = #{xxbbh,jdbcType=VARCHAR}
+    </update>
+
+	<select id="selectSpecialInvoiceReversalsByIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from special_invoice_reversal
+		where 1=1
+		<if test="ids != null">
+			and id in
+			<foreach collection="ids" item="id" open="(" separator=","
+					 close=")">
+				#{id,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		<if test="excludeSubmitStatuses != null">
+			and status_code not in
+			<foreach collection="excludeSubmitStatuses" item="excludeSubmitStatus"
+				open="(" separator="," close=")">
+				#{excludeSubmitStatus,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+		order by create_time
+	</select>
+
+
+	<!-- 同意条件 返回list查询sql-->
+	<select id="selectSpecialInvoiceReversalList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from
+		special_invoice_reversal
+		<include refid="baseQueryParam"/>
+	</select>
+
+
+	<!-- 方格开票使用 -->
+	<select id="selectSpecialInvoiceReversalTaxpayerCodes"
+		resultType="string">
+		select distinct(sir.xhf_nsrsbh) taxpayerCode
+		from
+		special_invoice_reversal sir
+		where sir.status = '2'
+	</select>
+
+
+    <!--红票申请单查询待上传数据 scfg_status=2为待上传   -->
+    <select id="selectDscSpecialInvoiceReversalsBySqbscqqlsh" parameterType="string" resultMap="BaseResultMap">
+        select * from special_invoice_reversal
+        where  scfg_status = '2'
+        <if test="sqdscqqlsh != null">
+            and sqdscqqlsh = #{sqdscqqlsh,jdbcType=VARCHAR}
+        </if>
+        <if test="nsrsbh != null">
+            and (xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR}
+				or ghf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR})
+        </if>
+    </select>
+
+    <!--红票申请单上传   修改数据上传状态 -->
+    <update id="getUploadRedInvoiceStatus" parameterType="string">
+        UPDATE special_invoice_reversal
+        <set>
+            scfg_status = #{scfgStatus,jdbcType=VARCHAR}
+        </set>
+        where sqdscqqlsh = #{sqdscqqlsh,jdbcType=VARCHAR}
+    </update>
+
+    <!--红票申请单查询待下载数据 xzfg_status=2为待下载 xzfg_status为0时方格接收数据成功 -->
+    <select id="selectSpecialInvoiceReversalsBySqbxzqqpch" resultMap="BaseResultMap">
+        select
+		<include refid="Base_Column_List" />
+		from special_invoice_reversal
+        where xzfg_status = '2'
+        <if test="sqbxzqqpch != null">
+            and sqbscqqpch = #{sqbxzqqpch,jdbcType=VARCHAR}
+        </if>
+        <if test="nsrsbh != null">
+            and (xhf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR} or ghf_nsrsbh = #{nsrsbh,jdbcType=VARCHAR})
+        </if>
+    </select>
+
+
+</mapper>

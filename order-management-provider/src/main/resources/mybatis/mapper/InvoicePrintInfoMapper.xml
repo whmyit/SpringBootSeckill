@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dxhy.order.dao.InvoicePrintInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dxhy.order.model.InvoicePrintInfo" >
+
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="xhf_nsrsbh" property="xhfNsrsbh" jdbcType="VARCHAR" />
+    <result column="fpzldm" property="fpzldm" jdbcType="VARCHAR" />
+    <result column="fpdm" property="fpdm" jdbcType="VARCHAR" />
+    <result column="fphm" property="fphm" jdbcType="VARCHAR" />
+    <result column="spot_key" property="spotKey" jdbcType="VARCHAR" />
+    <result column="print_status" property="printStatus" jdbcType="VARCHAR" />
+    <result column="print_msg" property="printMsg" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="fpdypch" property="fpdypch" jdbcType="VARCHAR" />
+    <result column="dylx" property="dylx" jdbcType="VARCHAR" />
+    <result column="dyjmc" property="dyjmc" jdbcType="VARCHAR" />
+    <result column="fg_status" property="fgStatus" jdbcType="VARCHAR" />
+    <result column="zpy" property="zpy" jdbcType="VARCHAR" />
+    <result column="spy" property="spy" jdbcType="VARCHAR" />
+    <result column="fpqqlsh" property="fpqqlsh" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="FgInvoicePrintDto" type="com.dxhy.order.model.dto.FgInvoicePrintDto">
+    <result column="dypch" property="dypch" jdbcType="VARCHAR"/>
+    <result column="fpdm" property="fpdm" jdbcType="VARCHAR"/>
+    <result column="fpqh" property="fpqh" jdbcType="VARCHAR"/>
+    <result column="fpzh" property="fpzh" jdbcType="VARCHAR"/>
+    <result column="fpzldm" property="fpzldm" jdbcType="VARCHAR"/>
+    <result column="dylx" property="dylx" jdbcType="VARCHAR"/>
+    <result column="dydbs" property="dydbs" jdbcType="VARCHAR"/>
+    <result column="zpy" property="zpy" jdbcType="VARCHAR"/>
+    <result column="spy" property="spy" jdbcType="VARCHAR"/>
+    <result column="dyjmc" property="dyjmc" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+
+    id, xhf_nsrsbh, fpzldm, fpdm, fphm, spot_key, print_status, print_msg, create_time,
+    update_time, fpdypch, dylx, dyjmc, fg_status, zpy, spy,fpqqlsh
+  </sql>
+
+  <insert id="insertSelective" parameterType="com.dxhy.order.model.InvoicePrintInfo" >
+
+    insert into fp_dy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="xhfNsrsbh != null" >
+        xhf_nsrsbh,
+      </if>
+      <if test="fpzldm != null" >
+        fpzldm,
+      </if>
+      <if test="fpdm != null" >
+        fpdm,
+      </if>
+      <if test="fphm != null" >
+        fphm,
+      </if>
+      <if test="spotKey != null" >
+        spot_key,
+      </if>
+      <if test="printStatus != null" >
+        print_status,
+      </if>
+      <if test="printMsg != null" >
+        print_msg,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="fpdypch != null" >
+        fpdypch,
+      </if>
+      <if test="dylx != null" >
+        dylx,
+      </if>
+      <if test="dyjmc != null" >
+        dyjmc,
+      </if>
+      <if test="fgStatus != null" >
+        fg_status,
+      </if>
+      <if test="zpy != null" >
+        zpy,
+      </if>
+      <if test="spy != null" >
+        spy,
+      </if>
+      <if test="fpqqlsh != null" >
+        fpqqlsh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="xhfNsrsbh != null" >
+        #{xhfNsrsbh,jdbcType=VARCHAR},
+      </if>
+      <if test="fpzldm != null" >
+        #{fpzldm,jdbcType=VARCHAR},
+      </if>
+      <if test="fpdm != null" >
+        #{fpdm,jdbcType=VARCHAR},
+      </if>
+      <if test="fphm != null" >
+        #{fphm,jdbcType=VARCHAR},
+      </if>
+      <if test="spotKey != null" >
+        #{spotKey,jdbcType=VARCHAR},
+      </if>
+      <if test="printStatus != null" >
+        #{printStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="printMsg != null" >
+        #{printMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fpdypch != null" >
+        #{fpdypch,jdbcType=VARCHAR},
+      </if>
+      <if test="dylx != null" >
+        #{dylx,jdbcType=VARCHAR},
+      </if>
+      <if test="dyjmc != null" >
+        #{dyjmc,jdbcType=VARCHAR},
+      </if>
+      <if test="fgStatus != null" >
+        #{fgStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="zpy != null" >
+        #{zpy,jdbcType=VARCHAR},
+      </if>
+      <if test="spy != null" >
+        #{spy,jdbcType=VARCHAR},
+      </if>
+      <if test="fpqqlsh != null" >
+        #{fpqqlsh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!--获取待打印的发票数据  fg_status=2为待打印  fg_status=0表示数据获取成功-->
+  <select id="getPrintInvoices" resultMap="FgInvoicePrintDto"
+          parameterType="string">
+    SELECT
+    t.fpqqlsh dypch,
+    t.fpdm,
+    t.fphm fpqh,
+    t.fphm fpzh,
+    t.fpzldm,
+    t.dylx,
+    t.spot_key dydbs,
+    t.zpy,
+    t.spy,
+    t.dyjmc,
+    t.fg_status
+    FROM
+    fp_dy t
+    WHERE
+    1 = 1
+    <if test="dypch != null and dypch != ''">
+      AND t.fpqqlsh = #{dypch,jdbcType=VARCHAR}
+    </if>
+    <if test="xhfNsrsbh != null and xhfNsrsbh != ''">
+      AND t.xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR}
+    </if>
+    order by t.create_time desc limit 1
+  </select>
+  <update id="updatePrintInvoicesStatus" parameterType="string" >
+    update fp_dy
+    set
+    fg_status = #{sjzt,jdbcType=VARCHAR}
+    where xhf_nsrsbh = #{xhfNsrsbh,jdbcType=VARCHAR} and fpdypch = #{dypch,jdbcType=VARCHAR}
+  </update>
+  <update id="updateFgPrintInvoice" parameterType="com.dxhy.order.model.InvoicePrintInfo" >
+    update fp_dy
+    <set>
+      <if test="invoicePrintInfo.printStatus != null">
+        print_status = #{invoicePrintInfo.printStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="invoicePrintInfo.printMsg != null">
+        print_msg = #{invoicePrintInfo.printMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where
+    fpqqlsh = #{invoicePrintInfo.fpqqlsh,jdbcType=VARCHAR}
+    <if test="shList != null and shList.size() == 1">
+      and xhf_nsrsbh =
+      <foreach collection="shList" index="index" item="item">
+        #{item}
+      </foreach>
+    </if>
+    <if test="shList != null and shList.size() > 1">
+      and xhf_nsrsbh in
+      <foreach collection="shList" index="index" item="item"
+               open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </update>
+  <!-- 根据税号和发票请求流水号查询打印数据-->
+  <select id="getPrintInvoicesList" resultMap="BaseResultMap" parameterType="String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    fp_dy t
+    WHERE 1=1
+    <if test="fpqqlsh != null and fpqqlsh != ''">
+      AND t.fpqqlsh = #{fpqqlsh,jdbcType=VARCHAR}
+    </if>
+    <if test="xhf_nsrsbh != null and xhf_nsrsbh != ''">
+      AND t.xhf_nsrsbh = #{xhf_nsrsbh,jdbcType=VARCHAR}
+    </if>
+    order by t.create_time desc
+  </select>
+</mapper>
